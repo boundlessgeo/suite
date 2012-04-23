@@ -405,6 +405,11 @@ Imports
      - 200
      - n/a
      - :ref:`Imports <import>`
+   * - POST
+     - Execute import with id <importId>
+     - 204
+     - n/a
+     - n/a
    * - PUT
      - Modify import with id <importId>
      - 200
