@@ -15,6 +15,34 @@ Inputs and outputs
 
 This process accepts :ref:`processing.processes.formats.fcin` and returns :ref:`processing.processes.formats.fcout`.
 
+Inputs
+^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+     - Required
+   * - ``features``
+     - Input feature collection
+     - SimpleFeatureCollection
+     - Yes
+
+Outputs
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+   * - ``result``
+     - Centroids of input features
+     - SimpleFeatureCollection
+
 Notes on usage
 --------------
 

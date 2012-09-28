@@ -31,6 +31,58 @@ Inputs and outputs
 
 This process accepts :ref:`processing.processes.formats.fcin` and returns :ref:`processing.processes.formats.fcout`.
 
+Inputs
+^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+     - Required
+   * - first feature collection
+     - First feature collection 
+     - SimpleFeatureCollection
+     - Yes
+   * - second feature collection
+     - Second feature collection
+     - SimpleFeatureCollection
+     - Yes
+   * - first attributes to retain
+     - First feature collection attribute to include
+     - String
+     - No
+   * - second feature collection attribute to include
+     - Second feature collection attribute to include
+     - String
+     - No
+   * - ``intersectionMode``
+     - Specifies geometry computed for intersecting features. INTERSECTION (default) computes the spatial intersection of the inputs. FIRST copies geometry A. SECOND copies geometry B.
+     - IntersectionMode
+     - No
+   * - ``percentagesEnabled``
+     - Indicates whether to output feature area percentages (attributes percentageA and percentageB)
+     - Boolean
+     - No
+   * - ``areasEnabled``
+     - Indicates whether to output feature areas (attributes areaA and areaB)
+     - Boolean
+     - No
+
+Outputs
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+   * - ``result``
+     - Output feature collection
+     - SimpleFeatureCollection
+
 Notes on usage
 --------------
 

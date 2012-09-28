@@ -17,6 +17,38 @@ Inputs and outputs
 
 This process accepts both :ref:`processing.processes.formats.fcin` and :ref:`processing.processes.formats.geomin` and returns :ref:`processing.processes.formats.fcout`.
 
+Inputs
+^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+     - Required
+   * - ``features``
+     - Input feature collection
+     - SimpleFeatureCollection
+     - Yes
+   * - ``clip``
+     - Geometry to use for clipping (in same CRS as input features)  
+     - Geometry
+     - Yes
+
+Outputs
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+   * - ``result``
+     - Clipped feature collection
+     - SimpleFeatureCollection
+
 Notes on usage
 --------------
 

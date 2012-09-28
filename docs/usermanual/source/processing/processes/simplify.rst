@@ -21,6 +21,42 @@ Inputs and outputs
 
 This process accepts :ref:`processing.processes.formats.fcin` and returns :ref:`processing.processes.formats.fcout`.
 
+Inputs
+^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+     - Required
+   * - ``features``
+     - Input feature collection
+     - SimpleFeatureCollection
+     - Yes
+   * - ``distance``
+     - Simplification distance tolerance
+     - double
+     - Yes
+   * - ``preserveTopology``
+     - If True, ensures that simplified features are topologically valid
+     - Boolean
+     - No
+
+Outputs
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+   * - ``result``
+     - The simplified feature collection
+     - SimpleFeatureCollection
+
 Notes on usage
 --------------
 

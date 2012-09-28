@@ -19,3 +19,34 @@ Inputs and outputs
 
 This process accepts :ref:`processing.processes.formats.fcin` and returns :ref:`processing.processes.formats.fcout`.
 
+Inputs
+^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+     - Required
+   * - ``features``
+     - Input feature collection
+     - SimpleFeatureCollection
+     - Yes
+   * - ``transform``
+     - The transform specification, as a list of specifiers of the form name=expression, delimited by newlines or semicolons.
+     - String
+     - Yes
+
+Outputs
+^^^^^^^
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Type
+   * - ``result``
+     - Transformed feature collection
+     - SimpleFeatureCollection
