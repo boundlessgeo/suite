@@ -495,15 +495,7 @@ og.Dashboard = Ext.extend(Ext.util.Observable, {
                     config["suite_stop_port"] =  form.findField("suite_stop_port").getValue();
                     
                     // update geoserver config
-                    config["geoserver_data_dir"] = form.findField("geoserver_data_dir").getValue();                    
-                    var username = form.findField("geoserver_username").getValue();
-                    var password = form.findField("geoserver_password").getValue();
-                    if (username != config["geoserver_username"] || password != config["geoserver_password"]) {
-                        //username password change
-                        this.updateGeoServerUserPass(username, password);
-                        config["geoserver_username"] = username;
-                        config["geoserver_password"] = password;
-                    }
+                    config["geoserver_data_dir"] = form.findField("geoserver_data_dir").getValue();
                     
                     // update postgres port
                     config["pgsql_port"] = form.findField("pgsql_port").getValue();
@@ -941,54 +933,6 @@ og.Dashboard = Ext.extend(Ext.util.Observable, {
         });
     }, 
 
-    /**
-     * private: method[updateGeoServerUserPass]
-     * :arg: username: ``String`` The new username
-     * :arg: password: ``Password`` The new password
-     * 
-     * :return: ``Boolean`` True if the username and password were updated.
-     * 
-     * Updates the GeoServer adminstrator username and password.
-     */    
-    updateGeoServerUserPass: function(username, password) {
-        og.util.tirun(function() {
-            //load the GeoServer users.properties file
-            var config = this.config;
-            var f = Titanium.Filesystem.getFile(config["geoserver_data_dir"], "security", "users.properties");
-            if (f.exists() === true) {
-                var props = Titanium.App.loadProperties(f.nativePath());
-                
-                //has the username changed?
-                if (username != config["geoserver_username"]) {
-                    //kill the old entry
-                    if (props.hasProperty(config["geoserver_username"])) {
-                        props.setString(config["geoserver_username"], "dummy, ROLE_DUMMY");    
-                    }
-                    
-                    //add the new one
-                    props.setString(username, password + ", ROLE_ADMINISTRATOR");
-                }
-                else {
-                    //just update the entry
-                    if (props.hasProperty(config["geoserver_username"])) {
-                        var entry = props.getString(config["geoserver_username"]).split(",");
-                        entry[0] = password;
-                        props.setString(config["geoserver_username"], entry.join(", "));                        
-                    }
-                    else {
-                        //for some reason did not exist, just add a new one
-                        props.setString(username, password+", ROLE_ADMINISTRATOR");
-                    }
-                }
-                
-                props.saveTo(f.nativePath());
-                return true;
-            }
-            
-            return false;
-        }, this);
-    },
-    
     openURL: function(url) {
         url = encodeURI(url);
         if (window.Titanium) {
