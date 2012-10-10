@@ -1,0 +1,40 @@
+    <!-- GeoExplorer resources -->
+    <link rel="stylesheet" type="text/css" href="../theme/app/geoexplorer.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" href="../theme/app/ie.css"/><![endif]-->        
+    <script type="text/javascript" src="../script/GeoExplorer.js"></script>
+
+    <!-- PrintPreview resources -->
+    <link rel="stylesheet" type="text/css" href="../externals/PrintPreview/resources/css/printpreview.css">
+
+    <script>
+        Ext.BLANK_IMAGE_URL = "../theme/app/img/blank.gif";
+        OpenLayers.ImgPath = "../theme/app/img/";
+        var app = new GeoExplorer.Viewer({
+            proxy: "../proxy/?url=",
+            printService: "/geoserver/pdf/",
+            about: {
+                title: "GeoExplorer Demo Map",
+                "abstract": "This is a demonstration of GeoExplorer, " +
+                    "an application for assembling and publishing web " +
+                    "based maps.",
+                contact: "For more information, contact <a href='http://opengeo.org'>OpenGeo</a>."
+            },
+            defaultSourceType: "gxp_wmscsource",
+            sources: {
+                suite: {
+                    url: "http://v2.suite.opengeo.org/geoserver/ows"
+                }
+            },
+            map: {
+                layers: [{
+                    name: "world",
+                    title: "World",
+                    source: "suite",
+                    group: "background"
+                }],
+                center: [0, 0],
+                zoom: 2
+            }
+        });
+    </script>
+    

@@ -1,52 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="GeoExplorer" default="compile" basedir=".">
+<project name="geoexplorer" default="help" basedir=".">
 
     <description>
         GeoExplorer Build File
     </description>
 
-    <property name="repo" location="externals/geoexplorer"/>
-    <property name="ringo" location="${repo}/externals/ringojs-fork"/>
-    
-    <!-- setup maven command, use mvn.exec if passed in, if not fall back 
-         to either mvn.bat or mvn based on platform -->
-    <condition property="mvn_exec" value="${mvn.exec}">
-        <isset property="mvn.exec"/>
-    </condition>
-    <condition property="mvn_exec" value="mvn.bat" else="mvn">
-        <and>
-            <not>
-                <isset property="mvn_exec"/>
-            </not>
-            <os family="windows"></os>
-        </and>
-    </condition>
-    <condition property="mvn_settings" value="-s ${mvn.settings}" else="">
-        <isset property="mvn.settings"/>
-    </condition>
+    <property name="war.src" location="target/${ant.project.name}-src"/>
+    <property name="app.proxy.geoserver" value=""/>
+    <property name="app.port" value="9080"/>
 
-    <target name="compile">
-        <exec executable="${mvn_exec}" dir="${ringo}" failonerror="true">
-           <arg line="-Dmaven.test.skip ${mvn_settings} clean install"/>
+    <target name="help" description="print build target descriptions">
+        <exec executable="ant">
+            <arg value="-p"/>
         </exec>
-        <jar jarfile="${ringo}/run.jar"
-            basedir="${ringo}/target/classes"
-            includes="**/tools/launcher/**"
-            manifest="${ringo}/src/org/ringojs/tools/launcher/manifest.txt"/>
-        <jar jarfile="${ringo}/lib/ringo.jar">
-            <fileset dir="${ringo}/target/classes"/>
-            <fileset dir="${ringo}" includes="modules/**"/>
-            <fileset dir="${ringo}/src" excludes="**/*.java,**/package.html"/>
-        </jar>
-        <copy todir="${ringo}/lib" flatten="true" includeEmptyDirs="false">
-            <fileset dir="${repo}/lib"/>
-        </copy>
-        <ant dir="${repo}" target="postcompile"/>
     </target>
-    
-    <target name="clean" description="remove previous build">
-        <ant dir="${repo}" target="clean"/>
-        <delete dir="target" failonerror="false"/>
+
+    <target name="installed" description="confirms app is installed">
+        <condition property="war.src.exists">
+            <available file="${war.src}" type="dir"/>
+        </condition>
+        <fail message="App not yet built.  Run `mvn clean install` first." 
+                unless="war.src.exists"/>
+    </target>
+
+    <target name="debug" depends="installed" description="runs app in debug mode">
+        <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="GEOEXPLORER_DATA" path="target"/>
+            <sysproperty key="app.debug" value="1"/>
+            <sysproperty key="app.proxy.geoserver" value="${app.proxy.geoserver}"/>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg path="app/main.js"/>
+            <arg line="-p ${app.port}"/>
+        </java>
+    </target>
+
+    <target name="debugall" depends="installed" description="runs app and server in debug mode">
+        <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="GEOEXPLORER_DATA" path="target"/>
+            <sysproperty key="app.debug" value="1"/>
+            <sysproperty key="app.proxy.geoserver" value="${app.proxy.geoserver}"/>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg value="-d"/>
+            <arg path="app/main.js"/>
+            <arg line="-p ${app.port}"/>
+        </java>
+    </target>
+
+    <target name="test" unless="skipTests" depends="installed" description="run tests">
+         <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+            <classpath>
+                <fileset dir="${war.src}/WEB-INF/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="ringo.home" path="${war.src}/WEB-INF"/>
+            <sysproperty key="ringo.modulepath" path="externals"/>
+            <arg path="tests/all.js"/>
+        </java>
     </target>
 
 </project>

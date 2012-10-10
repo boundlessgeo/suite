@@ -16,9 +16,6 @@
 [submodule "styler/externals/openlayers"]
 	path = styler/externals/openlayers
 	url = git://github.com/openlayers/openlayers.git
-[submodule "geoexplorer/externals/geoexplorer"]
-	path = geoexplorer/externals/geoexplorer
-	url = git://github.com/opengeo/GeoExplorer.git
 [submodule "geoserver/externals/geoserver-exts"]
 	path = geoserver/externals/geoserver-exts
 	url = git://github.com/opengeo/geoserver-exts.git
@@ -28,3 +25,21 @@
 [submodule "geoserver/externals/geoscript/js"]
 	path = geoserver/externals/geoscript/js
 	url = git://github.com/tschaub/geoscript-js.git
+[submodule "geoexplorer/externals/buildkit"]
+	path = geoexplorer/externals/buildkit
+	url = git://github.com/opengeo/buildkit.git
+[submodule "geoexplorer/app/static/externals/gxp"]
+	path = geoexplorer/app/static/externals/gxp
+	url = git://github.com/opengeo/gxp.git
+[submodule "geoexplorer/app/static/externals/geoext"]
+	path = geoexplorer/app/static/externals/geoext
+	url = git://github.com/geoext/geoext.git
+[submodule "geoexplorer/app/static/externals/openlayers"]
+	path = geoexplorer/app/static/externals/openlayers
+	url = git://github.com/openlayers/openlayers.git
+[submodule "geoexplorer/app/static/externals/printpreview"]
+	path = geoexplorer/app/static/externals/printpreview
+	url = git://github.com/GeoNode/PrintPreview.git
+[submodule "geoexplorer/externals/stick"]
+	path = geoexplorer/externals/stick
+	url = https://github.com/hns/stick.git

@@ -22,7 +22,7 @@
                             <tasks>
                                 <mkdir dir="${basedir}/src"/>
                                 <copy todir="${basedir}/src">
-                                    <fileset dir="${basedir}/../../geoexplorer/externals/geoexplorer/app/static/externals/gxp/" includes="**/*"/>
+                                    <fileset dir="${basedir}/../../geoexplorer/app/static/externals/gxp/" includes="**/*"/>
                                 </copy>
                             </tasks>
                         </configuration>

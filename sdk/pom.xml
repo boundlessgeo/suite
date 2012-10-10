@@ -30,7 +30,7 @@
     </repositories>
     <properties>
         <jetty-version>7.1.6.v20100715</jetty-version>
-        <geoexplorer>../geoexplorer/externals/geoexplorer</geoexplorer>
+        <geoexplorer>../geoexplorer</geoexplorer>
         <gxp>${geoexplorer}/app/static/externals/gxp</gxp>
     </properties>
     <dependencies>
@@ -126,7 +126,7 @@
                                     </fileset>
                                 </copy>
                                 <copy todir="${project.build.directory}/sdk/src/main/resources/client/src/geoext">
-                                    <fileset dir="${geoexplorer}/app/static/externals/GeoExt">
+                                    <fileset dir="${geoexplorer}/app/static/externals/geoext">
                                         <exclude name="**/.git/**"/>
                                         <exclude name="build/"/>
                                         <exclude name="examples/"/>
