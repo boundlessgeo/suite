@@ -8,7 +8,7 @@ There are only a few steps in creating a basic web map with your data using the 
 We will use GeoExplorer as the framework for creating and publishing the web map. The data will be saved in a PostGIS database table and published through GeoServer, but all of that will happen automatically through these steps, just by using GeoExplorer.
 
 
-  For more information about GeoExplorer, please see the `reference documentation <../../geoexplorer/>`_
+  For more information about GeoExplorer, please see the `reference documentation <../../geoexplorer/>`_.
 
 .. toctree::
    :maxdepth: 2
