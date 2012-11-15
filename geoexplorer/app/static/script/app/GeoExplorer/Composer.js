@@ -44,6 +44,37 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
     // End i18n.
 
     constructor: function(config) {
+        // add any custom application events
+        this.addEvents(
+            /** api: event[beforesave]
+             *  Fires before application saves a map. If the listener returns
+             *  false, the save is cancelled.
+             *
+             *  Listeners arguments:
+             *
+             *  * requestConfig - ``Object`` configuration object for the request,
+             *    which has the following properties: method, url and data.
+             *  * callback - ``Function`` Optional callback function which was
+             *    passed on to the save function.
+             */
+            "beforesave",
+            /** api: event[save]
+             *  Fires when the map has been saved.
+             *
+             *  Listener arguments:
+             *  * id - ``Integer`` The identifier of the saved map
+             */
+            "save",
+            /** api: event[beforehashchange]
+             *  Fires before the hash is updated after saving a map. Return
+             *  false in the listener not to update the hash.
+             *
+             *  Listeners arguments:
+             *  * hash - ``String`` The hash which will be set as 
+             *    window.location.hash
+             */
+            "beforehashchange"
+        );
         // Starting with this.authorizedRoles being undefined, which means no
         // authentication service is available
         if (config.authStatus === 401) {
@@ -628,18 +659,22 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             method = "POST";
             url = "../maps/";
         }
-        OpenLayers.Request.issue({
+        var requestConfig = {
             method: method,
             url: url,
-            data: configStr,
-            callback: function(request) {
-                this.handleSave(request);
-                if (callback) {
-                    callback.call(scope || this);
-                }
-            },
-            scope: this
-        });
+            data: configStr
+        };
+        if (this.fireEvent("beforesave", requestConfig, callback) !== false) {
+            OpenLayers.Request.issue(Ext.apply(requestConfig, {
+                callback: function(request) {
+                    this.handleSave(request);
+                    if (callback) {
+                        callback.call(scope || this);
+                    }
+                },
+                scope: this
+            }));
+        }
     },
         
     /** private: method[handleSave]
@@ -651,10 +686,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             var mapId = config.id;
             if (mapId) {
                 this.id = mapId;
-                window.location.hash = "#maps/" + mapId;
+                var hash = "#maps/" + mapId;
+                if (this.fireEvent("beforehashchange", hash) !== false) {
+                    window.location.hash = hash;
+                }
+                this.fireEvent("save", this.id);
             }
         } else {
-            throw this.saveErrorText + request.responseText;
+            if (window.console) {
+                console.warn(this.saveErrorText + request.responseText);
+            }
         }
     },
 
