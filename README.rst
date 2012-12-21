@@ -22,7 +22,7 @@ If you build GeoTools, GeoServer, or GeoWebCache with maven locally for other   
 
 #. Clone the repository:: 
 
-     % git clone git://github.com/opengeo/suite.git suite
+     % git clone https://github.com/FuncateMobile/Funcate-OpenGeoSuite.git suite
      % cd suite
 
 #. Initialize submodule dependencies::
@@ -117,7 +117,7 @@ Repository Setup
 The suite repository contains submodules that pull in external dependencies. 
 After cloning the repository you must initialize the submodules::
 
-  % git clone git://github.com/opengeo/suite.git suite
+  % git clone https://github.com/FuncateMobile/Funcate-OpenGeoSuite.git suite
   % cd suite
   % git submodule init
   % git submodule sync
