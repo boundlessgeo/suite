@@ -5,6 +5,7 @@ target/
 .project
 .classpath
 .settings/
+.idea/
 
 # Jetty libs - used for building executable JAR
 jetty/lib
