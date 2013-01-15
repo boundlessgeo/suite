@@ -10,13 +10,15 @@
     <script>
         // optionally set locale based on query string parameter
         if (GeoExt.Lang) {
-            GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || GeoExt.Lang.locale);
+            //GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || GeoExt.Lang.locale);
+            GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || "pt-br");
         }
         Ext.BLANK_IMAGE_URL = "../theme/app/img/blank.gif";
         OpenLayers.ImgPath = "../theme/app/img/";
         // optionally set locale based on query string parameter
         if (GeoExt.Lang) {
-            GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || GeoExt.Lang.locale);
+            //GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || GeoExt.Lang.locale);
+            GeoExt.Lang.set(OpenLayers.Util.getParameters()["locale"] || "pt-br");
         }
         var app = new GeoExplorer.Composer({
             authStatus: {{status}},
