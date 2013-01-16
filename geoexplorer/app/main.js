@@ -4,15 +4,15 @@ var app = Application();
 app.configure("notfound", "error", "static", "params", "mount");
 app.static(module.resolve("static"));
 
-app.mount("/", function(request) {
+app.mount("/", function (request) {
     if (request.pathInfo.length > 1) {
-        throw {notfound: true};
+        throw {notfound:true};
     }
     var target = request.scheme + "://" + request.host + ":" + request.port + request.scriptName + "/composer/";
     return {
-        status: 303,
-        headers: {"Location": target},
-        body: []
+        status:303,
+        headers:{"Location":target},
+        body:[]
     };
 });
 app.mount("/composer", require("./root/composer").app);
@@ -36,30 +36,30 @@ if (java.lang.System.getProperty("app.debug")) {
     // only recommended for debug mode
     var geoserver = java.lang.System.getProperty("app.proxy.geoserver");
     if (geoserver) {
-        if (geoserver.charAt(geoserver.length-1) !== "/") {
+        if (geoserver.charAt(geoserver.length - 1) !== "/") {
             geoserver = geoserver + "/";
         }
         // debug specific proxy
-        app.mount("/geoserver/", require("./root/proxy").pass({url: geoserver, preserveHost: true, allowAuth: true}));
+        app.mount("/geoserver/", require("./root/proxy").pass({url:geoserver, preserveHost:true, allowAuth:true}));
     }
 }
 
 // Redirect requests for servlet name without a trailing slash.
 // Jetty does this automatically for /servlet_name, Tomcat does not.
 function slash(app) {
-    return function(request) {
+    return function (request) {
         var servletRequest = request.env.servletRequest;
         var pathInfo = servletRequest.getPathInfo();
         if (pathInfo === "/") {
             var uri = servletRequest.getRequestURI();
-            if (uri.charAt(uri.length-1) !== "/") {
-                var location = servletRequest.getScheme() + "://" + 
-                    servletRequest.getServerName() + ":" + servletRequest.getServerPort() + 
+            if (uri.charAt(uri.length - 1) !== "/") {
+                var location = servletRequest.getScheme() + "://" +
+                    servletRequest.getServerName() + ":" + servletRequest.getServerPort() +
                     uri + "/";
                 return {
-                    status: 301,
-                    headers: {"Location": location},
-                    body: []
+                    status:301,
+                    headers:{"Location":location},
+                    body:[]
                 };
             }
         }

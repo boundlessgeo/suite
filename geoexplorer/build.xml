@@ -19,8 +19,8 @@
         <condition property="war.src.exists">
             <available file="${war.src}" type="dir"/>
         </condition>
-        <fail message="App not yet built.  Run `mvn clean install` first." 
-                unless="war.src.exists"/>
+        <fail message="App not yet built.  Run `mvn clean install` first."
+              unless="war.src.exists"/>
     </target>
 
     <target name="debug" depends="installed" description="runs app in debug mode">
@@ -59,7 +59,7 @@
     </target>
 
     <target name="test" unless="skipTests" depends="installed" description="run tests">
-         <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
+        <java classname="org.ringojs.tools.launcher.Main" failonerror="true" fork="true">
             <classpath>
                 <fileset dir="${war.src}/WEB-INF/lib">
                     <include name="**/*.jar"/>

@@ -1,6 +1,6 @@
     <!-- GeoExplorer resources -->
     <link rel="stylesheet" type="text/css" href="../theme/app/geoexplorer.css" />
-    <!--[if IE]><link rel="stylesheet" type="text/css" href="../theme/app/ie.css"/><![endif]-->        
+    <!--[if IE]><link rel="stylesheet" type="text/css" href="../theme/app/ie.css"/><![endif]-->
     <link rel="stylesheet" type="text/css" href="../theme/ux/colorpicker/color-picker.ux.css" />
     <script type="text/javascript" src="../script/GeoExplorer.js"></script>
 
@@ -74,9 +74,38 @@
                     group: "background",
                     fixed: true,
                     type: "OpenLayers.Layer",
-                    args: [
-                        "None", {visibility: false}
-                    ]
+                    args: ["None", {visibility: false}]
+                }, {
+                    source: "bing",
+                    title: "Bing Aerial",
+                    name: "Aerial",
+                    group: "background"
+                }, {
+                    source: "osm",
+                    title: "Open Street Map",
+                    name: "mapnik",
+                    group: "background"
+                },{
+                    source: "mapquest",
+                    title: "MapQuest OpenStreetMap",
+                    name: "osm",
+                    group: "background"
+                },{
+                    source: "google",
+                    title: "Google Roadmap",
+                    name: "ROADMAP",
+                    group: "background"
+                },{
+                    source: "google",
+                    title: "Google Hybrid",
+                    name: "HYBRID",
+                    group: "background",
+
+                },{
+                    source: "google",
+                    title: "Google Terrain",
+                    name: "TERRAIN",
+                    group: "background"
                 }],
                 center: [0, 0],
                 zoom: 2

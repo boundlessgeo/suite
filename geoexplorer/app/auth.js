@@ -5,7 +5,7 @@ var objects = require("ringo/utils/objects");
 function getGeoServerUrl(request) {
     var url = java.lang.System.getProperty("app.proxy.geoserver");
     if (url) {
-        if (url.charAt(url.length-1) !== "/") {
+        if (url.charAt(url.length - 1) !== "/") {
             url = url + "/";
         }
     } else {
@@ -32,34 +32,34 @@ function parseStatus(exchange) {
     return status;
 }
 
-exports.getStatus = function(request) {
+exports.getStatus = function (request) {
     var url = getAuthUrl(request);
     var status = 401;
     var headers = new Headers(request.headers);
     var token = headers.get("Cookie");
     var exchange = clientRequest({
-        url: url,
-        method: "GET",
-        async: false,
-        headers: headers
+        url:url,
+        method:"GET",
+        async:false,
+        headers:headers
     });
     exchange.wait();
     return exchange.status;
 };
 
-exports.authenticate = function(request) {
+exports.authenticate = function (request) {
     var params = request.postParams;
     var status = 401;
     var token;
     if (params.username && params.password) {
         var url = getLoginUrl(request);
         var exchange = clientRequest({
-            url: url,
-            method: "post",
-            async: false,
-            data: {
-                username: params.username,
-                password: params.password
+            url:url,
+            method:"post",
+            async:false,
+            data:{
+                username:params.username,
+                password:params.password
             }
         });
         exchange.wait();
@@ -72,8 +72,8 @@ exports.authenticate = function(request) {
         }
     }
     return {
-        token: token,
-        status: status
+        token:token,
+        status:status
     }
 };
 

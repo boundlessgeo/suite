@@ -8,21 +8,21 @@ var MERGE = require("buildkit").merge;
 
 var template = getResource("./templates/debug-loader.js").getContent();
 
-var libLoader = function(section, order) {
-    var paths = order.map(function(script) {
+var libLoader = function (section, order) {
+    var paths = order.map(function (script) {
         return "'@" + "/" + script.root + "/" + script.path + "'";
     });
     var body = template.replace("{{paths}}", paths.join(",\n"));
-    return function(env) {
+    return function (env) {
         return {
-            status: 200,
-            headers: {"Content-Type": "text/javascript"},
-            body: [body]
+            status:200,
+            headers:{"Content-Type":"text/javascript"},
+            body:[body]
         };
     };
 };
 
-var App = function(config) {
+var App = function (config) {
     var sections = CONFIG.parse(config);
     var group, root, order;
     var app = Application();
