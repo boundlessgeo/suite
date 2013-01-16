@@ -15,43 +15,44 @@ var base64 = require('ringo/base64');
 var {defer} = require('ringo/promise');
 var log = require('ringo/logging').getLogger(module.id);
 
-export('request', 'post', 'get', 'del', 'put');
+export
+('request', 'post', 'get', 'del', 'put');
 
 /**
  * Wrapper around jetty.http.HttpCookie.
  */
-var Cookie = function(cookieStr) {
+var Cookie = function (cookieStr) {
 
     Object.defineProperties(this, {
         /**
          * @returns {String} the cookie's name
          */
-        name: {
-            get: function() {
+        name:{
+            get:function () {
                 return cookie.getName();
             }
         },
         /**
          * @returns {String} the cookie value
          */
-        value: {
-            get: function() {
+        value:{
+            get:function () {
                 return cookie.getValue();
             }
         },
         /**
          * @returns {String} the cookie domain
          */
-        domain: {
-            get: function() {
+        domain:{
+            get:function () {
                 return cookie.getDomain();
             }
         },
         /**
          * @returns {String} the cookie path
          */
-        path: {
-            get: function() {
+        path:{
+            get:function () {
                 return cookie.getPath();
             }
         }
@@ -62,7 +63,7 @@ var Cookie = function(cookieStr) {
      * @param {String} cookieStr The cookie string as received from the remote server
      * @returns {Object} An object containing all key/value pairs of the cookiestr
      */
-    var parse = function(cookieStr) {
+    var parse = function (cookieStr) {
         if (cookieStr != null) {
             var cookie = {};
             var m = Cookie.PATTERN.exec(cookieStr);
@@ -128,10 +129,10 @@ Cookie.PATTERN = /([^=;]+)=?([^;]*)(?:;\s*|$)/g;
  * @constructor
  * @name Exchange
  */
-var Exchange = function(url, options, callbacks) {
+var Exchange = function (url, options, callbacks) {
     if (!url) throw new Error('missing url argument');
 
-    this.toString = function() {
+    this.toString = function () {
         return "[ringo.httpclient.Exchange] " + url;
     };
 
@@ -140,100 +141,104 @@ var Exchange = function(url, options, callbacks) {
          * The response status code
          * @name Exchange.prototype.status
          */
-        status: {
-            get: function() {
+        status:{
+            get:function () {
                 return exchange.getResponseStatus();
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The response content type
          * @name Exchange.prototype.contentType
          */
-        contentType: {
-            get: function() {
+        contentType:{
+            get:function () {
                 return responseHeaders.get('Content-Type');
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The response body as String
          * @name Exchange.prototype.content
          */
-        content: {
-            get: function() {
+        content:{
+            get:function () {
                 return exchange.getResponseContent();
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The response body as ByteString
          * @name Exchange.prototype.contentBytes
          */
-        contentBytes: {
-            get: function() {
+        contentBytes:{
+            get:function () {
                 var bytes = exchange.getResponseContentBytes();
                 return bytes ? ByteString.wrap(bytes) : new ByteString();
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * @name Exchange.prototype.contentChunk
          */
-        contentChunk: {
-            get: function() {
+        contentChunk:{
+            get:function () {
                 return exchange.getRequestContentChunk();
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The Jetty ContentExchange object
          * @see http://download.eclipse.org/jetty/7.0.2.v20100331/apidocs/org/eclipse/jetty/client/ContentExchange.html
          * @name Exchange.prototype.contentExchange
          */
-        contentExchange: {
-            get: function() {
+        contentExchange:{
+            get:function () {
                 return exchange;
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The response headers
          * @name Exchange.prototype.headers
          */
-        headers: {
-            get: function() {
+        headers:{
+            get:function () {
                 return responseHeaders;
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The cookies set by the server
          * @name Exchange.prototype.cookies
          */
-        cookies: {
-            get: function() {
+        cookies:{
+            get:function () {
                 var cookies = {};
                 var cookieHeaders = responseHeaders.get("Set-Cookie");
                 cookieHeaders = cookieHeaders ? cookieHeaders.split("\n") : [];
-                for each (var header in cookieHeaders) {
+                for each(var header
+                in
+                cookieHeaders
+                )
+                {
                     var cookie = new Cookie(header);
                     cookies[cookie.name] = cookie;
                 }
                 return cookies;
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * The response encoding
          * @name Exchange.prototype.encoding
          */
-        encoding: {
+        encoding:{
             // NOTE HttpExchange._encoding knows about this but is protected
-            get: function() {
+            get:function () {
                 return getMimeParameter(this.contentType, "charset") || 'utf-8';
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * True if the request has completed, false otherwise
          * @name Exchange.prototype.done
          */
-        done: {
-            get: function() {
+        done:{
+            get:function () {
                 return exchange.isDone();
-            }, enumerable: true
+            }, enumerable:true
         },
         /**
          * Waits for the request to complete and returns the Exchange object itself.
@@ -242,34 +247,34 @@ var Exchange = function(url, options, callbacks) {
          * @returns the Exchange object
          * @name Exchange.prototype.wait
          */
-        wait: {
-            value: function() {
+        wait:{
+            value:function () {
                 exchange.waitForDone();
                 return this;
-            }, enumerable: true
+            }, enumerable:true
         }
     });
 
-    var getStatusMessage = function(status) {
+    var getStatusMessage = function (status) {
         var message;
         try {
             var code = org.eclipse.jetty.http.HttpStatus.getCode(status);
             message = code && code.getMessage();
         } catch (error) {
-             // ignore
+            // ignore
         }
         return message || "Unknown status code (" + status + ")";
     };
 
     /**
-    * Constructor
-    */
+     * Constructor
+     */
 
     var self = this;
     var responseHeaders = new Headers();
     var decoder;
     var exchange = new JavaAdapter(ContentExchange, {
-        onResponseComplete: function() {
+        onResponseComplete:function () {
             try {
                 this.super$onResponseComplete();
                 var content = options.binary ? self.contentBytes : self.content;
@@ -294,7 +299,7 @@ var Exchange = function(url, options, callbacks) {
             }
             return;
         },
-        onResponseContent: function(content) {
+        onResponseContent:function (content) {
             if (typeof(callbacks.part) === 'function') {
                 if (options.binary) {
                     var bytes = ByteString.wrap(content.asArray());
@@ -315,12 +320,12 @@ var Exchange = function(url, options, callbacks) {
             }
             return;
         },
-        onResponseHeader: function(key, value) {
+        onResponseHeader:function (key, value) {
             this.super$onResponseHeader(key, value);
             responseHeaders.add(String(key), String(value));
             return;
         },
-        onConnectionFailed: function(exception) {
+        onConnectionFailed:function (exception) {
             try {
                 this.super$onConnectionFailed(exception);
                 if (typeof(callbacks.error) === 'function') {
@@ -334,7 +339,7 @@ var Exchange = function(url, options, callbacks) {
             }
             return;
         },
-        onException: function(exception) {
+        onException:function (exception) {
             try {
                 this.super$onException(exception);
                 if (typeof(callbacks.error) === 'function') {
@@ -348,7 +353,7 @@ var Exchange = function(url, options, callbacks) {
             }
             return;
         },
-        onExpire: function() {
+        onExpire:function () {
             try {
                 this.super$onExpire();
                 if (typeof(callbacks.error) === 'function') {
@@ -374,7 +379,7 @@ var Exchange = function(url, options, callbacks) {
         var [username, password] = userInfo.split(":");
         options.username = options.username || username;
         options.password = options.password || password;
-    }    
+    }
 
     if (typeof(options.username) === 'string' && typeof(options.password) === 'string') {
         var authKey = base64.encode(options.username + ':' + options.password);
@@ -427,24 +432,24 @@ var Exchange = function(url, options, callbacks) {
 /**
  * Defaults for options passable to to request()
  */
-var defaultOptions = function(options) {
+var defaultOptions = function (options) {
     var defaultValues = {
         // exchange
-        data: {},
-        headers: {},
-        method: 'GET',
-        username: undefined,
-        password: undefined,
+        data:{},
+        headers:{},
+        method:'GET',
+        username:undefined,
+        password:undefined,
         // client
-        async: false,
-        cache: true,
-        binary: false
+        async:false,
+        cache:true,
+        binary:false
     };
     var opts = options ? objects.merge(options, defaultValues) : defaultValues;
     Headers(opts.headers);
     opts.contentType = opts.contentType
-            || opts.headers.get('Content-Type')
-            || 'application/x-www-form-urlencoded;charset=utf-8';
+        || opts.headers.get('Content-Type')
+        || 'application/x-www-form-urlencoded;charset=utf-8';
     return opts;
 };
 
@@ -455,10 +460,14 @@ var defaultOptions = function(options) {
  * @param {Array} Arguments Array
  * @returns {Object<{url, data, success, error}>} Object holding attributes for call to request()
  */
-var extractOptionalArguments = function(args) {
+var extractOptionalArguments = function (args) {
 
     var types = [];
-    for each (var arg in args) {
+    for each(var arg
+    in
+    args
+    )
+    {
         types.push(typeof(arg));
     }
 
@@ -468,34 +477,34 @@ var extractOptionalArguments = function(args) {
 
     if (args.length == 1) {
         return {
-            url: args[0]
+            url:args[0]
         };
 
     } else if (args.length == 2) {
         if (types[1] == 'function') {
             return {
-                url: args[0],
-                success: args[1]
+                url:args[0],
+                success:args[1]
             };
         } else {
             return {
-                url: args[0],
-                data: args[1]
+                url:args[0],
+                data:args[1]
             };
         }
         throw new Error('two argument form must be (url, success) or (url, data)');
     } else if (args.length == 3) {
         if (types[1] == 'function' && types[2] == 'function') {
             return {
-                url: args[0],
-                success: args[1],
-                error: args[2]
+                url:args[0],
+                success:args[1],
+                error:args[2]
             };
         } else if (types[1] == 'object' && types[2] == 'function') {
             return {
-                url: args[0],
-                data: args[1],
-                success: args[2]
+                url:args[0],
+                data:args[1],
+                success:args[2]
             };
         } else {
             throw new Error('three argument form must be (url, success, error) or (url, data, success)');
@@ -515,86 +524,90 @@ var extractOptionalArguments = function(args) {
  * @param {Boolean} followRedirects If true then redirects (301, 302) are followed
  * @constructor
  */
-var Client = function(timeout, followRedirects) {
+var Client = function (timeout, followRedirects) {
 
-    this.get = function(url, data, success, error) {
+    this.get = function (url, data, success, error) {
         if (arguments.length < 4) {
             var {url, data, success, error} = extractOptionalArguments(arguments);
         }
         return this.request({
-            method: 'GET',
-            url: url,
-            data: data,
-            success: success,
-            error: error,
-            async: typeof success === 'function'
+            method:'GET',
+            url:url,
+            data:data,
+            success:success,
+            error:error,
+            async:typeof success === 'function'
         });
     };
 
-    this.post = function(url, data, success, error) {
+    this.post = function (url, data, success, error) {
         if (arguments.length < 4) {
             var {url, data, success, error} = extractOptionalArguments(arguments);
         }
         return this.request({
-            method: 'POST',
-            url: url,
-            data: data,
-            success: success,
-            error: error,
-            async: typeof success === 'function'
+            method:'POST',
+            url:url,
+            data:data,
+            success:success,
+            error:error,
+            async:typeof success === 'function'
         });
     };
 
-    this.del = function(url, data, success, error) {
+    this.del = function (url, data, success, error) {
         if (arguments.length < 4) {
             var {url, data, success, error} = extractOptionalArguments(arguments);
         }
         return this.request({
-            method: 'DELETE',
-            url: url,
-            data: data,
-            success: success,
-            error: error,
-            async: typeof success === 'function'
+            method:'DELETE',
+            url:url,
+            data:data,
+            success:success,
+            error:error,
+            async:typeof success === 'function'
         });
     };
 
-    this.put = function(url, data, success, error) {
+    this.put = function (url, data, success, error) {
         if (arguments.length < 4) {
             var {url, data, success, error} = extractOptionalArguments(arguments);
         }
         return this.request({
-            method: 'PUT',
-            url: url,
-            data: data,
-            success: success,
-            error: error,
-            async: typeof success === 'function'
+            method:'PUT',
+            url:url,
+            data:data,
+            success:success,
+            error:error,
+            async:typeof success === 'function'
         });
     };
 
-    this.request = function(options) {
+    this.request = function (options) {
         var opts = defaultOptions(options);
         if (opts.promise) {
             var deferred = defer();
-            opts.success = function() {deferred.resolve(arguments[3])};
-            opts.error = function() {deferred.resolve(arguments[2], true)};
+            opts.success = function () {
+                deferred.resolve(arguments[3])
+            };
+            opts.error = function () {
+                deferred.resolve(arguments[2], true)
+            };
             opts.async = true;
         }
         var exchange = new Exchange(opts.url, {
-            method: opts.method,
-            data: opts.data,
-            headers: opts.headers,
-            username: opts.username,
-            password: opts.password,
-            contentType: opts.contentType,
-            binary: opts.binary,
-            async: opts.async
+            method:opts.method,
+            data:opts.data,
+            headers:opts.headers,
+            username:opts.username,
+            password:opts.password,
+            contentType:opts.contentType,
+            binary:opts.binary,
+            async:opts.async
         }, {
-            success: opts.success,
-            complete: opts.complete,
-            error: opts.error,
-            part: opts.part
+            success:opts.success,
+            complete:opts.complete,
+            error:opts.error,
+            part:opts.part
         });
         if (typeof(opts.beforeSend) === 'function') {
             opts.beforeSend(exchange);
@@ -690,7 +703,7 @@ function getClient() {
  * @param {Object} options
  * @returns {Exchange} exchange object
  */
-var request = function() {
+var request = function () {
     var client = getClient();
     return client.request.apply(client, arguments);
 };
@@ -706,7 +719,7 @@ var request = function() {
  * @returns {Exchange} exchange object
  * @see request
  */
-var post = function() {
+var post = function () {
     var client = getClient();
     return client.post.apply(client, arguments);
 };
@@ -722,7 +735,7 @@ var post = function() {
  * @returns {Exchange} exchange object
  * @see request
  */
-var get = function() {
+var get = function () {
     var client = getClient();
     return client.get.apply(client, arguments);
 };
@@ -738,7 +751,7 @@ var get = function() {
  * @returns {Exchange} exchange object
  * @see request
  */
-var del = function() {
+var del = function () {
     var client = getClient();
     return client.del.apply(client, arguments);
 };
@@ -754,7 +767,7 @@ var del = function() {
  * @returns {Exchange} exchange object
  * @see request
  */
-var put = function() {
+var put = function () {
     var client = getClient();
     return client.put.apply(client, arguments);
 };

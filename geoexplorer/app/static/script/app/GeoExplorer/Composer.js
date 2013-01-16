@@ -21,29 +21,29 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
      *  ``String`` The name of the cookie parameter to use for storing the
      *  logged in user.
      */
-    cookieParamName: 'geoexplorer-user',
+    cookieParamName:'geoexplorer-user',
 
     // Begin i18n.
-    mapText: "Map",
-    saveMapText: "Save map",
-    exportMapText: "Export map",
-    toolsTitle: "Choose tools to include in the toolbar:",
-    previewText: "Preview",
-    backText: "Back",
-    nextText: "Next",
-    loginText: "Login",
-    logoutText: "Logout, {user}",
-    loginErrorText: "Invalid username or password.",
-    userFieldText: "User",
-    passwordFieldText: "Password", 
-    saveErrorText: "Trouble saving: ",
-    tableText: "Table",
-    queryText: "Query",
-    logoutConfirmTitle: "Warning",
-    logoutConfirmMessage: "Logging out will undo any unsaved changes, remove any layers you may have added, and reset the map composition. Do you want to save your composition first?",
+    mapText:"Map",
+    saveMapText:"Save map",
+    exportMapText:"Export map",
+    toolsTitle:"Choose tools to include in the toolbar:",
+    previewText:"Preview",
+    backText:"Back",
+    nextText:"Next",
+    loginText:"Login",
+    logoutText:"Logout, {user}",
+    loginErrorText:"Invalid username or password.",
+    userFieldText:"User",
+    passwordFieldText:"Password",
+    saveErrorText:"Trouble saving: ",
+    tableText:"Table",
+    queryText:"Query",
+    logoutConfirmTitle:"Warning",
+    logoutConfirmMessage:"Logging out will undo any unsaved changes, remove any layers you may have added, and reset the map composition. Do you want to save your composition first?",
     // End i18n.
 
-    constructor: function(config) {
+    constructor:function (config) {
         // add any custom application events
         this.addEvents(
             /** api: event[beforesave]
@@ -70,7 +70,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
              *  false in the listener not to update the hash.
              *
              *  Listeners arguments:
-             *  * hash - ``String`` The hash which will be set as 
+             *  * hash - ``String`` The hash which will be set as
              *    window.location.hash
              */
             "beforehashchange"
@@ -89,149 +89,181 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         config.tools = [
             {
-                ptype: "gxp_layermanager",
-                outputConfig: {
-                    id: "layers",
-                    tbar: [],
-                    autoScroll: true
+                ptype:"gxp_layermanager",
+                outputConfig:{
+                    id:"layers",
+                    tbar:[],
+                    autoScroll:true
                 },
-                outputTarget: "tree"
-            }, {
-                ptype: "gxp_addlayers",
-                actionTarget: "layers.tbar",
-                outputTarget: "tree",
-                uploadSource: "local",
-                postUploadAction: {
-                    plugin: "layerproperties",
-                    outputConfig: {activeTab: 2}
+                outputTarget:"tree"
+            },
+            {
+                ptype:"gxp_addlayers",
+                actionTarget:"layers.tbar",
+                outputTarget:"tree",
+                uploadSource:"local",
+                postUploadAction:{
+                    plugin:"layerproperties",
+                    outputConfig:{activeTab:2}
                 }
-            }, {
-                ptype: "gxp_removelayer",
-                actionTarget: ["layers.tbar", "layers.contextMenu"]
-            }, {
-                ptype: "gxp_layerproperties",
-                id: "layerproperties",
-                outputConfig: {defaults: {autoScroll: true}, width: 320},
-                actionTarget: ["layers.tbar", "layers.contextMenu"],
-                outputTarget: "tree"
-            }, {
-                ptype: "gxp_styler",
-                id: "styler",
-                outputConfig: {autoScroll: true, width: 320},
-                actionTarget: ["layers.tbar", "layers.contextMenu"],
-                outputTarget: "tree"
-            }, {
-                ptype: "gxp_zoomtolayerextent",
-                actionTarget: {target: "layers.contextMenu", index: 0}
-            }, {
-                ptype: "gxp_googleearth",
-                actionTarget: ["map.tbar", "globe.tbar"]
-            }, {
-                ptype: "gxp_navigation", toggleGroup: "navigation"
-            }, {
-                ptype: "gxp_zoom", toggleGroup: "navigation",
-                showZoomBoxAction: true,
-                controlOptions: {zoomOnClick: false}
-            }, {
-                ptype: "gxp_navigationhistory"
-            }, {
-                ptype: "gxp_zoomtoextent"
-            }, {
-                actions: ["aboutbutton"],  actionTarget: "paneltbar"
-            }, {
-                actions: ["-"], actionTarget: "paneltbar"
-            }, {
-                actions: ["mapmenu"],  actionTarget: "paneltbar"
-            }, {
-                ptype: "gxp_print",
-                customParams: {outputFilename: 'GeoExplorer-print'},
-                printService: config.printService,
-                actionTarget: "paneltbar",
-                showButtonText: true
-            }, {
-                actions: ["-"],
-                actionTarget: "paneltbar"
-            }, {
-                ptype: "gxp_wmsgetfeatureinfo", format: 'grid',
-                toggleGroup: "interaction",
-                showButtonText: true,
-                actionTarget: "paneltbar"
-            }, {
-                ptype: "gxp_featuremanager",
-                id: "querymanager",
-                selectStyle: {cursor: ''},
-                autoLoadFeatures: true,
-                maxFeatures: 50,
-                paging: true,
-                pagingType: gxp.plugins.FeatureManager.WFS_PAGING
-            }, {
-                ptype: "gxp_queryform",
-                featureManager: "querymanager",
-                autoExpand: "query",
-                actionTarget: "paneltbar",
-                outputTarget: "query"
-            }, {
-                ptype: "gxp_featuregrid",
-                featureManager: "querymanager",
-                showTotalResults: true,
-                autoLoadFeature: false,
-                alwaysDisplayOnMap: true,
-                controlOptions: {multiple: true},
-                displayMode: "selected",
-                outputTarget: "table",
-                outputConfig: {
-                    id: "featuregrid",
-                    columnsSortable: false
+            },
+            {
+                ptype:"gxp_removelayer",
+                actionTarget:["layers.tbar", "layers.contextMenu"]
+            },
+            {
+                ptype:"gxp_layerproperties",
+                id:"layerproperties",
+                outputConfig:{defaults:{autoScroll:true}, width:320},
+                actionTarget:["layers.tbar", "layers.contextMenu"],
+                outputTarget:"tree"
+            },
+            {
+                ptype:"gxp_styler",
+                id:"styler",
+                outputConfig:{autoScroll:true, width:320},
+                actionTarget:["layers.tbar", "layers.contextMenu"],
+                outputTarget:"tree"
+            },
+            {
+                ptype:"gxp_zoomtolayerextent",
+                actionTarget:{target:"layers.contextMenu", index:0}
+            },
+            {
+                ptype:"gxp_googleearth",
+                actionTarget:["map.tbar", "globe.tbar"]
+            },
+            {
+                ptype:"gxp_navigation", toggleGroup:"navigation"
+            },
+            {
+                ptype:"gxp_zoom", toggleGroup:"navigation",
+                showZoomBoxAction:true,
+                controlOptions:{zoomOnClick:false}
+            },
+            {
+                ptype:"gxp_navigationhistory"
+            },
+            {
+                ptype:"gxp_zoomtoextent"
+            },
+            {
+                ptype:"gxp_googlegeocoder",
+                outputTarget:"map.tbar",
+                outputConfig:{
+                    emptyText:"Procure por um endereço"
                 }
-            }, {
-                ptype: "gxp_zoomtoselectedfeatures",
-                featureManager: "querymanager",
-                actionTarget: ["featuregrid.contextMenu", "featuregrid.bbar"]
-            }, {
-                ptype: "gxp_measure", toggleGroup: "interaction",
-                controlOptions: {immediate: true},
-                showButtonText: true,
-                actionTarget: "paneltbar"
-            }, {
-                ptype: "gxp_featuremanager",
-                id: "featuremanager",
-                maxFeatures: 20,
-                paging: false
-            }, {
-                ptype: "gxp_featureeditor",
-                featureManager: "featuremanager",
-                autoLoadFeature: true,
-                splitButton: true,
-                showButtonText: true,
-                toggleGroup: "interaction",
-                actionTarget: "paneltbar"
-            }, {
-                actions: ["->"],
-                actionTarget: "paneltbar"
-            }, {
-                actions: ["loginbutton"],
-                actionTarget: "paneltbar"
+            },
+            {
+                actions:["aboutbutton"], actionTarget:"paneltbar"
+            },
+            {
+                actions:["-"], actionTarget:"paneltbar"
+            },
+            {
+                actions:["mapmenu"], actionTarget:"paneltbar"
+            },
+            {
+                ptype:"gxp_print",
+                customParams:{outputFilename:'GeoExplorer-print'},
+                printService:config.printService,
+                actionTarget:"paneltbar",
+                showButtonText:true
+            },
+            {
+                actions:["-"],
+                actionTarget:"paneltbar"
+            },
+            {
+                ptype:"gxp_wmsgetfeatureinfo", format:'grid',
+                toggleGroup:"interaction",
+                showButtonText:true,
+                actionTarget:"paneltbar"
+            },
+            {
+                ptype:"gxp_featuremanager",
+                id:"querymanager",
+                selectStyle:{cursor:''},
+                autoLoadFeatures:true,
+                maxFeatures:50,
+                paging:true,
+                pagingType:gxp.plugins.FeatureManager.WFS_PAGING
+            },
+            {
+                ptype:"gxp_queryform",
+                featureManager:"querymanager",
+                autoExpand:"query",
+                actionTarget:"paneltbar",
+                outputTarget:"query"
+            },
+            {
+                ptype:"gxp_featuregrid",
+                featureManager:"querymanager",
+                showTotalResults:true,
+                autoLoadFeature:false,
+                alwaysDisplayOnMap:true,
+                controlOptions:{multiple:true},
+                displayMode:"selected",
+                outputTarget:"table",
+                outputConfig:{
+                    id:"featuregrid",
+                    columnsSortable:false
+                }
+            },
+            {
+                ptype:"gxp_zoomtoselectedfeatures",
+                featureManager:"querymanager",
+                actionTarget:["featuregrid.contextMenu", "featuregrid.bbar"]
+            },
+            {
+                ptype:"gxp_measure", toggleGroup:"interaction",
+                controlOptions:{immediate:true},
+                showButtonText:true,
+                actionTarget:"paneltbar"
+            },
+            {
+                ptype:"gxp_featuremanager",
+                id:"featuremanager",
+                maxFeatures:20,
+                paging:false
+            },
+            {
+                ptype:"gxp_featureeditor",
+                featureManager:"featuremanager",
+                autoLoadFeature:true,
+                splitButton:true,
+                showButtonText:true,
+                toggleGroup:"interaction",
+                actionTarget:"paneltbar"
+            },
+            {
+                actions:["->"],
+                actionTarget:"paneltbar"
+            },
+            {
+                actions:["loginbutton"],
+                actionTarget:"paneltbar"
             }
         ];
-        
+
         GeoExplorer.Composer.superclass.constructor.apply(this, arguments);
     },
-    
-    loadConfig: function(config) {
+
+    loadConfig:function (config) {
         GeoExplorer.Composer.superclass.loadConfig.apply(this, arguments);
-        
+
         var query = Ext.urlDecode(document.location.search.substr(1));
         if (query && query.styler) {
-            for (var i=config.map.layers.length-1; i>=0; --i) {
+            for (var i = config.map.layers.length - 1; i >= 0; --i) {
                 delete config.map.layers[i].selected;
             }
             config.map.layers.push({
-                source: "local",
-                name: query.styler,
-                selected: true,
-                bbox: query.lazy && query.bbox ? query.bbox.split(",") : undefined
+                source:"local",
+                name:query.styler,
+                selected:true,
+                bbox:query.lazy && query.bbox ? query.bbox.split(",") : undefined
             });
-            this.on('layerselectionchange', function(rec) {
+            this.on('layerselectionchange', function (rec) {
                 var styler = this.tools.styler,
                     layer = rec.getLayer(),
                     extent = layer.maxExtent;
@@ -239,34 +271,34 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     this.mapPanel.map.zoomToExtent(extent);
                 }
                 this.doAuthorized(styler.roles, styler.addOutput, styler);
-            }, this, {single: true});            
+            }, this, {single:true});
         }
     },
 
     /** private: method[setCookieValue]
      *  Set the value for a cookie parameter
      */
-    setCookieValue: function(param, value) {
+    setCookieValue:function (param, value) {
         document.cookie = param + '=' + escape(value);
     },
 
     /** private: method[clearCookieValue]
      *  Clear a certain cookie parameter.
      */
-    clearCookieValue: function(param) {
+    clearCookieValue:function (param) {
         document.cookie = param + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     },
 
     /** private: method[getCookieValue]
      *  Get the value of a certain cookie parameter. Returns null if not found.
      */
-    getCookieValue: function(param) {
+    getCookieValue:function (param) {
         var i, x, y, cookies = document.cookie.split(";");
-        for (i=0; i < cookies.length; i++) {
+        for (i = 0; i < cookies.length; i++) {
             x = cookies[i].substr(0, cookies[i].indexOf("="));
-            y = cookies[i].substr(cookies[i].indexOf("=")+1);
-            x=x.replace(/^\s+|\s+$/g,"");
-            if (x==param) {
+            y = cookies[i].substr(cookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x == param) {
                 return unescape(y);
             }
         }
@@ -276,91 +308,98 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
     /** private: method[logout]
      *  Log out the current user from the application.
      */
-    logout: function() {
-        var callback = function() {
+    logout:function () {
+        var callback = function () {
             this.clearCookieValue("JSESSIONID");
             this.clearCookieValue(this.cookieParamName);
             this.setAuthorizedRoles([]);
             window.location.reload();
         };
         Ext.Msg.show({
-            title: this.logoutConfirmTitle, 
-            msg: this.logoutConfirmMessage, 
-            buttons: Ext.Msg.YESNOCANCEL,
-            icon: Ext.MessageBox.WARNING,
-            fn: function(btn) {
+            title:this.logoutConfirmTitle,
+            msg:this.logoutConfirmMessage,
+            buttons:Ext.Msg.YESNOCANCEL,
+            icon:Ext.MessageBox.WARNING,
+            fn:function (btn) {
                 if (btn === 'yes') {
                     this.save(callback, this);
                 } else if (btn === 'no') {
                     callback.call(this);
                 }
             },
-            scope: this
+            scope:this
         });
     },
 
     /** private: method[authenticate]
      * Show the login dialog for the user to login.
      */
-    authenticate: function() {
+    authenticate:function () {
         var panel = new Ext.FormPanel({
-            url: "../login/",
-            frame: true,
-            labelWidth: 60,
-            defaultType: "textfield",
-            errorReader: {
-                read: function(response) {
+            url:"../login/",
+            frame:true,
+            labelWidth:60,
+            defaultType:"textfield",
+            errorReader:{
+                read:function (response) {
                     var success = false;
                     var records = [];
                     if (response.status === 200) {
                         success = true;
                     } else {
                         records = [
-                            {data: {id: "username", msg: this.loginErrorText}},
-                            {data: {id: "password", msg: this.loginErrorText}}
+                            {data:{id:"username", msg:this.loginErrorText}},
+                            {data:{id:"password", msg:this.loginErrorText}}
                         ];
                     }
                     return {
-                        success: success,
-                        records: records
+                        success:success,
+                        records:records
                     };
                 }
             },
-            items: [{
-                fieldLabel: this.userFieldText,
-                name: "username",
-                width: 137,
-                allowBlank: false,
-                listeners: {
-                    render: function() {
-                        this.focus(true, 100);
+            items:[
+                {
+                    fieldLabel:this.userFieldText,
+                    name:"username",
+                    width:137,
+                    allowBlank:false,
+                    listeners:{
+                        render:function () {
+                            this.focus(true, 100);
+                        }
                     }
+                },
+                {
+                    fieldLabel:this.passwordFieldText,
+                    name:"password",
+                    width:137,
+                    inputType:"password",
+                    allowBlank:false
                 }
-            }, {
-                fieldLabel: this.passwordFieldText,
-                name: "password",
-                width: 137,
-                inputType: "password",
-                allowBlank: false
-            }],
-            buttons: [{
-                text: this.loginText,
-                formBind: true,
-                handler: submitLogin,
-                scope: this
-            }],
-            keys: [{ 
-                key: [Ext.EventObject.ENTER], 
-                handler: submitLogin,
-                scope: this
-            }]
+            ],
+            buttons:[
+                {
+                    text:this.loginText,
+                    formBind:true,
+                    handler:submitLogin,
+                    scope:this
+                }
+            ],
+            keys:[
+                {
+                    key:[Ext.EventObject.ENTER],
+                    handler:submitLogin,
+                    scope:this
+                }
+            ]
         });
 
         function submitLogin() {
             panel.buttons[0].disable();
             panel.getForm().submit({
-                success: function(form, action) {
-                    Ext.getCmp('paneltbar').items.each(function(tool) {
+                success:function (form, action) {
+                    Ext.getCmp('paneltbar').items.each(function (tool) {
                         if (tool.needsAuthorization === true) {
                             tool.enable();
                         }
@@ -372,30 +411,30 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     win.un("beforedestroy", this.cancelAuthentication, this);
                     win.close();
                 },
-                failure: function(form, action) {
+                failure:function (form, action) {
                     this.authorizedRoles = [];
                     panel.buttons[0].enable();
                     form.markInvalid({
-                        "username": this.loginErrorText,
-                        "password": this.loginErrorText
+                        "username":this.loginErrorText,
+                        "password":this.loginErrorText
                     });
                 },
-                scope: this
+                scope:this
             });
         }
-                
+
         var win = new Ext.Window({
-            title: this.loginText,
-            layout: "fit",
-            width: 235,
-            height: 130,
-            plain: true,
-            border: false,
-            modal: true,
-            items: [panel],
-            listeners: {
-                beforedestroy: this.cancelAuthentication,
-                scope: this
+            title:this.loginText,
+            layout:"fit",
+            width:235,
+            height:130,
+            plain:true,
+            border:false,
+            modal:true,
+            items:[panel],
+            listeners:{
+                beforedestroy:this.cancelAuthentication,
+                scope:this
             }
         });
         win.show();
@@ -405,7 +444,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
      * private: method[applyLoginState]
      * Attach a handler to the login button and set its text.
      */
-    applyLoginState: function(iconCls, text, handler, scope) {
+    applyLoginState:function (iconCls, text, handler, scope) {
         var loginButton = Ext.getCmp("loginbutton");
         loginButton.setIconClass(iconCls);
         loginButton.setText(text);
@@ -415,7 +454,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
     /** private: method[showLogin]
      *  Show the login button.
      */
-    showLogin: function() {
+    showLogin:function () {
         var text = this.loginText;
         var handler = this.authenticate;
         this.applyLoginState('login', text, handler, this);
@@ -424,8 +463,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
     /** private: method[showLogout]
      *  Show the logout button.
      */
-    showLogout: function(user) {
-        var text = new Ext.Template(this.logoutText).applyTemplate({user: user});
+    showLogout:function (user) {
+        var text = new Ext.Template(this.logoutText).applyTemplate({user:user});
         var handler = this.logout;
         this.applyLoginState('logout', text, handler, this);
     },
@@ -433,84 +472,87 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
     /** private: method[initPortal]
      * Create the various parts that compose the layout.
      */
-    initPortal: function() {
-        
+    initPortal:function () {
+
         var westPanel = new gxp.CrumbPanel({
-            id: "tree",
-            region: "west",
-            width: 320,
-            split: true,
-            collapsible: true,
-            collapseMode: "mini",
-            hideCollapseTool: true,
-            header: false
+            id:"tree",
+            region:"west",
+            width:320,
+            split:true,
+            collapsible:true,
+            collapseMode:"mini",
+            hideCollapseTool:true,
+            header:false
         });
         var southPanel = new Ext.Panel({
-            region: "south",
-            id: "south",
-            height: 220,
-            border: false,
-            split: true,
-            collapsible: true,
-            collapseMode: "mini",
-            collapsed: true,
-            hideCollapseTool: true,
-            header: false,
-            layout: "border",
-            items: [{
-                region: "center",
-                id: "table",
-                title: this.tableText,
-                layout: "fit"
-            }, {
-                region: "west",
-                width: 320,
-                id: "query",
-                title: this.queryText,
-                split: true,
-                collapsible: true,
-                collapseMode: "mini",
-                collapsed: true,
-                hideCollapseTool: true,
-                layout: "fit"
-            }]
+            region:"south",
+            id:"south",
+            height:220,
+            border:false,
+            split:true,
+            collapsible:true,
+            collapseMode:"mini",
+            collapsed:true,
+            hideCollapseTool:true,
+            header:false,
+            layout:"border",
+            items:[
+                {
+                    region:"center",
+                    id:"table",
+                    title:this.tableText,
+                    layout:"fit"
+                },
+                {
+                    region:"west",
+                    width:320,
+                    id:"query",
+                    title:this.queryText,
+                    split:true,
+                    collapsible:true,
+                    collapseMode:"mini",
+                    collapsed:true,
+                    hideCollapseTool:true,
+                    layout:"fit"
+                }
+            ]
         });
         var toolbar = new Ext.Toolbar({
-            disabled: true,
-            id: 'paneltbar',
-            items: []
+            disabled:true,
+            id:'paneltbar',
+            items:[]
         });
-        this.on("ready", function() {
+        this.on("ready", function () {
             // enable only those items that were not specifically disabled
-            var disabled = toolbar.items.filterBy(function(item) {
+            var disabled = toolbar.items.filterBy(function (item) {
                 return item.initialConfig && item.initialConfig.disabled;
             });
             toolbar.enable();
-            disabled.each(function(item) {
+            disabled.each(function (item) {
                 item.disable();
             });
         });
 
         var googleEarthPanel = new gxp.GoogleEarthPanel({
-            mapPanel: this.mapPanel,
-            id: "globe",
-            tbar: [],
-            listeners: {
-                beforeadd: function(record) {
+            mapPanel:this.mapPanel,
+            id:"globe",
+            tbar:[],
+            listeners:{
+                beforeadd:function (record) {
                     return record.get("group") !== "background";
                 }
             }
         });
-        
+
         // TODO: continue making this Google Earth Panel more independent
         // Currently, it's too tightly tied into the viewer.
         // In the meantime, we keep track of all items that the were already
         // disabled when the panel is shown.
         var preGoogleDisabled = [];
 
-        googleEarthPanel.on("show", function() {
+        googleEarthPanel.on("show", function () {
             preGoogleDisabled.length = 0;
-            toolbar.items.each(function(item) {
+            toolbar.items.each(function (item) {
                 if (item.disabled) {
                     preGoogleDisabled.push(item);
                 }
@@ -526,7 +568,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             var layersContainer = Ext.getCmp("tree");
             var layersToolbar = layersContainer && layersContainer.getTopToolbar();
             if (layersToolbar) {
-                layersToolbar.items.each(function(item) {
+                layersToolbar.items.each(function (item) {
                     if (item.disabled) {
                         preGoogleDisabled.push(item);
                     }
@@ -535,57 +577,59 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }
         }, this);
 
-        googleEarthPanel.on("hide", function() {
+        googleEarthPanel.on("hide", function () {
             // re-enable all tools
             toolbar.enable();
-            
+
             var layersContainer = Ext.getCmp("tree");
             var layersToolbar = layersContainer && layersContainer.getTopToolbar();
             if (layersToolbar) {
                 layersToolbar.enable();
             }
             // now go back and disable all things that were disabled previously
-            for (var i=0, ii=preGoogleDisabled.length; i<ii; ++i) {
+            for (var i = 0, ii = preGoogleDisabled.length; i < ii; ++i) {
                 preGoogleDisabled[i].disable();
             }
 
         }, this);
 
         this.mapPanelContainer = new Ext.Panel({
-            layout: "card",
-            region: "center",
-            defaults: {
-                border: false
+            layout:"card",
+            region:"center",
+            defaults:{
+                border:false
             },
-            items: [
+            items:[
                 this.mapPanel,
                 googleEarthPanel
             ],
-            activeItem: 0
+            activeItem:0
         });
-        
-        this.portalItems = [{
-            region: "center",
-            layout: "border",
-            tbar: toolbar,
-            items: [
-                this.mapPanelContainer,
-                westPanel,
-                southPanel
-            ]
-        }];
-        
-        GeoExplorer.Composer.superclass.initPortal.apply(this, arguments);        
+
+        this.portalItems = [
+            {
+                region:"center",
+                layout:"border",
+                tbar:toolbar,
+                items:[
+                    this.mapPanelContainer,
+                    westPanel,
+                    southPanel
+                ]
+            }
+        ];
+
+        GeoExplorer.Composer.superclass.initPortal.apply(this, arguments);
     },
-    
+
     /**
      * api: method[createTools]
      * Create the toolbar configuration for the main view.
      */
-    createTools: function() {
+    createTools:function () {
         GeoExplorer.Composer.superclass.createTools.apply(this, arguments);
 
-        new Ext.Button({id: "loginbutton"});
+        new Ext.Button({id:"loginbutton"});
 
         if (this.authorizedRoles) {
             // unauthorized, show login button
@@ -599,57 +643,64 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 this.showLogout(user);
             }
         }
-        
+
         new Ext.Button({
-            id: "mapmenu",
-            text: this.mapText,
-            iconCls: 'icon-map',
-            menu: new Ext.menu.Menu({
-                items: [{
-                    text: this.exportMapText,
-                    handler: function() {
-                        this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
-                            this.save(this.showEmbedWindow);
-                        }, this);
+            id:"mapmenu",
+            text:this.mapText,
+            iconCls:'icon-map',
+            menu:new Ext.menu.Menu({
+                items:[
+                    {
+                        text:this.exportMapText,
+                        handler:function () {
+                            this.doAuthorized(["ROLE_ADMINISTRATOR"], function () {
+                                this.save(this.showEmbedWindow);
+                            }, this);
+                        },
+                        scope:this,
+                        iconCls:'icon-export'
                     },
-                    scope: this,
-                    iconCls: 'icon-export'
-                }, {
-                    text: this.saveMapText,
-                    handler: function() {
-                        this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
-                            this.save(this.showUrl);
-                        }, this);
-                    },
-                    scope: this,
-                    iconCls: "icon-save"
-                }]
-            })            
+                    {
+                        text:this.saveMapText,
+                        handler:function () {
+                            this.doAuthorized(["ROLE_ADMINISTRATOR"], function () {
+                                this.save(this.showUrl);
+                            }, this);
+                        },
+                        scope:this,
+                        iconCls:"icon-save"
+                    }
+                ]
+            })
         });
     },
 
     /** private: method[openPreview]
      */
-    openPreview: function(embedMap) {
+    openPreview:function (embedMap) {
         var preview = new Ext.Window({
-            title: this.previewText,
-            layout: "fit",
-            resizable: false,
-            items: [{border: false, html: embedMap.getIframeHTML()}]
+            title:this.previewText,
+            layout:"fit",
+            resizable:false,
+            items:[
+                {border:false, html:embedMap.getIframeHTML()}
+            ]
         });
         preview.show();
         var body = preview.items.get(0).body;
         var iframe = body.dom.firstChild;
         var loading = new Ext.LoadMask(body);
         loading.show();
-        Ext.get(iframe).on('load', function() { loading.hide(); });
+        Ext.get(iframe).on('load', function () {
+            loading.hide();
+        });
     },
 
     /** private: method[save]
      *
      * Saves the map config and displays the URL in a window.
-     */ 
-    save: function(callback, scope) {
+     */
+    save:function (callback, scope) {
         var configStr = Ext.util.JSON.encode(this.getState());
         var method, url;
         if (this.id) {
@@ -660,27 +711,27 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             url = "../maps/";
         }
         var requestConfig = {
-            method: method,
-            url: url,
-            data: configStr
+            method:method,
+            url:url,
+            data:configStr
         };
         if (this.fireEvent("beforesave", requestConfig, callback) !== false) {
             OpenLayers.Request.issue(Ext.apply(requestConfig, {
-                callback: function(request) {
+                callback:function (request) {
                     this.handleSave(request);
                     if (callback) {
                         callback.call(scope || this);
                     }
                 },
-                scope: this
+                scope:this
             }));
         }
     },
-        
+
     /** private: method[handleSave]
      *  :arg: ``XMLHttpRequest``
      */
-    handleSave: function(request) {
+    handleSave:function (request) {
         if (request.status == 200) {
             var config = Ext.util.JSON.decode(request.responseText);
             var mapId = config.id;
@@ -701,69 +752,74 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
     /** private: method[showEmbedWindow]
      */
-    showEmbedWindow: function() {
-       var toolsArea = new Ext.tree.TreePanel({title: this.toolsTitle, 
-           autoScroll: true,
-           root: {
-               nodeType: 'async', 
-               expanded: true, 
-               children: this.viewerTools
-           }, 
-           rootVisible: false,
-           id: 'geobuilder-0'
-       });
+    showEmbedWindow:function () {
+        var toolsArea = new Ext.tree.TreePanel({title:this.toolsTitle,
+            autoScroll:true,
+            root:{
+                nodeType:'async',
+                expanded:true,
+                children:this.viewerTools
+            },
+            rootVisible:false,
+            id:'geobuilder-0'
+        });
 
-       var previousNext = function(incr){
-           var l = Ext.getCmp('geobuilder-wizard-panel').getLayout();
-           var i = l.activeItem.id.split('geobuilder-')[1];
-           var next = parseInt(i, 10) + incr;
-           l.setActiveItem(next);
-           Ext.getCmp('wizard-prev').setDisabled(next==0);
-           Ext.getCmp('wizard-next').setDisabled(next==1);
-           if (incr == 1) {
-               this.save();
-           }
-       };
+        var previousNext = function (incr) {
+            var l = Ext.getCmp('geobuilder-wizard-panel').getLayout();
+            var i = l.activeItem.id.split('geobuilder-')[1];
+            var next = parseInt(i, 10) + incr;
+            l.setActiveItem(next);
+            Ext.getCmp('wizard-prev').setDisabled(next == 0);
+            Ext.getCmp('wizard-next').setDisabled(next == 1);
+            if (incr == 1) {
+                this.save();
+            }
+        };
 
-       var embedMap = new gxp.EmbedMapDialog({
-           id: 'geobuilder-1',
-           url: "../viewer/#maps/" + this.id
-       });
+        var embedMap = new gxp.EmbedMapDialog({
+            id:'geobuilder-1',
+            url:"../viewer/#maps/" + this.id
+        });
 
-       var wizard = {
-           id: 'geobuilder-wizard-panel',
-           border: false,
-           layout: 'card',
-           activeItem: 0,
-           defaults: {border: false, hideMode: 'offsets'},
-           bbar: [{
-               id: 'preview',
-               text: this.previewText,
-               handler: function() {
-                   this.save(this.openPreview.createDelegate(this, [embedMap]));
-               },
-               scope: this
-           }, '->', {
-               id: 'wizard-prev',
-               text: this.backText,
-               handler: previousNext.createDelegate(this, [-1]),
-               scope: this,
-               disabled: true
-           },{
-               id: 'wizard-next',
-               text: this.nextText,
-               handler: previousNext.createDelegate(this, [1]),
-               scope: this
-           }],
-           items: [toolsArea, embedMap]
-       };
+        var wizard = {
+            id:'geobuilder-wizard-panel',
+            border:false,
+            layout:'card',
+            activeItem:0,
+            defaults:{border:false, hideMode:'offsets'},
+            bbar:[
+                {
+                    id:'preview',
+                    text:this.previewText,
+                    handler:function () {
+                        this.save(this.openPreview.createDelegate(this, [embedMap]));
+                    },
+                    scope:this
+                },
+                '->',
+                {
+                    id:'wizard-prev',
+                    text:this.backText,
+                    handler:previousNext.createDelegate(this, [-1]),
+                    scope:this,
+                    disabled:true
+                },
+                {
+                    id:'wizard-next',
+                    text:this.nextText,
+                    handler:previousNext.createDelegate(this, [1]),
+                    scope:this
+                }
+            ],
+            items:[toolsArea, embedMap]
+        };
 
-       new Ext.Window({
-            layout: 'fit',
-            width: 500, height: 300,
-            title: this.exportMapText,
-            items: [wizard]
-       }).show();
+        new Ext.Window({
+            layout:'fit',
+            width:500, height:300,
+            title:this.exportMapText,
+            items:[wizard]
+        }).show();
     }
 
 });
