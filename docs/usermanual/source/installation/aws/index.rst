@@ -1,288 +1,192 @@
 .. _installation.aws:
 
-Installing the OpenGeo Suite for Amazon AWS EC2
-===============================================
+Installing OpenGeo Suite for AWS
+================================
 
-The OpenGeo Suite is available as for use with Amazon's AWS EC2 service. The OpenGeo Suite is available in five tiers:
+OpenGeo Suite is available for use with `Amazon Web Service <http://aws.amazon.com>`_ (AWS).
+
+Pricing plans
+-------------
+
+There are two pricing options for purchasing OpenGeo Suite on AWS: **Hourly** and **Monthly**. There is no difference in the software in either option.
+
+* **On the Hourly plan, you pay for each hour that your instance is running**. This option is best for those who are just testing the software out, and don't plan on keeping the instance up and running constantly.
+* **On the Monthly plan, you pay a fixed monthly fee for instance usage**, regardless of instance uptime. This option is best for those who are building an instance that will be staying online permanently.
+
+The Hourly plan, if left on over an entire month, will end up being more expensive than the Monthly plan, so it pays to consider your needs and intended usage.
+
+.. note:: Both the Hourly and Monthly plan pricing do not include additional AWS charges such as data transfer fees.
+
+Instance options
+----------------
+
+Beyond the pricing plans, there are also three instance sizes. This determination can affect the price as well. The instance sizes are detailed below:
 
 .. list-table::
-   :widths: 20 20 20 20 20
    :header-rows: 1
+   :stub-columns: 1
 
    * - Name
-     - Instance Size
-     - Setup Fee
-     - Cost per hour
-     - Cost per month
-   * - Dev Small
-     - Standard Small
-     - N/A
-     - $0.13
-     - N/A
-   * - Dev Large
-     - Standard Medium
-     - N/A
-     - $0.45
-     - N/A
-   * - Production 1 Small
-     - Standard Medium
-     - $500
-     - N/A
-     - $600
-   * - Production 2 Medium
-     - High Memory Extra Large
-     - $750
-     - N/A
-     - $800
-   * - Production 3 Large
-     - Standard Extra Large
-     - $1000
-     - N/A
-     - $1,150
+     - Standard Large
+     - Standard XL
+     - High Memory XL
+   * - Memory
+     - 7.5 GiB
+     - 15 GiB
+     - 17.1 GiB
+   * - CPU
+     - 4 EC2 Compute Units (2 virtual cores with 2 EC2 Compute Units each)
+     - 8 EC2 Compute Units (4 virtual cores with 2 EC2 Compute Units each)
+     - 6.5 EC2 Compute Units (2 virtual cores with 3.25 EC2 Compute Units each)
+   * - Storage
+     - 850 GB instance storage
+     - 1690 GB instance storage
+     - 420 GB instance storage
+   * - Platform
+     - 64-bit
+     - 64-bit
+     - 64-bit
+   * - I/O performance
+     - High
+     - High
+     - Moderate
+   * - AWS instance type
+     - m1.large
+     - m1.xlarge
+     - m2.large
 
-Details about the Instance Size (number of CPUs, etc.) can be found on Amazon's `Amazon EC2 Instance Types <http://aws.amazon.com/ec2/instance-types/>`_ page.
+More details about instance sizes can be found on Amazon's `Amazon EC2 Instance Types <http://aws.amazon.com/ec2/instance-types/>`_ page.
 
-.. note::
-
-   For the tiers with an hourly charge (**Dev Small** and **Dev Large**), charges will only accrue when the instance is running. To avoid excess charges, **please make sure to Terminate your instance when it is not in use**. To terminate an instance, right-click the instance in the :guilabel:`Instances` list, and select :guilabel:`Terminate`. There is no commitment or minimum charge associated with either of these tiers.
-   
-   .. figure:: img/terminating.png
-
-      *Terminating an instance*
-
-Signing up
+Purchasing
 ----------
 
-The process for signing up for all tiers is exactly the same. Only the features and pricing differ.
+.. warning:: You need to have an Amazon Web Services (AWS) account with EC2 enabled in order to use OpenGeo Suite for AWS. Amazon has `detailed instructions on how to sign up for AWS/EC2 <http://aws.amazon.com/documentation/ec2/>`_.
 
-.. warning:: In order to use the OpenGeo Suite Cloud Edition for Amazon Web Services (AWS), you need to have an Amazon Web Services (AWS) account which has EC2 access enabled. Amazon has detailed instructions on how to sign up for AWS/EC2 at http://aws.amazon.com/documentation/ec2/.
-
-#. Navigate to the OpenGeo Suite Cloud page at http://opengeo.org/products/suite/cloud/. Select the tier you wish to purchase by clicking the appropriate link.
-
-#. You will be redirected to Amazon's site, and be asked to log in to AWS. Enter your AWS account name and password and click :guilabel:`Sign in using our secure server`.
+#. Navigate to http://aws.amazon.com and log in by clicking :guilabel:`My Account / Console` and then :guilabel:`My account`. 
 
    .. figure:: img/signin.png
 
-      *Signing in to AWS*
+      Signing in to AWS
 
-#. You will see a description of the product, including all initial and recurring charges. Please review the information, and then click :guilabel:`Place your order`.
+#. Navigate to the appropriate product page:
 
-   .. warning:: By clicking :guilabel:`Place your order`, you are committing to any charges associated with your purchase.
+   * `Hourly plan <https://aws.amazon.com/marketplace/pp/B00ED5D1TA>`_
+   * `Monthly plan <https://aws.amazon.com/marketplace/pp/B00ED5EGP8>`_
 
-   .. figure:: img/placeyourorder.png
+   .. note:: All screenshots on this page show the Hourly plan, but the details are the same for both.
 
-      *Reviewing order*
+   .. figure:: img/front.png
 
-#. Once the sale is completed, the next step is to register your purchase with OpenGeo. Click the link that says :guilabel:`Please click here to get activation keys for all applications to which you are subscribed.`
+      OpenGeo Suite for AWS product page
 
-   .. figure:: img/almostdone.png
+#. Click :guilabel:`Continue`. Don't worry about any of the options on the Pricing Details box; you'll have the ability to make those settings on the next page.
 
-      *Almost done*
+#. The following page contains settings, divided into five boxes: :guilabel:`Version`, :guilabel:`Region`, :guilabel:`EC2 instance type`, :guilabel:`Security group`, and :guilabel:`Key Pair`. These boxes can be expanded by clicking them.
 
-#. Click :guilabel:`Generate Key` to generate an Activation Key.
+   .. figure:: img/settings.png
 
-   .. figure:: img/generatekey.png
+      Settings page
 
-      *Ready to generate Activation Key*
+   .. note:: Those familiar with AWS can also click the tab that says "Launch with EC2 Console", and continue their configuration manually. For most people, the instructions here for the "1-Click Launch" will be sufficient.
 
-#. With the key generated, Click :guilabel:`Go to Application`.
+#. **Version**. Most people will leave this option with the default (latest) version.
 
-   .. figure:: img/keygenerated.png
+   .. figure:: img/settings-version.png
 
-      *Activation Key generated*
+      Version box
 
-#. You will be redirected to an OpenGeo registration page. Fill out the form to sign up for the OpenGeo support and to receive your AMI ID.
+#. **Region**. Select the region you want the instance to be running in, which is typically the location closest to where your users are likely to be or where your are located.
 
-   .. figure:: img/regform.png
+   .. note:: Learn more about `AWS regions <http://aws.amazon.com/about-aws/globalinfrastructure/>`_.
 
-      *Registration form*
+   .. figure:: img/settings-region.png
 
-#. When done, click :guilabel:`Submit`.
+      Region box
 
-   .. figure:: img/thankyouamazon.png
+#. **EC2 instance type**. Choose from "Standard Large", "Standard XL", or "High-Memory XL". Refer to the above chart for the differences between the versions.
 
-      *Please fill out this form to complete the sign up process*
+   .. figure:: img/settings-instancetype.png
 
-#. You have now successfully purchased the OpenGeo Suite Cloud Edition. You will soon receive an email from OpenGeo containing helpful information, links, and other details about your purchase. Refer to this email below.
+      EC2 instance type box
 
-Logging in
-----------
+#. **Security Group**. We recommend using the standard security group that should already selected, which includes port openings at 22, 80, and 8080. Most people should not change anything in this section.
 
-The next step is to launch your new OpenGeo Suite Cloud instance. This is done through Amazon's AWS console.
+   .. figure:: img/settings-secgroup.png
 
-.. warning:: Amazon console pages are frequently redesigned, and so may not look identical to the screenshots below.
+      Security Group box
 
-#. Navigate to http://aws.amazon.com.
+#. **Key Pair**. In order to be able to connect to your instance via SSH, you will need to select a saved key pair. 
 
-#. Click :guilabel:`My Account / Console` and select :guilabel:`AWS Management Console`.
+   .. figure:: img/settings-keypairblank.png
 
-   .. figure:: img/consolelink.png
+      Key pair box
 
-      *Click to go to the AWS Management Console*
+   #. If you don't have a key pair in your account, click the :guilabel:`Visit the Amazon EC2 Console` link the :guilabel:`Key pair` box.
 
-#. To log in, use the same credentials you used when purchasing the OpenGeo Suite.
+      .. figure:: img/keypairstart.png
 
-   .. figure:: img/signin.png
+         Key pair page with no key pairs
 
-      *Signing in to AWS again*
+   #. You will be taken to a screen where you can create a new key pair. Click :guilabel:`Create key pair`.
 
-#. You will be redirected to your main AWS console.
+      .. figure:: img/keypaircreate.png
 
-   .. figure:: img/consolepage.png
+         Creating a key pair
 
-      *Viewing the default AWS console*
+   #. A key pair will be generated, and the private portion of the pair will automatically be downloaded onto your system.
 
-#. Click the EC2 link to go to the EC2 Dashboard.
+      .. warning:: Don't lose this file, otherwise your key pair will be useless!
 
-   .. figure:: img/ec2dashboard.png
+      .. figure:: img/keypaircreated.png
 
-      *AWS EC2 Dashboard*
+         Key pair successfully created
 
-#. Make sure you are in the correct zone of where you'd like your instance to be launched. To change the zone, Click the zone name at the top right of the Dashboard and select the proper zone.
+#. Now return to the the settings page, and refresh. Ensure that your settings are still correct, as some setting may revert to their defaults. You should see yoru key pair listed in the :guilabel:`Key pair` box.
 
-   .. note::
+   .. figure:: img/settings-keypairfilled.png
 
-      The zones that are currently available for the OpenGeo Suite are:
+      Key pair box with key pair listed
 
-      * US East (N. Virginia)
-      * EU (Ireland)
+#. Click :guilabel:`Accept terms and Launch with 1-Click`.
 
-   .. figure:: img/zoneselect.png
+   .. note:: If you skipped the creation of the key pair, you will see a warning. We recommend creating a key pair now, even if you don't anticipate connecting to the instance via SSH, so you will have the option of doing so at a later date.
 
-      *Selecting the zone*
+      .. figure:: img/nokeypair.png
 
-#. Click :guilabel:`AMIs` on the left column, under :guilabel:`Images`. This will bring up a list of your AMIs. If you have just signed up for AWS, this list will be blank.
+         Warning when key pair creation was skipped
 
-   .. figure:: img/amis.png
+#. If everything went well, you should see a note indicating success. Your instance will be available after a short period of time.
 
-      *Viewing your list of AMIs*
+   .. figure:: img/success.png
 
-#. You will need the AMI ID given to you when you registered. You can also see `the full list of AMI IDs <http://opengeo.org/products/suite/cloud/amazon/ami/>`_. Enter your AMI ID in the search box (next to :guilabel:`Viewing`). Change the select box titled :guilabel:`Viewing` to read :guilabel:`Public Images`. You should see an OpenGeo AMI show up in the list.
+      OpenGeo Suite successfully launched
 
-   .. note:: This process make take some time.
+#. Click on :guilabel:`Your Software` to see the status of your purchase.
 
-   .. figure:: img/foundami.png
+   .. figure:: img/subscriptions.png
 
-      *OpenGeo Suite AMI found*
+      Waiting for OpenGeo Suite to be ready
 
-#. Select the AMI by clicking it, and then click the :guilabel:`Launch` button.
+#. After a short delay, refresh the page to see the instance in the list.
 
-   .. figure:: img/launchami.png
+   .. figure:: img/subscription-ready.png
 
-      *Launching an AMI instance*
+      OpenGeo Suite in the software list
 
-#. A dialog box will display asking for details. Ensure that the :guilabel:`Launch Instances` section is selected, but you should not need to change any settings here. Click :guilabel:`Continue`.
+#. Click the plus icon to expand the options.
 
-   .. figure:: img/requestinstance-instancetype.png
+   .. figure:: img/subscription-expanded.png
 
-      *Launching an instance*
+      Expanded options
 
-#. On the next page (Advanced Instance Options), leave the default settings as is and click :guilabel:`Continue`.
-
-   .. figure:: img/requestinstance-advanced.png
-
-      *Advanced instance options*
-
-#. The next page allows you to configure the storage device for the instance. You can add EBS volume, instance store volumes, or edit th settings of the root volume. If you don't know what to do in this step or wish to leave the defaults, click :guilabel:`Continue`.
-
-   .. figure:: img/requestinstance-storage.png
-
-      *Storage device configuration*
-
-#. The next page allows for the creation of tags for organizational purposes. This step is optional. Click :guilabel:`Continue`.
-
-   .. figure:: img/requestinstance-tags.png
-
-      *Tag creation page*
-
-#. You will be asked to create a key pair. This is used to be able to connect securely (via SSH) to the instance after it launches. Enter a name for your key pair, then download it to your local machine, keeping it in a safe place. When done, click :guilabel:`Continue`.
-
-   .. warning:: Save this key pair! Keys cannot be generated or retrieved at a later time. If you have any plans to connect via SSH or SCP on this instance in the future—and you almost certainly will want to—you will want to have a key pair already generated.
-
-   .. figure:: img/requestinstance-keypair.png
-
-      *Creating a keypair*
-
-#. In order to open the proper ports for accessing the OpenGeo Suite, it is necessary to create a security group. From this page, Click :guilabel:`Create a New Security Group`.
-
-   .. figure:: img/requestinstance-security.png
-
-      *Security Group page*
-
-   .. figure:: img/requestinstance-newsecgroup.png
-
-      *New Security Group page*
-
-#. On the New Security Group page, enter a :guilabel:`Group Name` and :guilabel:`Group Description` ("Ports"  is fine). Create the following new rules by entering in the information and clicking :guilabel:`Add Rule` after each entry.
-
-   .. list-table::
-      :header-rows: 1
-
-      * - Rule name
-        - Port range
-        - Source
-        - Usage
-      * - HTTP
-        - **80 (HTTP)**
-        - ``0.0.0.0/0``
-        - Default port for web server
-      * - Custom TCP rule
-        - **8080**
-        - ``0.0.0.0/0``
-        - Default port for web applications
-      * - SSH
-        - **22**
-        - ``0.0.0.0/0``
-        - Required for SSH access
-
-   You may add other rules as desired. When finished click :guilabel:`Continue`.
-
-   .. figure:: img/requestinstance-newsecgroupfinal.png
-
-      *Creating a new Security Group*
-
-#. Verify that all of the settings are correct then click :guilabel:`Launch`.
-
-   .. figure:: img/requestinstance-review.png
-
-      *Reviewing settings*
-
-#. Now :guilabel:`Close` out of the dialog box and click the :guilabel:`Instances` link on the left hand column. You should see your instance in the process of being generated (with a State of :guilabel:`Pending`).
-
-   .. figure:: img/instancepending.png
-
-      *New instance pending*
-
-#. When the instance is fully generated, its State will change to :guilabel:`Running` and its icon will turn from yellow to green. Click it to see the instance details. 
-
-   .. figure:: img/instancedetails.png
-
-      *Instance details*
-
-#. Note the :guilabel:`Public DNS` entry. Use this to connect to the OpenGeo Suite Dashboard and begin using the OpenGeo Suite. In a new browser window, type the following URL:
-
-   .. code-block:: console
-
-      http://<Public DNS>:8080/dashboard/
-
-   For example:
-
-   .. code-block:: console
-
-      http://ec2-23-20-179-35.compute-1.amazonaws.com:8080/dashboard/
-
-   This will launch the Dashboard.
-
-   .. figure:: img/dashboard.png
-
-      *OpenGeo Suite Dashboard, showing a successful installation*
-
-You are now set up and ready to go!
+#. Finally, click :guilabel:`Access Software` to access the OpenGeo Suite Dashboard. If the Dashboard loads successfully, your instance is up and running. Take note of the DNS entry as it pertains to SSH access.
 
 SSH access
 ----------
 
-.. note:: This step requires that port 22 was opened in the Security Group created during the launching of your instance and that a key pair was generated.
+SSH access requires that port 22 was opened as part of the Security Group created during the launching of your instance. The default security group, if used, will contain this setting.
+
+A keypair must also have been generated and linked to the instance.
 
 Linux / Mac OS X
 ~~~~~~~~~~~~~~~~
@@ -291,7 +195,7 @@ You may connect to this instance via SSH using the ``ssh`` command:
 
 .. code-block:: console
 
-   ssh -i yourkey.pem ubuntu@<Public DNS>
+   ssh -i yourkey.pem ubuntu@<Public_DNS>
 
 For example:
 
@@ -320,7 +224,7 @@ To connect with PuTTY using the command line:
 
 .. code-block:: console
 
-   putty -i yourkey.ppk -ssh ubuntu@<Public DNS>
+   putty -i yourkey.ppk -ssh ubuntu@<Public_DNS>
 
 For example:
 
@@ -333,7 +237,7 @@ where :file:`yourkey.ppk` is the name of the key file created by PuTTYgen.
 PostGIS
 -------
 
-In the OpenGeo Suite Cloud Edition, there is no web-based access to PostGIS. (This is why the links to PostGIS show up as disabled in the Dashboard.)  There are two ways to connect to manage PostGIS:
+There is no web-based access to PostGIS, but there are two ways to connect to manage PostGIS:
 
 * Using the command-line utility ``psql`` via SSH.
 * Using a local copy of ``pgAdmin III`` via an SSH tunnel.
@@ -341,28 +245,29 @@ In the OpenGeo Suite Cloud Edition, there is no web-based access to PostGIS. (Th
 Starting/stopping services
 --------------------------
 
-There are two system services used in the OpenGeo Suite:  **Apache Tomcat** (for GeoServer and all other webapps) and **PostgreSQL** (for PostGIS). While these services are started by default when the instance is instantiated, here are the commands to stop and start these services should it become necessary:
+.. todo:: Not verified as part of AWS Marketplace
 
-For PostGIS:
+OpenGeo Suite uses two system services:  **Apache Tomcat** (for GeoServer and all other webapps) and **PostgreSQL** (for PostGIS). While all services are running by default when the instance is initialized, here are the commands to stop and start these services should it become necessary:
 
-.. code-block:: console
-
-   service postgresql-8.4 stop
-   service postgresql-8.4 start
 
 For Tomcat:
 
 .. code-block:: console
 
-   service tomcat5 stop
-   service tomcat5 start
+   service tomcat6 stop
+   service tomcat6 start
+
+For PostGIS:
+
+.. code-block:: console
+
+   service postgresql stop
+   service postgresql start
 
 For more information
 --------------------
 
 Full documentation is available at the following URL from your instance::
 
-  http://<Public DNS>:8080/opengeo-docs/
-
-Please `contact OpenGeo <http://opengeo.org/about/contact/>`_ for more information.
+  http://<Public_DNS>:8080/opengeo-docs/
 
