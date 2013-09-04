@@ -95,10 +95,10 @@ Querying the ``geometry_columns`` view will confirm the incorrect registration o
 
 ::
 
-   |f_table_name | f_geometry_column | srid | type     |
-   +-------------+-------------------+------+----------+
-   | vw_mytable  | geom              | 0    | GEOMETRY |  
-   +-------------+-------------------+------+----------+ 
+   f_table_name | f_geometry_column | srid | type     
+   -------------+-------------------+------+----------
+    vw_mytable  | geom              | 0    | GEOMETRY   
+   -------------+-------------------+------+----------
 
 
 To register the geometry column with PostGIS 2.0+, you must convert, or cast, the geometry to be typmod-based:
@@ -130,10 +130,10 @@ Querying the ``geometry_columns`` view again will report the update.
 ::
 
 
-   |f_table_name | f_geometry_column | srid  | type     |
-   +-------------+-------------------+-------+----------+
-   | vw_mytable  | geom              | 3395  | GEOMETRY |   
-   +-------------+-------------------+-------+----------+
+   f_table_name | f_geometry_column | srid  | type     
+   -------------+-------------------+-------+----------
+    vw_mytable  | geom              | 3395  | GEOMETRY   
+   -------------+-------------------+-------+----------
 
 The geometry column is now correctly registered.
 

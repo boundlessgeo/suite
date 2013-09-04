@@ -90,7 +90,7 @@ A shorter form of the same query would be:
 Both queries return 1.73205080756888 == sqrt(3).
     
 
-N-D Indexes
+N-D indexes
 -----------
 
 Once your data is stored in higher dimensions it may make sense to index it. However, you should think carefully about the distribution of your data in all dimensions before applying a multi-dimensional index. 

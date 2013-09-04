@@ -118,10 +118,10 @@ The information in ``raster_overviews`` does not duplicate the information in ``
 
 .. code-block:: console
 
-   | o_table_name  | r_table_name    | srid | blocksize_x | blocksize_y | num_bands | 
-   +---------------+-----------------+------+-------------+-------------+-----------+
-   | o_3_mytable   | o_3_mytable     | 4326 | 1155        |  1106       | 3         | 
-   +---------------+-----------------+------+-------------+-------------+-----------+  
+    o_table_name  | r_table_name    | srid | blocksize_x | blocksize_y | num_bands 
+   ---------------+-----------------+------+-------------+-------------+-----------
+    o_3_mytable   | o_3_mytable     | 4326 | 1155        |  1106       | 3         
+   ---------------+-----------------+------+-------------+-------------+-----------  
 
 
 .. note:: The performance of raster data analysis is sensitive to tile sizes, so you may need to experiment with the optimum tile size settings for your data. 

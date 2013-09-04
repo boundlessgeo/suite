@@ -156,7 +156,7 @@ There are only a small number of native functions for the geography type:
    For example, the :command:`ST_Buffer(geography,distance)` function transforms the geography object into a "best" projection, buffers it, and then transforms it back to geographics. If there is no "best" projection (the object is too large), the operation can fail or return a malformed buffer.
 
 
-Creating a Geography Table
+Creating a geography table
 --------------------------
  
 The :term:`SQL` for creating a new table with a geography column is similar to creating a table with a geometry column. The following example will create a new geography table for point data:
@@ -199,7 +199,7 @@ On completion, all geography fields are automatically registered in the ``geogra
    * ``type``—Type of geography (such as ``point`` or ``linestring``)
 
 
-Casting to Geometry
+Casting to geometry
 -------------------
 
 While the basic functions for geography types can handle many use cases, there may be occasions when you need access to other functions only supported by the geometry type. To support this, you can convert objects back and forth from geography to geometry.
@@ -226,7 +226,7 @@ By appending ``::geometry`` to the geography value, the object is converted to a
     As the object is now a geometry, the coordinates will be interpreted as Cartesian coordinates, not spherical ones.
  
  
-When Not To Use Geography
+When not to use geography
 -------------------------
 
 Although geographic coordinates (latitude/longitude) are universally accepted, it may not always be appropriate to use them for a number of reasons, including:
