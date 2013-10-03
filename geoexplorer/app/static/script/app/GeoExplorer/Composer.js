@@ -71,6 +71,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 uploadSource: "local",
                 postUploadAction: {
                     plugin: "styler"
+                },
+                catalogSourceKey: "local",
+                search: {
+                    selectedSource: "csw"
                 }
             }, {
                 ptype: "gxp_removelayer",
