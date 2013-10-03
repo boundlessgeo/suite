@@ -58,7 +58,7 @@ You can check the server status or open the docs from the GeoServer menu.
 CLI tools
 ~~~~~~~~~
 
-The CLI tools installs some useful tools into ``/usr/local/opengeo``. To use these utilities, open ``~/.profile`` in a text editor and add ``PATH=$PATH/usr/local/opengeo/bin``. Alternately, run ``/usr/local/opengeo/bin/opengeo-clitools-doctor`` which will symlink everything to /usr/local/bin, though this may cause problems with some self-installed tools.
+The CLI tools installs some useful tools into ``/usr/local/opengeo``. To use these utilities, open ``~/.profile`` in a text editor and add ``PATH=$PATH:/usr/local/opengeo/bin``. Alternately, run ``/usr/local/opengeo/bin/opengeo-clitools-doctor`` which will symlink everything to /usr/local/bin, though this may cause problems with some self-installed tools.
 
 .. figure:: img/clitools.png
 
