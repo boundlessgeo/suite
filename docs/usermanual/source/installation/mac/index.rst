@@ -19,13 +19,13 @@ OpenGeo Suite has the following system requirements:
 New Installation
 ----------------
 
-Open ``OpenGeoSuite.dmg``. There are two applications (plus two more in the PostGIS Utilities folder), GeoServer.app and PostGIS.app. These can be run from anywhere, but should probably be copied to ``/Applications``.
+Open ``OpenGeoSuite.dmg``. There are two applications (plus two more in the PostGIS Utilities folder), ``GeoServer`` and ``PostGIS``. These can be run from anywhere, but should probably be copied to ``/Applications``.
 
 .. figure:: img/apps.png
 
    OpenGeo Suite apps
 
-Double click ``PostGIS.app`` to start the PostgreSQL server. You will see a "Welcome" window the first time the application is launched.
+Double click ``PostGIS`` to start the PostgreSQL server. You will see a "Welcome" window the first time the application is launched.
 
 .. figure:: img/pgwelcome.png
 
@@ -37,7 +37,7 @@ You can check the server status, start psql, or open the docs from the PostGIS m
 
    PostGIS menu
 
-Double click GeoServer.app. You will see a similar "Welcome" window upon first startup. It will show a progress bar as the server is initialized.
+Double click ``GeoServer``. You will see a similar "Welcome" window upon first startup. It will show a progress bar as the server is initialized.
 
 .. figure:: img/gsstarting.png
 
@@ -58,7 +58,7 @@ You can check the server status or open the docs from the GeoServer menu.
 CLI tools
 ~~~~~~~~~
 
-The CLI tools installs some useful tools into ``/usr/local/opengeo``. To use these utilities, open ``~/.profile`` in a text editor and add ``PATH=$PATH/usr/local/opengeo/bin``. Alternately, run ``/usr/local/opengeo/bin/opengeo-clitools-doctor`` which will symlink everything to /usr/local/bin, though this may cause problems with some self-installed tools.
+The CLI tools installs some useful tools into ``/usr/local/opengeo``. To use these utilities, open ``~/.profile`` in a text editor and add ``PATH=$PATH:/usr/local/opengeo/bin``. Alternately, run ``/usr/local/opengeo/bin/opengeo-clitools-doctor`` which will symlink everything to /usr/local/bin, though this may cause problems with some self-installed tools.
 
 .. figure:: img/clitools.png
 
