@@ -13,3 +13,4 @@ This section will discuss how to manage OpenGeo Suite deployments, including ser
    backup
    virtualservices/index
    caching/index
+   clustering/index
