@@ -1,4 +1,4 @@
-.. _sysadmin.clustering.config:
+.. _sysadmin.clustering.params:
 
 Clustering configuration parameters
 ===================================
@@ -17,6 +17,7 @@ jdbcconfig.properties
 This configuration file, in Java properties format, affects settings related to the database that will hold the GeoServer data directory.
 
 .. list-table::
+   :widths: 20 80
    :header-rows: 1
 
    * - Parameter
@@ -58,6 +59,7 @@ clustering.properties
 This configuration file, in Java properties format, affects settings related to the clustering of GeoServer instances.
 
 .. list-table::
+   :widths: 20 80
    :header-rows: 1
 
    * - Parameter
@@ -65,13 +67,13 @@ This configuration file, in Java properties format, affects settings related to 
    * - ``enabled``
      - If ``true`` will enable clustering.
    * - ``sync_method``
-     - Determines the method of synchronizing changes to the catalogs. Options are: ``reload``, which will collapse all synchronization events and reload the entire catalog and configuration; ``event``, which will notify system of each individual catalog or configuration object updated via event callbacks. BE CLEARER?
+     - Determines the method of synchronizing changes to the catalogs. Options are: ``reload``, which will reload the entire catalog and configuration; ``event``, which will more granularly expire specific relevant portions of the catalog.
    * - ``sync_delay``
-     - Time in seconds to delay before performing synchronization. This setting can be changed without a restart.
+     - Time in seconds to delay before performing synchronization. Only used when ``sync_method`` is set to ``reload``, otherwise should be set to ``0``. This setting can be changed without a restart. 
    * - ``session_sharing``
-     - If ``true`` will enable session sharing. WHAT IS SESSION SHARING?
+     - If ``true`` will enable session sharing.
    * - ``session_sticky``
-     - Load Balancer provides sticky sessions. UNCLEAR?
+     - Some load balancers provide support for "sticky sessions," the ability to direct a session automatically to the same node. If the load balancer supports this, and this parameter is set to ``true``, the clustering extension will be more efficient, as it will let the load balancer handle the session events. 
   
 hazelcast.xml
 -------------
@@ -108,19 +110,57 @@ Here is a template configuration file:
 where:
 
 .. list-table::
+   :widths: 20 80
    :header-rows: 1
+
 
    * - Parameter
      - Description
    * - ``CLUSTER_NAME``
      - Name of the cluster group. All nodes must share this name in order to be considered part of the group.
    * - ``CLUSTER_PASSWORD``
-     - Password for the cluster group. WHERE IS THIS DETERMINED?
+     - Password for the cluster group.
    * - ``INSTANCE_NAME``
-     - DON'T KNOW. SOMETHING ABOUT web.xml?
+     - Used to distinguish from multiple Hazelcast instances in the same JVM, if present. Typically, this setting will not need to be altered.
    * - ``PORT``
-     - Port on which the catalog changes will be broadcast.
+     - Port that Hazelcast uses.
    * - ``MULTICAST_IP``
-     - IP address for the multicast server. UNCLEAR?
+     - Address for the multicast server. Typically this setting will not need to be changed.
    * - ``MULTICAST_PORT``
-     - Port on which the multicast server information is broadcast. UNCLEAR?
+     - Port on which the multicast server operated. Typically this setting will not need to be changed.
+
+If your setup does not support multcast, your configuration file will look like this:
+
+.. code-block:: xml
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-2.3.xsd"
+               xmlns="http://www.hazelcast.com/schema/config"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <group>
+        <name>CLUSTER_NAME</name>
+        <password>CLUSTER_PASSWORD</password>
+      </group>
+      
+      <instanceName>INSTANCE_NAME</instanceName>
+
+      <network>
+        <port auto-increment="true">PORT</port>
+        <join>
+          <multicast enabled="true">
+            <multicast-group>MULTICAST_IP</multicast-group>
+            <multicast-port>MULTICAST_PORT</multicast-port>
+          </multicast>
+          <tcp-ip enabled="true">
+            <interface>IP1</interface>     
+            <interface>IP2</interface> 
+          </tcp-ip>
+
+        </join>
+      </network>
+
+    </hazelcast>
+
+where ``IP1`` and ``IP2`` are individual IP addresses of the nodes in the cluster.
+
+For more information about configuring Hazelcast, please see the `Hazelcast documentation <http://www.hazelcast.com/docs/2.3/manual/multi_html/>`_. The default settings should suffice for most users.

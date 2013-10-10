@@ -11,4 +11,4 @@ This section will discuss how to use the clustering extension for GeoServer in O
    background
    install
    setup
-   config
+   params

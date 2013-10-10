@@ -3,28 +3,30 @@
 Setting up the clustering extension
 ===================================
 
-Upon installation of the clustering extension, no actions will take place, so GeoServer will still be using the original file-based data directory. In order to make use of the clustering extension, some configuration files will need to be edited and GeoServer restarted.
+Upon installation of the clustering extension, GeoServer will still be using the original file-based data directory. In order to make use of the clustering extension, some configuration files will need to be edited and GeoServer restarted.
 
-
-.. note:: Configuration of the clustering extension, as it involves changes to the data directory, must be done through configuration files. It cannot be done through the UI.
-
-.. note:: It is also not possible to use the REST API to configure the clustering extension.
-
+.. note:: Configuration of the clustering extension, as it involves changes to the data directory, must be done through configuration files. It cannot be done through the UI. It is also not possible to use the REST API to configure the clustering extension.
 
 The following process will detail how to set up an initial cluster. The specific network details will change depending on your system.
+
+.. note:: This setup assumes that a load balancer (such as `HAProxy <http://haproxy.1wt.eu/>`_ will be employed in front of GeoServer. The details of the configuration of the load balancer are beyond the scope of this documentation.
 
 Database setup
 --------------
 
+.. warning:: Setting up a database for the data directory is a **one-way process**. It is not currently possible to export the configuration back to a file-based data directory.
+
 To set up the shared database that will contain the data directory:
 
-#. Create a database and a role able to create tables in that database. PostgreSQL, Oracle, MySQL, SQL Server, and H2 are supported.
+#. Create a database, as well as a role able to create tables in that database. PostgreSQL, Oracle, MySQL, SQL Server, and H2 are all supported.
 
-#. Install GeoServer if it is not already installed, but make sure it is not running. The data directory associated with this instance will be the one that is ingested into the database.
+#. Install GeoServer, if it is not already installed, but make sure it is not running. The data directory associated with this instance will be the one that is ingested into the database.
+
+   .. warning:: Make sure you have set the data directory to be external to the GeoServer installation, in a shared location that all GeoServer instances will be able to access.
 
 #. Open the file :file:`<data_dir>/jdbcconfig/jdbcconfig.properties` in a text editor, where ``<data_dir>`` is the location of the current file-based data directory.
 
-#. Replace the the lines::
+#. Replace the lines::
 
      initdb=false
      import=false
@@ -34,9 +36,7 @@ To set up the shared database that will contain the data directory:
      initdb=true
      import=true
      
-#. Set the connection information for the database created earlier.
-
-   .. todo:: what lines are this?
+#. Set the connection information for the database created earlier. The specific of these parameters will depend on the choice of database used, as well as whether you are using JDBC or JNDI. See the :ref:`sysadmin.clustering.params` for more details on the options available.
 
 #. Save and close this file.
 
@@ -47,23 +47,13 @@ Broadcasting setup
 
 #. Replace the lines::
 
-     sync_mode=SOMETHING
-     sync_delay=SOMETHING
+     sync_mode=reload
+     sync_delay=5
 
    with the lines::
 
      sync_mode=event
      sync_delay=0
-
-   .. todo:: WHY DO WE NEED TO DO THIS?
-
-#. Save and close this file.
-
-#. Open the file :file:`<data_dir>/cluster/hazelcast.xml` in a text editor.
-
-#. Edit SOMETHING.
-
-   .. todo:: WHAT?
 
 #. Save and close this file.
 
@@ -72,38 +62,82 @@ Verification
 
 #. Start GeoServer and log in as an administrator to the web interface.
 
-#. Verify that clustering extension is working. HOW?
+#. If clustering extension is working, you will see two messages on the Welcome page: one about JDBCConfig and the other about clustering.
 
    .. todo:: Screenshot needed.
 
-             Confirm that the JDBC message lists the correct JDBC URL.
-             Confirm that the layers, stores, and other catalog objects have been imported correctly.
+#. Confirm that the JDBC message lists the correct JDBC URL. Also confirm that the layers, stores, and other catalog objects have been imported correctly by viewing the list and them in the Layer Preview.
 
 Other nodes
 -----------
 
-To configure the other GeoServer nodes, perform the following steps on each of them:
+To configure the other GeoServer nodes, perform the following steps on each:
 
 #. Install GeoServer with the clustering extension. Make sure that it is responding on the same subnet as the initial GeoServer.
 
-   .. note:: CORRECT TERMINOLOGY?
+   .. note:: Alternately, you can convert the edited GeoServer instance to a WAR and then deploy it.
 
-#. Copy the files edited in the previous sections to the new GeoServer, overwriting the existing ones::
+#. Point the new GeoServer instance to the shared data directory.
 
-     <data_dir>/jdbcconfig/jdbcconfig.properties
-     <data_dir>/cluster/cluster.properties
-     <data_dir>/cluster/hazelcast.xml
+#. Restart the new GeoServer. Verify that the extension is working properly and that the node is reading the shared data directory.
 
-#. Start GeoServer. Verify that the extension is working properly and that the node is reading the shared data directory.
+Session sharing
+---------------
+
+*(Optional but recommended)* HTTP session sharing is not enabled by default. To enable session sharing:
+
+#. Open the file :file:`<webapps>/geoserver/web.xml` in a text editor.
+
+#. Add this block of text as the first ``filter`` in the file.
+
+   .. warning:: The order is very important here. This must come first. 
+
+   .. code-block:: xml
+
+      <filter>
+        <filter-name>hazelcast</filter-name>
+        <filter-class>org.geoserver.cluster.hazelcast.web.HzSessionShareFilter</filter-class>
+      </filter>
+
+#. Add the following block of text as the very first ``filter-mapping`` in the file.
+
+   .. warning:: Again, the order is very important.
+
+   .. code-block:: xml
+
+      <filter-mapping>
+        <filter-name>hazelcast</filter-name>
+        <url-pattern>/*</url-pattern>
+      </filter-mapping>
+
+#. Add the following block of text in the ``listener`` section. The order is not important here.
+
+   .. code-block:: xml
+
+    <!-- hazelcast session listener -->
+    <listener>
+      <listener-class>org.geoserver.cluster.hazelcast.web.HzSessionShareListener</listener-class>
+    </listener>
+
+#. Restart GeoServer.
+
+Repeat this for each GeoServer in the cluster.
+
 
 Final verification
 ------------------
 
-To verify that the cluster is set up correctly:
+To verify that the cluster is set up correctly, perform the following steps:
 
-#. Make a change to the catalog on one GeoServer (for example, by adding a layer or editing a layer property)
+#. If you enabled session sharing, log in to the first instance GeoServer, and then connect to the second and verify that you are logged in with the same credentials on both instances.
 
-#. Now move to another GeoServer and verify that the change has propagated.
+#. On the first instance, view a layer (through the Layer Preview).
 
-#. Repeat this process for all GeoServers to make sure that a change on one node is propagated to all other nodes.
+#. On the second instance, make a change to the layer that will affect its visualization. Save this change.
+
+#. Verify that the change has propagated back to the first instance.
+
+   .. note:: Perform this step quickly so as to ensure that it is the clustering extension that is working as expected, and not just as a result of cache expiration.
+
+Repeat these steps for each pair of GeoServers in the cluster.
 
