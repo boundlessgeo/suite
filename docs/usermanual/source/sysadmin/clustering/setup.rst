@@ -36,7 +36,7 @@ To set up the shared database that will contain the data directory:
      initdb=true
      import=true
      
-#. Set the connection information for the database created earlier. The specific of these parameters will depend on the choice of database used, as well as whether you are using JDBC or JNDI. See the :ref:`sysadmin.clustering.params` for more details on the options available.
+#. Set the connection information for the database created earlier. The specifics of these parameters will depend on the choice of database used, as well as whether you are using JNDI. See the :ref:`sysadmin.clustering.params` for more details on the options available.
 
 #. Save and close this file.
 
@@ -86,7 +86,7 @@ Session sharing
 
 *(Optional but recommended)* HTTP session sharing is not enabled by default. To enable session sharing:
 
-#. Open the file :file:`<webapps>/geoserver/web.xml` in a text editor.
+#. Open the file :file:`<webapps>/geoserver/WEB-INF/web.xml` in a text editor.
 
 #. Add this block of text as the first ``filter`` in the file.
 
@@ -129,15 +129,15 @@ Final verification
 
 To verify that the cluster is set up correctly, perform the following steps:
 
-#. If you enabled session sharing, log in to the first instance GeoServer, and then connect to the second and verify that you are logged in with the same credentials on both instances.
+#. If you enabled session sharing, log in to GeoServer through the load balancer, shut down the node that handled the login request, then make subsequent requests and verify that you are still logged in.
 
 #. On the first instance, view a layer (through the Layer Preview).
 
-#. On the second instance, make a change to the layer that will affect its visualization. Save this change.
+#. On the second instance, make a change to the layer, such as one that will affect its visualization or metadata (Title or Abstract). Save this change.
 
 #. Verify that the change has propagated back to the first instance.
 
    .. note:: Perform this step quickly so as to ensure that it is the clustering extension that is working as expected, and not just as a result of cache expiration.
 
-Repeat these steps for each pair of GeoServers in the cluster.
+Repeat these steps for other instances until all nodes in the cluster have been tested against one other node.
 

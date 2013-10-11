@@ -15,7 +15,7 @@ Clustering challenges
 
 To create a cluster with a common configuration, several instances of GeoServer can use a common data directory. However, setting up a cluster based on the standard deployment of GeoServer can be challenging for a number of reasons.
 
-#. **The GeoServer data directory is file-based.** Having multiple GeoServer all interacting with a file-based system can lead to corruption and permissions issues. Also, changes written from one server might not be picked up by other instances due to in-memory caching.
+#. **The GeoServer data directory is file-based.** Having multiple GeoServers all interacting with a file-based system can lead to corruption and permissions issues. Also, changes written from one server might not be picked up by other instances due to in-memory caching.
 
 #. **Setting up the cluster is a manual process.** There is nothing built-in to GeoServer to make it aware of other clustered instances.
 

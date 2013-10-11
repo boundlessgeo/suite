@@ -147,7 +147,7 @@ If your setup does not support multcast, your configuration file will look like 
       <network>
         <port auto-increment="true">PORT</port>
         <join>
-          <multicast enabled="true">
+          <multicast enabled="false">
             <multicast-group>MULTICAST_IP</multicast-group>
             <multicast-port>MULTICAST_PORT</multicast-port>
           </multicast>
