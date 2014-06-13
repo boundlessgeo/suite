@@ -157,6 +157,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.phasebash</groupId>
+                <artifactId>jsdoc3-maven-plugin</artifactId>
+                <version>1.0.7</version>
+                <configuration>
+                    <recursive>true</recursive>
+                    <directoryRoots>
+                        <directoryRoot>${basedir}/src/main/resources/client/ol3-common/ol3-components/js</directoryRoot>
+                    </directoryRoots>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>apidoc</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>jsdoc3</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
