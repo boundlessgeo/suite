@@ -114,6 +114,8 @@ div[class^='highlight'] pre
   .community_logo
     display: inline-block
     padding-left: 15px
+    @include media(min-width 320px max-width 480px)
+      padding-left: 0
   .pg_logo a
     background: url("../img/postgis-logo.png") no-repeat
     width: 203px
@@ -126,33 +128,57 @@ div[class^='highlight'] pre
     height: 40px
     display: inline-block
     margin: 1em 0 0
+    @include media(min-width 320px max-width 480px)
+      background-size: 212px 36px
+      width: 212px
+      margin-left: 10px
   .gwc_logo a
     background: url("../img/geowebcache-logo.png") no-repeat
-    width: 308px
+    width: 300px
     height: 40px
     display: inline-block
     margin: 1em 0 0
+    @include media(min-width 320px max-width 480px)
+      background-size: 210px 28px
+      margin-top: 1.4em
+      margin-left: 10px
+      width: 210px
   .sdk_logo a
     background: url("../img/boundlesssdk-logo.png") no-repeat
     width: 322px
     height: 40px
     display: inline-block
     margin: 1em 0 0
+    @include media(min-width 320px max-width 480px)
+      background-size: 225px 28px
+      margin-left: 10px
+      margin-top: 1.5em
+      width: 225px
   .ge_logo a
     background: url("../img/geoexplorer-logo.png") no-repeat
     width: 272px
     height: 40px
     display: inline-block
     margin: 1em 0 0
+    @include media(min-width 320px max-width 480px)
+      background-size: 212px 36px
+      margin-left: 5px
+      margin-top: 1.1em
+      width: 212px
   .ol_logo a
     background: url("../img/openlayers-logo.png") no-repeat
-    width: 263px
+    width: 227px
     height: 40px
     display: inline-block
     margin: 1em 0 0
+    @include media(min-width 320px max-width 480px)
+      background-size: 204px 36px
+      margin-left: 10px
+      margin-top: 1.3em
+      width: 204px
   .qgis_logo a
     background: url("../img/qgis-logo.png") no-repeat
-    width: 263px
+    width: 144px
     height: 40px
     display: inline-block
     margin: 1em 0 0
@@ -162,27 +188,54 @@ div[class^='highlight'] pre
     .suite_logo a
       background: url("../img/opengeo-logo@2x.png") no-repeat
       background-size: 304px 40px
+      @include media(min-width 320px max-width 480px)
+        margin-left: 5px
     .pg_logo a
       background: url("../img/postgis-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 203px 40px
     .gs_logo a
       background: url("../img/geoserver-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 235px 40px
+      @include media(min-width 320px max-width 480px)
+        background-size: 212px 36px
+        margin-top: 1.1em
+        margin-left: 10px
+        width: 212px
     .gwc_logo a
       background: url("../img/geowebcache-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 300px 40px
+      @include media(min-width 320px max-width 480px)
+        background-size: 210px 28px
+        margin-top: 1.6em
+        margin-left: 10px
+        width: 210px
     .sdk_logo a
       background: url("../img/boundlesssdk-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 322px 40px
+      @include media(min-width 320px max-width 480px)
+        background-size: 225px 28px
+        margin-left: 5px
+        margin-top: 1.4em
+        width: 225px
     .ol_logo a
       background: url("../img/openlayers-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 227px 40px
+      @include media(min-width 320px max-width 480px)
+        background-size: 204px 36px
+        margin-left: 10px
+        margin-top: 1.3em
+        width: 204px
     .ge_logo a
       background: url("../img/geoexplorer-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 236px 40px
+      @include media(min-width 320px max-width 480px)
+        background-size: 212px 36px
+        margin-top: 1.1em
+        margin-left: 5px
+        width: 212px
     .qgis_logo a
       background: url("../img/qgis-logo@2x.png") no-repeat
-      background-size: 304px 40px
+      background-size: 144px 40px
 
 
   .component_version_info
@@ -391,3 +444,5 @@ footer
   width: 1000px
   z-index: inherit
 
+ul.search li img
+  width: auto !important

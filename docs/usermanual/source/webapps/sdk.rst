@@ -40,8 +40,8 @@ Customizing the application
 
 The method of customizing the application depends on which template is used.
 
-* If using the ``gxp`` template, please see the 
-
+* If using the ``gxp`` template, please see the section on :ref:`webapps.gxp`.
+* If using the ``ol3view`` or ``ol3edit`` templates, please see the section on :ref:`webapps.ol3.templates`.
 
 .. _webapps.sdk.debug:
 
@@ -58,7 +58,7 @@ This server will publish the :file:`myapp` application at ``http://localhost:908
 
 .. todo:: Add image.
 
-.. note::  Type ``suite-sdk deploy --help`` to see a full list of possible arguments.
+.. note::  Type ``suite-sdk debug --help`` to see a full list of possible arguments.
 
 Press :command:`Ctrl-C` in the terminal window to shut down the server.
 

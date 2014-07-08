@@ -95,6 +95,8 @@
         <arg path="${war.src}/WEB-INF/app/static/script"/>
         <arg path="buildjs.cfg"/>
       </java>
+
+      <jar destfile="target/geoexplorer.war" basedir="${war.src}"/>
   </target>
 
   <target name="clean" depends="destroy"

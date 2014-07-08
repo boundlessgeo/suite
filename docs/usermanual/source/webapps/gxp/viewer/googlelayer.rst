@@ -7,9 +7,9 @@ This section describes how to add the ability to add a Google Maps layer to the 
 
 .. warning:: Before adding Google components to your applications, make sure that the `Google Terms of Use <https://developers.google.com/terms/>`_ allow you to do so.
 
-Navigate to the :file:`src/app/app.js` in the :file:`myviewer` directory. Open up this file in a text editor. In the `API documentation <../../../sdk-api/>`_, find the `gxp.plugins.GoogleSource <../../../sdk-api/lib/plugins/GoogleSource.html>`_ tool. This provides the base Google Maps functionality.
+Navigate to the :file:`src/app/app.js` in the :file:`myviewer` directory. Open up this file in a text editor. In the `API documentation <../../../sdk-api/>`_, find `gxp.plugins.GoogleSource <../../../sdk-api/lib/plugins/GoogleSource.html>`_. This provides the base Google Maps functionality.
 
-The ``ptype`` for ``gxp.plugins.GoogleSource`` is ``gxp_googlesource``. Open up :file:`app.js`, and configure this tool:
+The ``ptype`` for ``gxp.plugins.GoogleSource`` is ``gxp_googlesource``. Open up :file:`app.js`, and configure this source:
 
 .. code-block:: javascript
 

@@ -49,7 +49,7 @@ copyright = u'2014 Boundless, CC BY-SA 3.0'
 #version = '3'
 
 # The full version, including alpha/beta/rc tags.
-#release = '2.13.1' 
+#release = '2.13.1'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -99,7 +99,7 @@ html_theme_path = ['../../themes']
 # documentation.
 html_theme_options = {
   #'sticky_navigation' : True  # Set to False to disable the sticky nav while scrolling.
-  'is_community': False, # Community Docs flag for Suite component docs
+  'is_community': True, # Community Docs flag for Suite component docs
   'display_zendesk': False, # Display link to report doc bugs to Suite Zendesk
   'display_version': True,  # Whether to show version number
   'suite_url': 'qgis' # the url path within Suite e.g. sdk-api for opengeo-docs/sdk-api
@@ -108,7 +108,7 @@ html_theme_options = {
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = project 
+html_title = project
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 html_short_title = "QGIS"

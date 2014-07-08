@@ -44,7 +44,7 @@ Creating a basic plugin
 
    .. note:: This example sets a namespace for the plugin called "myapp", but this can be changed, so long as any new namespace is used consistently throughout. In addition, we recommend you include a prefix on the name of the ptype that matches the namespace, but this is not required.
 
-   .. note:: Find out more about the `Tool.js plugin <../../sdk-api/lib/plugins/Tool.html>`_ in the SDK API.
+   .. note:: Find out more about the `Tool.js plugin <../../../sdk-api/lib/plugins/Tool.html>`_ in the SDK API.
 
 
 Connect plugin to application

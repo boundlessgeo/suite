@@ -54,7 +54,7 @@
      <antcall target="mvn">
         <param name="dir" value="${gs-exts.dir}"/>
         <param name="flags" value="-DskipTests -Dgs.version=${gs.version} -Dgt.version=${gt.version} ${gs-exts.flags}"/>
-        <param name="goals" value="clean install"/>
+        <param name="goals" value="clean install assembly:attached"/>
      </antcall>
    </target>
 
