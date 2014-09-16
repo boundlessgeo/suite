@@ -18,20 +18,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" collapse="navCollapsed" id="collapse-items">
       <ul class="nav navbar-nav">
-        <li ng-if="session.active">
-          <a href="/geoserver/web/" target="_blank">Admin</a>
-        </li>
+        <li><a href="http://suite.opengeo.org" target="_blank">Help</a></li>
         <li>
-          <a href="http://suite.opengeo.org" target="_blank">Help</a>
-        </li>
-        <li ng-if="session.active" class="user dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown-user">
-            <span>{{ session.user }}</span> <span class="caret"></span>
-          </a>
-          <ul id="dropdown-user" class="dropdown-menu" role="menu">
-            <li ng-if="session.active"><a ui-sref="#" ng-click="logout()">Logout</a></li>
-          </ul>
-        </li>
+            <div class="input-group">
+              <input type="text" placeholder="Search Documentation" style="margin-top: 15px;" size="30" />
+            </div>
+         </li>
+         <li ng-if="session.active">
+           <a ui-sref="#" ng-click="logout()">Logout</a>
+         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
