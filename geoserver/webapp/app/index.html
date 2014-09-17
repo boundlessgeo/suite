@@ -1,11 +1,12 @@
+﻿<!doctype html>
 <html lang="en" ng-app="gsApp">
   <head>
-    <base href="/">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8;" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoServer</title>
-    <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico' />
-    <link rel="stylesheet" href="geoserver.css">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="geoserver.css" />
   </head>
   <body ng-controller="AppCtrl">
     <top-nav></top-nav>
@@ -13,8 +14,9 @@
       <div sidenav></div>
       <div ui-view id="page-content-wrapper"></div>
     </div>
-    <script src="ol.js"></script>
-    <script src="codemirror.min.js"></script>
-    <script src="geoserver.min.js"></script>
+
+    <script type="text/javascript" src="ol.js"></script>
+    <script type="text/javascript" src="codemirror.min.js"></script>
+    <script type="text/javascript" src="geoserver.min.js"></script>
   </body>
 </html>
