@@ -3,7 +3,7 @@
     <h3 class="page-title"><i class="icon-lg icon-stack"></i> {{title}}</h3>
 
     <div class="workspace-choice">
-      <span>Select a workspace:</span>
+      <span>Project Workspace:</span>
       <div>
         <ui-select ng-model="workspace.selected"  ng-disabled="disabled"
           ng-change="workspaceChanged($select.selected)" theme="bootstrap"
@@ -16,9 +16,27 @@
           </ui-select-choices>
         </ui-select>
       </div>
+      <span><button type="button" class="btn btn-default" ng-click="onNewLayer()" alt="Add New Layer" title="Add New Layer">+ New Layer</button></span>
     </div>
-
+    <div class="row headerRow">
+      <div class="col-md-8"><h3><strong>{{title}}</strong></h3></div>
+      <div class="col-md-2">
+        <div class="headerImages">
+          <img src="images/icon1.png" alt="Icon 1" title="Icon 1" />
+          <img src="images/icon2.png" alt="Icon 2" title="Icon 2" />
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
     <div class="layers-table" ng-grid="gridOptions">
     </div>
+    <br />
+    <strong>Add to Map: </strong>
+    <select name="newMap">
+        <option value="select">Select...</option>
+        <option value="lirr">LIRR</option>
+        <option value="queens">Queens Bus Map</option>
+        <option value="untitled">LIRR</option>
+    </select>
   </div>
 </div>
