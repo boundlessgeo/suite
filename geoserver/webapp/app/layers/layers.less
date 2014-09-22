@@ -1,13 +1,16 @@
 .layers-table {
-  height: 400px;
-  text-align: center;
-  width: 100%;
+  height: 500px;
+  text-align: left;
+  width: 90%;
 }
 
 .gridStyle {
-  border: 1px solid rgb(212,212,212);
   max-width: 100%;
   width: 100%;
+}
+
+.centerColumn {
+  text-align: center;
 }
 
 .workspace-choice {
@@ -15,10 +18,107 @@
   margin-bottom: 10px;
 
   > span {
-    margin-right: 25px;
+    margin-right: 10px;
   }
   > div {
     display: inline-block;
     width: 50%;
+    margin-right: 10px;
+    vertical-align: top;
   }
+}
+
+.ngGrid {
+  background-color: #ffffff;
+}
+.ngGrid input[type="checkbox"] {
+  margin: 7px 0px 0px 8px;
+  padding: 0px;
+}
+.ngGrid img {
+  margin: 7px 0px 0px 0px;
+  padding: 0px;
+}
+.gridText {
+  vertical-align: bottom;
+  display: inline;
+  margin: 0px 5px 0px 0px;
+}
+a {
+  text-decoration: none !important;
+}
+.noBullet {
+  list-style-type: none;
+}
+#customDropdown {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #FFFFFF;
+  border: 1px solid #c2c2c2;
+  width: 35px;
+  -moz-box-shadow: 5px 5px 5px #888;
+  -webkit-box-shadow: 5px 5px 5px #888;
+  box-shadow: 5px 5px 5px #888;
+  margin: 5px 0px 0px 0px;
+}
+#customDropdown:before {
+  position: absolute;
+  top: -7px;
+  left: 29px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+#customDropdown:after {
+  position: absolute;
+  top: -6px;
+  left: 30px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid transparent;
+  content: '';
+}
+#customDropdown li {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+#customDropdown li a:hover {
+  background-color: #1797d2;
+  color: #FFFFFF;
+}
+.addNewStyle {
+  background-color: #FFFFFF !important;
+  color: #1797d2 !important;
+  border-top: 1px solid #d4d4d4;
+}
+.addNewStyle:hover {
+  background-color: #d4d4d4 !important;
+}
+.ngGrid input {
+  vertical-align: middle;
+}
+.ngCell {
+  overflow: visible;
+}
+.ngVerticalBarVisible {
+  width: 0px;
+}
+.ngTopPanel {
+  background-color: #ffffff;
+}
+.ngHeaderCell {
+  border-bottom: 2px solid #9c9a9a !important;
+}
+.headerRow {
+  margin-top: -20px;
+}
+.headerImages {
+  margin-top: 20px;
+  text-align: right;
 }
