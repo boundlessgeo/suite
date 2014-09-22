@@ -9,10 +9,6 @@
   width: 100%;
 }
 
-.centerColumn {
-  text-align: center;
-}
-
 .workspace-choice {
   width: 50%;
   margin-bottom: 10px;
@@ -39,7 +35,7 @@
   margin: 7px 0px 0px 0px;
   padding: 0px;
 }
-.gridText {
+.grid-text {
   vertical-align: bottom;
   display: inline;
   margin: 0px 5px 0px 0px;
@@ -47,10 +43,7 @@
 a {
   text-decoration: none !important;
 }
-.noBullet {
-  list-style-type: none;
-}
-#customDropdown {
+#download-dropdown, #style-dropdown {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -63,7 +56,7 @@ a {
   box-shadow: 5px 5px 5px #888;
   margin: 5px 0px 0px 0px;
 }
-#customDropdown:before {
+#download-dropdown:before, #style-dropdown:before {
   position: absolute;
   top: -7px;
   left: 29px;
@@ -74,7 +67,7 @@ a {
   border-bottom-color: rgba(0, 0, 0, 0.2);
   content: '';
 }
-#customDropdown:after {
+#download-dropdown:after, #style-dropdown:after {
   position: absolute;
   top: -6px;
   left: 30px;
@@ -84,20 +77,20 @@ a {
   border-left: 6px solid transparent;
   content: '';
 }
-#customDropdown li {
+#download-dropdown li, #style-dropdown li {
   background-color: #FFFFFF;
   color: #000000;
 }
-#customDropdown li a:hover {
+#download-dropdown li a:hover, #style-dropdown li a:hover {
   background-color: #1797d2;
   color: #FFFFFF;
 }
-.addNewStyle {
+.add-new-style {
   background-color: #FFFFFF !important;
   color: #1797d2 !important;
   border-top: 1px solid #d4d4d4;
 }
-.addNewStyle:hover {
+.add-new-style:hover {
   background-color: #d4d4d4 !important;
 }
 .ngGrid input {
@@ -115,10 +108,10 @@ a {
 .ngHeaderCell {
   border-bottom: 2px solid #9c9a9a !important;
 }
-.headerRow {
+.header-row {
   margin-top: -20px;
 }
-.headerImages {
+.header-images {
   margin-top: 20px;
   text-align: right;
 }

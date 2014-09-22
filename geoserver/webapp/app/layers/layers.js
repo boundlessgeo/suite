@@ -56,36 +56,36 @@ angular.module('gsApp.layers', [
       $scope.gridOptions = {
         data: 'layerData',
         columnDefs: [
-          {field: '<div ng-class="centerColumn col.colIndex()"><input type="checkbox" /></div>', displayName: '', cellTemplate: '<div ng-class="col.colIndex()"><input type="checkbox" /></div>', width: 25},
+          {field: '<div ng-class="text-center col.colIndex()"><input type="checkbox" /></div>', displayName: '', cellTemplate: '<div ng-class="col.colIndex()"><input type="checkbox" /></div>', width: 25},
           {field: 'name', displayName: 'Layername', width: 250},
           {field: 'title', displayName: 'Title', width: 250},
-          {field: 'type', displayName: 'Type', cellClass: 'centerColumn', cellTemplate: '<div get-type type="{{row.entity.type}}" geometry="{{row.entity.geometry}}"></div>', width: 50},
-          {field: 'srs', displayName: 'SRS', cellClass: 'centerColumn', cellTemplate: '{{row.entity.proj.srs}}', width: 150},
-          {field: 'settings', displayName: 'Settings', cellClass: 'centerColumn', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)"><img ng-src="images/settings.png" alt="Edit Layer Settings" title="Edit Layer Settings" /></a></div>', width: 75},
+          {field: 'type', displayName: 'Type', cellClass: 'text-center', cellTemplate: '<div get-type type="{{row.entity.type}}" geometry="{{row.entity.geometry}}"></div>', width: 50},
+          {field: 'srs', displayName: 'SRS', cellClass: 'text-center', cellTemplate: '{{row.entity.proj.srs}}', width: 150},
+          {field: 'settings', displayName: 'Settings', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)"><img ng-src="images/settings.png" alt="Edit Layer Settings" title="Edit Layer Settings" /></a></div>', width: 75},
           {field: 'style',
             displayName: 'Styles',
-            cellClass: 'centerColumn',
-            cellTemplate: '<li class="noBullet dropdown">' +
+            cellClass: 'text-center',
+            cellTemplate: '<li class="list-unstyled dropdown">' +
                             '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
-                              '<div class="gridText">Edit</div>' +
+                              '<div class="grid-text">Edit</div>' +
                               '<img ng-src="images/edit.png" alt="Edit Style" title="Edit Style" />' +
                             '</a>' +
-                            '<ul id="customDropdown" class="dropdown-menu">' +
+                            '<ul id="style-dropdown" class="dropdown-menu">' +
                               '<li><a ng-click="onStyleEdit(row.entity)">Style 1</a></li>' +
                               '<li><a ng-click="onStyleEdit(row.entity)">Style 2</a></li>' +
-                              '<li><a class="addNewStyle" ng-click="#">Add New Style</a></li>' +
+                              '<li><a class="add-new-style" ng-click="#">Add New Style</a></li>' +
                             '</ul>' +
                           '</li>',
             width: 75
           },
           {field: 'download',
             displayName: 'Download',
-            cellClass: 'centerColumn',
-            cellTemplate: '<li class="noBullet dropdown">' +
+            cellClass: 'text-center',
+            cellTemplate: '<li class="list-unstyled dropdown">' +
                             '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
                               '<img ng-src="images/download.png" alt="Download Layer" title="Download Layer" />' +
                             '</a>' +
-                            '<ul id="customDropdown" class="dropdown-menu">' +
+                            '<ul id="download-dropdown" class="dropdown-menu">' +
                               '<li><a href="#">Shapefile</a></li>' +
                               '<li><a href="#">GeoJSON</a></li>' +
                               '<li><a href="#">KML</a></li>' +
@@ -93,9 +93,9 @@ angular.module('gsApp.layers', [
                           '</li>',
             width: 75
           },
-          {field: 'preview', displayName: 'Preview', cellClass: 'centerColumn', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)"><img ng-src="images/preview.png" alt="Preview Layer" title="Preview Layer" /></a></div>', width: 75},
+          {field: 'preview', displayName: 'Preview', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)"><img ng-src="images/preview.png" alt="Preview Layer" title="Preview Layer" /></a></div>', width: 75},
           {field: 'lastEdited', displayName: 'Last Edited', cellTemplate: '<div ng-class="col.colIndex()"></div>', width: 100},
-          {field: '', displayName: '', cellClass: 'centerColumn', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onDeleteStyle(row.entity)"><img ng-src="images/delete.png" alt="Remove Layer" title="Remove Layer" /></a></div>', width: 30},
+          {field: '', displayName: '', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onDeleteStyle(row.entity)"><img ng-src="images/delete.png" alt="Remove Layer" title="Remove Layer" /></a></div>', width: 30},
           {field: '', displayName: '', width: 30}
         ],
         enablePaging: true,
