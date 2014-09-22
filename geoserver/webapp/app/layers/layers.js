@@ -53,18 +53,24 @@ angular.module('gsApp.layers', [
         pageSizes: [25, 50, 100],
         pageSize: 25
       };
+      $scope.gridSelections = [];
       $scope.gridOptions = {
         data: 'layerData',
+        checkboxHeaderTemplate: '<input class="ngSelectionHeader" type="checkbox" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/>',
+        showSelectionCheckbox: true,
+        selectWithCheckboxOnly: false,
+        selectedItems: $scope.gridSelections,
+        multiSelect: true,
         columnDefs: [
-          {field: '<div ng-class="text-center col.colIndex()"><input type="checkbox" /></div>', displayName: '', cellTemplate: '<div ng-class="col.colIndex()"><input type="checkbox" /></div>', width: 25},
           {field: 'name', displayName: 'Layername', width: 250},
-          {field: 'title', displayName: 'Title', width: 250},
+          {field: 'title', displayName: 'Title', cellTemplate: '<div class="grid-text-padding" alt="{{row.entity.description}}" title="{{row.entity.description}}">{{row.entity.title}}</div>', width: 250},
           {field: 'type', displayName: 'Type', cellClass: 'text-center', cellTemplate: '<div get-type type="{{row.entity.type}}" geometry="{{row.entity.geometry}}"></div>', width: 50},
-          {field: 'srs', displayName: 'SRS', cellClass: 'text-center', cellTemplate: '{{row.entity.proj.srs}}', width: 150},
+          {field: 'srs', displayName: 'SRS', cellClass: 'text-center', cellTemplate: '<div class="grid-text-padding">{{row.entity.proj.srs}}</div>', width: 150},
           {field: 'settings', displayName: 'Settings', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)"><img ng-src="images/settings.png" alt="Edit Layer Settings" title="Edit Layer Settings" /></a></div>', width: 75},
           {field: 'style',
             displayName: 'Styles',
             cellClass: 'text-center',
+            /*
             cellTemplate: '<li class="list-unstyled dropdown">' +
                             '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
                               '<div class="grid-text">Edit</div>' +
@@ -76,6 +82,8 @@ angular.module('gsApp.layers', [
                               '<li><a class="add-new-style" ng-click="#">Add New Style</a></li>' +
                             '</ul>' +
                           '</li>',
+            */
+            cellTemplate: '<div class="grid-text-padding" ng-class="col.colIndex()"><a ng-click="onStyleEdit(row.entity)">Edit</a></div>',
             width: 75
           },
           {field: 'download',

@@ -18,18 +18,9 @@
       </div>
       <span><button type="button" class="btn btn-default" ng-click="onNewLayer()" alt="Add New Layer" title="Add New Layer">+ New Layer</button></span>
     </div>
-    <div class="row header-row">
-      <div class="col-md-8"><h3><strong>{{title}}</strong></h3></div>
-      <div class="col-md-2">
-        <div class="header-images">
-          <img src="images/icon1.png" alt="Icon 1" title="Icon 1" />
-          <img src="images/icon2.png" alt="Icon 2" title="Icon 2" />
-        </div>
-      </div>
-      <div class="col-md-2"></div>
+    <div class="layers-table" ng-grid="gridOptions" onload="$(window).resize != window.resize();">
     </div>
-    <div class="layers-table" ng-grid="gridOptions">
-    </div>
+    <!--<div class="selectedItems">Selections: {{gridSelections}}</div>-->
     <br />
     <strong>Add to Map: </strong>
     <select name="newMap">
