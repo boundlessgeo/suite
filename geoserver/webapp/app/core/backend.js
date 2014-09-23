@@ -3,6 +3,23 @@
  * Module for backend api service.
  */
 angular.module('gsApp.core.backend',[])
+.config(["$provide", function ($provide) {
+  environment = "development";
+
+  $provide.decorator("$exceptionHandler", ["$delegate", "$window", 
+    function($delegate, $window) {
+      return function (exception, cause) {
+        if(environment === "production") {
+          $window.sessionStorage.log = $window.sessionStorage.log || [];
+          $window.sessionStorage.log.append({ exception: exception, cause: cause });
+        }
+        else {
+          $delegate(exception, cause);
+        }
+        $location = "/app/componenets/alertpanel/alertpanel.tpl.html?exception=" + exception + "&cause=" + cause;
+      };
+    }]);
+  }])
 .factory('GeoServer', ['$http', '$resource', '$q', '$log',
     function($http, $resource, $q, $log) {
       var gsRoot = '/geoserver';
