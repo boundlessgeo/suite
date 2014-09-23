@@ -41,6 +41,11 @@ angular.module('gsApp.maps', [
       };
       $scope.gridOptions = {
         data: 'mapData',
+        checkboxHeaderTemplate: '<input class="ngSelectionHeader" type="checkbox" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/>',
+        showSelectionCheckbox: true,
+        selectWithCheckboxOnly: false,
+        selectedItems: $scope.gridSelections,
+        multiSelect: true,
         columnDefs: [
           {field: 'name', displayName: 'Map Name', width: 250},
           {field: 'title',
