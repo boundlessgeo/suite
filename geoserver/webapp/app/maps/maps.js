@@ -41,25 +41,18 @@ angular.module('gsApp.maps', [
       };
       $scope.gridOptions = {
         data: 'mapData',
+        checkboxHeaderTemplate: '<input class="ngSelectionHeader" type="checkbox" ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/>',
+        showSelectionCheckbox: true,
+        selectWithCheckboxOnly: false,
+        selectedItems: $scope.gridSelections,
+        multiSelect: true,
         columnDefs: [
-          {field: 'name', displayName: 'Map Name'},
-          {field: 'title', displayName: 'Map Title'},
-          {
-            field: 'compose',
-            displayName: 'Compose',
-            cellTemplate: '<div ng-class="col.colIndex()">' +
-              '<a ng-click="onCompose(row.entity)">Compose</a></div>'
-          },
-          {
-            field: 'preview',
-            displayName: 'Preview',
-            cellTemplate: '<div ng-class="col.colIndex()"></div>'
-          },
-          {
-            field: 'settings',
-            displayName: 'Settings',
-            cellTemplate: '<div ng-class="col.colIndex()"></div>'
-          }
+          {field: 'name', displayName: 'Map Name', width: 250},
+          {field: 'title', displayName: 'Title', cellTemplate: '<div class="grid-text-padding" alt="{{row.entity.description}}" title="{{row.entity.description}}">{{row.entity.title}}</div>', width: 250},
+          {field: 'compose', displayName: 'Compose', cellClass: 'text-center', cellTemplate: '<div class="grid-text-padding" ng-class="col.colIndex()"><a ng-click="onCompose(row.entity)">Compose</a></div>', width: 75},
+          {field: 'preview', displayName: 'Preview', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onCompose(row.entity)"><img ng-src="images/preview.png" alt="Preview Map" title="Preview Map" /></a></div>', width: 75},
+          {field: 'settings', displayName: 'Settings', cellClass: 'text-center', cellTemplate: '<div ng-class="col.colIndex()"><a ng-click="onCompose(row.entity)"><img ng-src="images/settings.png" alt="Edit Map Settings" title="Edit Map Settings" /></a></div>', width: 75},
+          {field: '', displayName: '', width: 725}
         ],
         enablePaging: true,
         enableColumnResize: false,
