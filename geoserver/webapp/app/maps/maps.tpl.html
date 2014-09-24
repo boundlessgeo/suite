@@ -1,6 +1,6 @@
 <div>
   <div class="container-fluid">
-    <h3 class="page-title"><i class="icon-lg icon-stack"></i> {{title}}</h3>
+    <h3 class="page-title"><i class="icon-lg icon-map"></i> {{title}}</h3>
 
     <div class="workspace-choice">
       <span>Project Workspace:</span>
@@ -16,9 +16,13 @@
           </ui-select-choices>
         </ui-select>
       </div>
-      <span><button type="button" class="btn btn-default" ng-click="onNewMap()" alt="Add New Map" title="Add New Map">+ New Map</button></span>
+      <span>
+        <button type="button" class="btn btn-default" ng-click="onNewMap()"
+          alt="Add New Map" title="Add New Map">
+          + New Map
+        </button>
+      </span>
     </div>
-    <div class="maps-table" ng-grid="gridOptions">
-    </div>
+    <div class="maps-table" ng-grid="gridOptions"></div>
   </div>
 </div>
