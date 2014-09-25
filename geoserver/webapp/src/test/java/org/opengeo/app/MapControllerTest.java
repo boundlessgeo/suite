@@ -101,6 +101,7 @@ public class MapControllerTest {
           .workspace("foo", "http://scratch.org", true)
             .map("map")
               .defaults()
+              .info("The map", "This map is cool!")
               .layer("one").featureType().defaults().map()
               .layer("two").featureType().defaults()
          .geoServer().build(geoServer);
@@ -113,6 +114,8 @@ public class MapControllerTest {
         JSONObj obj = JSONWrapper.read(result.getResponse().getContentAsString()).toObject();
         assertEquals("map", obj.str("name"));
         assertEquals("foo", obj.str("workspace"));
+        assertEquals("The map", obj.str("title"));
+        assertEquals("This map is cool!", obj.str("description"));
 
         assertEquals(-180d, obj.object("bbox").doub("west"), 0.1);
         assertEquals(-90d, obj.object("bbox").doub("south"), 0.1);

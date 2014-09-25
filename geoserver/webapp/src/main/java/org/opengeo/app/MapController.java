@@ -146,7 +146,8 @@ public class MapController extends AppController {
 
         obj.put("name", map.getName())
            .put("workspace", wsName)
-           .put("title", map.getTitle());
+           .put("title", map.getTitle())
+           .put("description", map.getAbstract());
 
         ReferencedEnvelope bounds = map.getBounds();
         IO.proj(obj.putObject("proj"), bounds.getCoordinateReferenceSystem(), null);

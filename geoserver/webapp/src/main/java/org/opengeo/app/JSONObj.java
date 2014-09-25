@@ -16,6 +16,20 @@ public class JSONObj extends JSONWrapper<JSONObject> {
     }
 
     /**
+     * Keys for the object.
+     */
+    public Iterable<String> keys() {
+        return raw.keySet();
+    }
+
+    /**
+     * Determines if the object has the specified property.
+     */
+    public boolean has(String key) {
+        return raw.containsKey(key);
+    }
+
+    /**
      * Gets the raw property mapped to <tt>key</tt>, or <tt>null</tt> if no such property exists.
      */
     public Object get(String key) {

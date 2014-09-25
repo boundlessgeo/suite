@@ -3,7 +3,7 @@
 This module produces the GeoServer war used by Suite. It is made up of 
 three submodules:
 
-1. [app](app) - Web application containing custom theme, map preview, and other non-community GeoServer modules.
+1. [webapp](webapp) - Web application containing custom theme, map preview, and other non-community GeoServer modules.
 1. [data_dir](data_dir) - Vanilla GeoServer configuration and data shipped with suite.
 1. [ext](ext) - GeoServer community extensions.
 1. [externals](externals) - External upstream dependencies such as community GeoSeserver, GeoTools, etc.

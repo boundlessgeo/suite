@@ -1,19 +1,38 @@
 <div class="map-detail-compose">
   <div class="row">
+    <div class="col-md-12 map-name-row">
+      <nav class="navbar navbar-default map-name" role="navigation">
+        <a class="navbar-brand" href=""><i class="icon-lg icon-folder-open"></i>{{ workspace }} <i class="fa fa-angle-right" style="padding: 0 5px;"></i> {{ map.title }}</a>
+        <ul class="nav navbar-nav" style="margin-left: 30px;margin-top:5px;">
+          <li><a href="">{{ numLayers }} Layers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <div ol-map class="map" layers="layers" center="center" zoom="zoom"></div>
     </div>
     <div class="col-md-6">
       <alert-panel alerts="alerts"></alert-panel>
-      <div>
+      <div class="editor-background">
         <div class="map-layers" ng-class="{show: toggle == true}">
-          <ul ui-sortable="{stop:layersReordered}" ng-model="map.layers" 
+          <h6 class="title">Map Layers:</h6>
+          <ul ui-sortable="{stop:layersReordered}" ng-model="map.layers"
               class="list-unstyled">
-            <li ng-repeat="l in map.layers"  ng-click="selectLayer(l)" 
+            <li ng-repeat="l in map.layers" ng-click="selectLayer(l)"
               ng-class="{active: activeLayer == l}" >
+              <input type="checkbox" ng-model="visibleMapLayers[$index]" ng-click="toggleVisibility(l, $index)">
               {{ l.name }}
             </li>
           </ul>
+          <div class="optional">
+            <h6>Optional:</h6>
+            <ul class="list-unstyled">
+              <li>+ New Layer</li>
+              <li>+ Base Map</li>
+            </ul>
+          </div>
         </div>
         <div class="map-editor">
           <div class="style-toolbar">

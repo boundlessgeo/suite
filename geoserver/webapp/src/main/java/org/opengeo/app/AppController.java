@@ -1,7 +1,11 @@
 package org.opengeo.app;
 
+import org.geoserver.catalog.Catalog;
+import org.geoserver.catalog.LayerInfo;
+import org.geoserver.catalog.WorkspaceInfo;
 import org.geoserver.config.GeoServer;
 import org.geoserver.config.GeoServerDataDirectory;
+import org.geotools.feature.NameImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,4 +44,21 @@ public abstract class AppController {
     protected Integer count(HttpServletRequest req) {
         return pageSize(req, 25);
     }
+
+    protected WorkspaceInfo findWorkspace(String wsName, Catalog cat) {
+        WorkspaceInfo ws = cat.getWorkspaceByName(wsName);
+        if (ws == null) {
+            throw new NotFoundException(String.format("No such workspace %s", wsName));
+        }
+        return ws;
+    }
+
+    protected LayerInfo findLayer(String wsName, String name, Catalog cat) {
+        LayerInfo l = cat.getLayerByName(new NameImpl(wsName, name));
+        if (l == null) {
+            throw new NotFoundException(String.format("No such layer %s:%s", wsName, name));
+        }
+        return l;
+    }
+
 }

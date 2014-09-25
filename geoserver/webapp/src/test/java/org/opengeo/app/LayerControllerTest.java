@@ -2,17 +2,27 @@ package org.opengeo.app;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+
 import org.apache.commons.io.IOUtils;
+import org.geoserver.catalog.Catalog;
+import org.geoserver.catalog.LayerInfo;
+import org.geoserver.catalog.SLDHandler;
+import org.geoserver.catalog.StoreInfo;
 import org.geoserver.catalog.StyleHandler;
 import org.geoserver.config.GeoServer;
 import org.geoserver.platform.GeoServerExtensions;
+import org.geoserver.platform.GeoServerResourceLoader;
 import org.geoserver.platform.resource.Resource;
+import org.geoserver.platform.resource.Resource.Type;
 import org.geoserver.ysld.YsldHandler;
 import org.geotools.styling.NamedLayer;
 import org.geotools.styling.PointSymbolizer;
 import org.geotools.styling.Style;
 import org.geotools.styling.StyledLayerDescriptor;
 import org.geotools.ysld.Ysld;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -50,8 +60,9 @@ public class LayerControllerTest {
     @Before
     public void setUpAppContext() {
         WebApplicationContext appContext = mock(WebApplicationContext.class);
-        when(appContext.getBeanNamesForType(StyleHandler.class)).thenReturn(new String[]{"ysldHandler"});
+        when(appContext.getBeanNamesForType(StyleHandler.class)).thenReturn(new String[]{"ysldHandler","sldHandler"});
         when(appContext.getBean("ysldHandler")).thenReturn(new YsldHandler());
+        when(appContext.getBean("sldHandler")).thenReturn(new SLDHandler());
 
         new GeoServerExtensions().setApplicationContext(appContext);
     }
@@ -104,7 +115,7 @@ public class LayerControllerTest {
     public void testGet() throws Exception {
         GeoServer gs = MockGeoServer.get().catalog()
             .workspace("foo", "http://scratch.org", true)
-                .layer("one")
+                .layer("one").info("The layer", "This layer is cool!")
                 .featureType().defaults()
             .geoServer().build(geoServer);
 
@@ -117,6 +128,8 @@ public class LayerControllerTest {
         assertEquals("one", obj.str("name"));
         assertEquals("foo", obj.str("workspace"));
         assertEquals("vector", obj.str("type"));
+        assertEquals("The layer", obj.str("title"));
+        assertEquals("This layer is cool!", obj.str("description"));
 
         assertEquals("EPSG:4326", obj.object("proj").str("srs"));
 
@@ -154,6 +167,35 @@ public class LayerControllerTest {
         assertTrue(style.featureTypeStyles().get(0).rules().get(0).symbolizers().get(0) instanceof PointSymbolizer);
     }
 
+    @Test
+    public void testGetStyleIcons() throws Exception {
+        MockGeoServer.get().catalog()
+        .resources()
+          .resource("workspaces/foo/styles/one.yaml", "title: raw")
+          .directory("workspaces/foo/styles")
+          .resource("workspaces/foo/styles/icon.png", "PNG8")
+          .resource("workspaces/foo/styles/symbols.TTF", "TTF")
+        .geoServer().catalog()
+          .workspace("foo", "http://scratch.org", true)
+            .layer("one")
+              .style().ysld("one.yaml")
+        .geoServer().build(geoServer);
+
+      // Test directory placeholder
+      GeoServerResourceLoader rl = this.geoServer.getCatalog().getResourceLoader();
+      Resource d = rl.get("workspaces/foo/styles");
+      assertEquals( d.getType(), Type.DIRECTORY );
+      assertEquals( 3, d.list().size() );
+      
+      MvcResult result = mvc.perform(get("/backend/layers/foo/one/style/icons"))
+              .andExpect(status().isOk())
+              .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+              .andReturn();
+
+      JSONArr arr = JSONWrapper.read(result.getResponse().getContentAsString()).toArray();
+      assertEquals( 2, arr.size() );
+    }
+    
     @Test
     public void testGetStyleRaw() throws Exception {
         MockGeoServer.get().catalog()
@@ -226,7 +268,40 @@ public class LayerControllerTest {
         assertNotNull(arr.object(0).get("problem"));
         assertNotNull(arr.object(0).get("line"));
         assertNotNull(arr.object(0).get("column"));
+    }
 
+    @Test
+    public void testDelete() throws Exception {
+        GeoServer gs = MockGeoServer.get().catalog()
+            .workspace("foo", "http://scratch.org", true)
+                .layer("one").info("The layer", "This layer is cool!")
+                .geoServer().build(geoServer);
+
+        mvc.perform(delete("/backend/layers/foo/one"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        Catalog cat = geoServer.getCatalog();
+        verify(cat, times(1)).remove(isA(LayerInfo.class));
+    }
+
+    @Test
+    public void testPut() throws Exception {
+        GeoServer gs = MockGeoServer.get().catalog()
+            .workspace("foo", "http://scratch.org", true)
+                .layer("one").info("The layer", "This layer is cool!")
+                .featureType().defaults()
+                .geoServer().build(geoServer);
+
+        JSONObj obj = new JSONObj().put("title", "new title");
+        MockHttpServletRequestBuilder req = put("/backend/layers/foo/one")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+
+        LayerInfo l = gs.getCatalog().getLayerByName("foo:one");
+        verify(l, times(1)).setTitle("new title");
     }
 
     String toString(Resource r) {

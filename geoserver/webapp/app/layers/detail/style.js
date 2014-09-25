@@ -56,7 +56,7 @@ angular.module('gsApp.layers.style', [
               $scope.markers = result.data.errors;
               $scope.alerts = [{
                 type: 'danger',
-                message: 'Style not saved due to errors.'
+                message: 'Style not saved due to error: ' + result.data.message
               }];
             }
             else {

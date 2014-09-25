@@ -71,6 +71,23 @@ angular.module('gsApp.core.backend',[])
           }
         }),
 
+        // Stubbing in for now
+        datastores: {
+          get: function() {
+            return {
+              'datastores': [{
+                'workspace': 'i_am_a_stub',
+                'store': 'med_shp',
+                'type': 'shp',
+                'source':  '72.45.34.23/mnt/vol2/dataset1/ne/',
+                'description':
+                'directory of spatial files (shp)',
+                'srs': 'EPSG:4326'
+              }]
+            };
+          }
+        },
+
         layers: $resource(apiRoot+'/layers/:workspace', {workspace:'default'}, {
           get: {
             method: 'GET',
@@ -128,6 +145,33 @@ angular.module('gsApp.core.backend',[])
                 url: apiRoot+'/maps/'+workspace+'/'+map+'/layers',
                 data: JSON.stringify(layers)
               });
+            }
+          },
+
+          thumbnail: {
+            get: function(workspace, name, layers, width, height) {
+              var url = gsRoot + '/wms/reflect?&layers=' + layers;
+              if (width) {
+                url = url + '&width=' + width;
+              }
+              if (height) {
+                url = url + '&height=' + height;
+              }
+              return url;
+            }
+          },
+
+          // return an openlayers map URL
+          // TODO - not showing getFeatureInfo information as on
+          // geoserver OpenLayers template, try to copy that template
+          openlayers: {
+            get: function(workspace, layergroup, bbox, width, height) {
+              var url = gsRoot + '/' + workspace +
+               '/wms?service=WMS&version=1.1.0&request=GetMap&layers=' +
+               layergroup + bbox + '&width=' + width +
+               '&height=' + height +
+               '&srs=EPSG:4326&format=application/openlayers';
+              return url;
             }
           }
         }

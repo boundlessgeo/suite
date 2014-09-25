@@ -1,0 +1,14 @@
+<div ng-switch on="type">
+  <div ng-switch-when="vector">
+    <div ng-switch on="geometry">
+      <div ng-switch-when="Point"><img ng-src="images/layer-point.png" alt="Layer Type: Point" title="Layer Type: Point" /></div>
+      <div ng-switch-when="MultiPoint"><img ng-src="images/layer-point.png" alt="Layer Type: MultiPoint" title="Layer Type: MultiPoint" /></div>
+      <div ng-switch-when="LineString"><img  ng-src="images/layer-line.png" alt="Layer Type: LineString" title="Layer Type: LineString" /></div>
+      <div ng-switch-when="MultiLineString"><img  ng-src="images/layer-line.png" alt="Layer Type: MultiLineString" title="Layer Type: MultiLineString" /></div>
+      <div ng-switch-when="Polygon"><img  ng-src="images/layer-polygon.png" alt="Layer Type: Polygon" title="Layer Type: Polygon" /></div>
+      <div ng-switch-when="MultiPolygon"><img  ng-src="images/layer-polygon.png" alt="Layer Type: MultiPolygon" title="Layer Type: MultiPolygon" /></div>
+      <div ng-switch-default class="grid"><img ng-src="images/layer-vector.png" alt="Layer Type: Vector" title="Layer Type: Vector" /></div>
+    </div>
+  </div>
+  <div ng-switch-default class="grid"><img ng-src="images/layer-raster.png" alt="Layer Type: Raster" title="Layer Type: Raster" /></div>
+</div>

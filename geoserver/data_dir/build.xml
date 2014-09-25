@@ -7,7 +7,8 @@
     <ant dir="${datapack.dir}" target="clean"/>
   </target>
 
-  <target name="build" depends="init">
+  <target name="build" depends="init"
+   description="assemble data directory from suite-data/default">
     <ant dir="${datapack.dir}"/>
     <ant dir="${datapack.dir}" target="assemble"/>
 
@@ -29,7 +30,8 @@
     </antcall>
   </target>
 
-  <target name="publish">
+  <target name="publish"
+   description="publish to geoserver/data-dir">
     <antcall target="assemble-artifact">
       <param name="name" value="data-dir"/>
       <param name="path" value="geoserver${file.separator}data-dir"/>

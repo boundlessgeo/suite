@@ -17,8 +17,8 @@ String.prototype.endsWith = function(s) {
 
 var config = {
   proxy: {
-    host: 'localhost',
-    port: '8080'
+    host: 'horizon.boundlessgeo.com',
+    port: '80'
   }
 };
 

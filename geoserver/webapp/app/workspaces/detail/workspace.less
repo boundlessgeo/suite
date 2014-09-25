@@ -1,3 +1,5 @@
+@import "../../variables.less";
+
 .data-table {
   height: 400px;
   text-align: center;
@@ -10,3 +12,35 @@
   width: 100%;
 }
 
+.map-summary {
+  margin-bottom: 40px;
+  margin-top: 20px;
+  display: inline-block;
+  width: 100%;
+
+  img {
+    display: inline-block;
+    box-shadow: 2px 2px 4px #999;
+    margin-bottom: 10px;
+  }
+  img:hover {
+    outline: 3px solid @skyblue;
+  }
+  .map-summary-detail {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+    h4 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    p {
+      line-height: 24px;
+    }
+  }
+  .abstract {
+    margin-top: 5px;
+    width: 90%;
+  }
+}

@@ -54,5 +54,5 @@ angular.module('gsApp', [
           AppSession.clear();
         }
       });
-    }]);
-
+    }])
+.constant('baseUrl', 'http://localhost:8000');

@@ -12,6 +12,7 @@ target/
 .project
 .classpath
 .settings/
+workspace/
 
 # Jetty libs - used for building executable JAR
 jetty/lib

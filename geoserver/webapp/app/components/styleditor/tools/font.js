@@ -22,12 +22,14 @@ angular.module('gsApp.styleditor.font', [])
           $scope.fonts = {
             'Monospace': 'monospace',
             'Sans Serif': 'sans-serif',
-            'Serif': 'serif'
+            'Serif': 'serif',
+            'Inconsolata': 'Inconsolata',
+            'Source Code Pro': 'Source Code Pro'
           };
-          
-          $scope.font = Object.keys($scope.fonts)[0];
+          // Set default as Inconsolata
+          $scope.font = Object.keys($scope.fonts)[3];
+
           $scope.chooseFont = function(font) {
-            $scope.font = font;
             var css = $scope.fonts[font];
 
             // hack!

@@ -2,7 +2,7 @@
     <import file="../../build/common.xml"/>
 
     <property name="gs-core.ext.list" 
-        value="arcsde,control-flow,css,csw,gdal,jp2k,libjpeg-turbo,oracle,sqlserver,wps"/>
+        value="arcsde,control-flow,css,csw,db2,gdal,jp2k,libjpeg-turbo,oracle,sqlserver,wps"/>
     <property name="gs-core.ext.dir" 
         value="../externals/geoserver/src/target/release"/>
 

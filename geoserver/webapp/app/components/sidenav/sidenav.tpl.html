@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav" ng-show="session.active">
       <li class="sidebar-toggle">
-          <a href="" ng-click="toggleSide=!toggleSide" id="menu-toggle" ng-class="{'f-right': !toggleSide}">
+          <a href="" ng-click="toggleSide=!toggleSide;updateMapSize();" id="menu-toggle" ng-class="{'f-right': !toggleSide}">
             <i class="toggleIcon fa fa-2x" ng-class="{'fa-arrow-circle-o-left': !toggleSide, 'fa-arrow-circle-o-right': toggleSide}"></i>
           </a>
       </li>
@@ -26,8 +26,8 @@
               <i ng-class="{'icon-folder': !toggleWkspc, 'icon-folder-open': toggleWkspc,}"></i> <span class="txt">{{ workspace.name }}</span>
             </a>
             <ul class="workspace-items" collapse="!toggleWkspc" role="menu">
-              <li><a href="#"><i class="icon-map"></i> <span class="txt">Maps</span></a></li>
-              <li><a href="#"><i class="fa fa-database fa-lg"></i> <span class="txt">Data</span></a></li>
+              <li><a ng-click="onWorkspaceClick(workspace,'maps');"><i class="icon-map"></i> <span class="txt">Maps</span></a></li>
+              <li><a ng-click="onWorkspaceClick(workspace,'data');"><i class="fa fa-database fa-lg"></i> <span class="txt">Data</span></a></li>
             </ul>
           </li>
           <li ng-show="workspaces.length > 2" class="more"><a ui-sref="workspaces"><span class="txt">More...</span></a></li>
@@ -51,7 +51,7 @@
       <li role="presentation" class="divider"></li>
       <li><a ui-sref="maps"><i class="icon-map"></i> <span class="txt">All Maps</span></a></li>
       <li><a ui-sref="layers"><i class="icon-stack"></i> <span class="txt">All Layers</span></a></li>
-      <li><a href="#"><i class="fa fa-database fa-lg"></i> <span class="txt">All Data</span></a></li>
+      <li><a ui-sref="data"><i class="fa fa-database fa-lg"></i> <span class="txt">All Data</span></a></li>
       <li role="presentation" class="divider"></li>
       <li><a ui-sref="home"><i class="fa fa-gears fa-lg"></i> <span class="txt">Diagnostics</span></a></li>
 

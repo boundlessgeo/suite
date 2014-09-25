@@ -1,15 +1,42 @@
 <div>
   <div class="container-fluid">
-  <h3 class="section-title"><i class="icon-lg icon-folder-open"></i> {{title}}</h3>
-      <tabset>
-        <tab heading="Maps">
-          <h3>Maps</h3>
-        </tab>
-
-        <tab heading="Data" active="tab.active">
-          <h3>Data</h3>
+    <h3 class="section-title"><i class="icon-lg icon-folder-open"></i> {{ title }}</h3>
+    <tabset>
+      <tab heading="Maps" active="tabs.maps">
+        <h3>Maps</h3>
+        <div ng-repeat="map in maps" class="map-summary">
+          <div class="row" ng-if="$index % 2 == 0">
+            <div class="col-sm-6">
+              <a href="" ng-click="onEdit(map)">
+                <img ng-src="{{ thumbnails[map.name] }}" height="250" width="250" title="Edit Map" />
+              </a>
+              <div class="map-summary-detail">
+                <h4>{{ map.title }}</h4>
+                <p>{{ map.layerCount }} Layers</p>
+                <p>{{ map.proj.srs }}</p>
+                <p><a href="" ng-click="newOLWindow(map)">View in OpenLayers</a></p>
+              </div>
+              <p class="abstract"><strong>Abtract:</strong> {{sanitizeHTML(map.description)}}</p>
+            </div>
+            <div class="col-sm-6" ng-if="$index % 2 == 1">
+              <a href="" ng-click="onEdit(map)">
+                <img ng-src="{{ thumbnails[map.name] }}" height="250" width="250" title="Edit Map" />
+              </a>
+              <div class="map-summary-detail">
+                <h4>{{ map.title }}</h4>
+                <p>{{ map.layerCount }} Layers</p>
+                <p>{{ map.proj.srs }}</p>
+                <p><a href="" ng-click="newOLWindow(map)">View in OpenLayers</a></p>
+              </div>
+              <p class="abstract"><strong>Abtract:</strong> {{sanitizeHTML(map.description)}}</p>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Data" active="tabs.data">
+        <h3>Datastores</h3>
           <div class="data-table" ng-grid="gridOptions"></div>
-        </tab>
-      </tabset>
+      </tab>
+    </tabset>
   </div>
 </div>

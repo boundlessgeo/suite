@@ -17,6 +17,7 @@ Some modules require additional packages:
 * [Apache Maven](http://maven.apache.org/download.html) - 3.0+
 * [JSTools](https://github.com/whitmo/jstools) - Latest
 * [Sphinx](http://sphinx.pocoo.org/) - 1.0+ (the full build requires LaTeX support)
+* [NodeJS](http://nodejs.org/) - Latest version
 
 Ensure that all the above are installed so that the associated executables are on the 
 `PATH` of the user building the suite. 
