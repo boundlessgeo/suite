@@ -1,5 +1,7 @@
 angular.module('gsApp.data', [
-  'ngGrid'
+  'ngGrid',
+  'ui.select',
+  'gsApp.layers.style'
 ])
 .config(['$stateProvider',
     function($stateProvider) {
@@ -26,12 +28,36 @@ angular.module('gsApp.data', [
       $scope.gridOptions = {
         data: 'datastores',
         columnDefs: [
-          {field: 'workspace', displayName: 'Workspace'},
-          {field: 'store', displayName: 'Store'},
-          {field: 'type', displayName: 'Data Type'},
-          {field: 'source', displayName: 'Source', width: '30%'},
-          {field: 'description', displayName: 'Description', width: '20%'},
-          {field: 'srs', displayName: 'SRS'}
+          {field: 'workspace',
+            displayName: 'Workspace',
+            cellClass: 'text-left',
+            width: '10%'
+          },
+          {field: 'store',
+            displayName: 'Store',
+            cellClass: 'text-left',
+            width: '10%'
+          },
+          {field: 'type',
+            displayName: 'Data Type',
+            cellClass: 'text-center',
+            width: '10%'
+          },
+          {field: 'source',
+            displayName: 'Source',
+            cellClass: 'text-left',
+            width: '30%'
+          },
+          {field: 'description',
+            displayName: 'Description',
+            cellClass: 'text-left',
+            width: '30%'
+          },
+          {field: 'srs',
+            displayName: 'SRS',
+            cellClass: 'text-center',
+            width: '10%'
+          }
         ],
         enablePaging: true,
         enableColumnResize: false,
