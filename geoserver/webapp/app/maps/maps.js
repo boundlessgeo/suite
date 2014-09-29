@@ -17,6 +17,13 @@ angular.module('gsApp.maps', [
           templateUrl: '/maps/detail/map.tpl.html'
         });
     }])
+.directive('ngBlur', function () {
+  return function (scope, elem, attrs) {
+    elem.bind('blur', function () {
+      scope.$apply(attrs.ngBlur);
+    });
+  };
+})
 .controller('MapsCtrl', ['$scope', 'GeoServer', '$state', '$log',
     function($scope, GeoServer, $state, $log) {
       $scope.title = 'All Maps';
@@ -27,20 +34,36 @@ angular.module('gsApp.maps', [
             $scope.mapData = maps;
           });
       };
-
       $scope.onCompose = function(map) {
         $state.go('map.compose', {
           workspace: map.workspace,
           name: map.name
         });
       };
+      $scope.updateEntity = function(column, row, cellValue) {
+        //console.log(row.entity);
+        //console.log(column.field);
+        row.entity[column.field] = cellValue;
 
+        //TODO: add code for saving to the server here.
+        //row.entity.$update();
+      };
       $scope.pagingOptions = {
         pageSizes: [25, 50, 100],
         pageSize: 25
       };
       $scope.gridOptions = {
         data: 'mapData',
+        enableCellSelection: true,
+        enableRowSelection: false,
+        enableCellEdit: true,
+        checkboxHeaderTemplate:
+          '<input class="ngSelectionHeader" type="checkbox"' +
+            'ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/>',
+        showSelectionCheckbox: true,
+        selectWithCheckboxOnly: true,
+        selectedItems: $scope.gridSelections,
+        multiSelect: true,
         columnDefs: [
           {field: 'name', displayName: 'Map Name', width: 250},
           {field: 'title',
@@ -48,7 +71,10 @@ angular.module('gsApp.maps', [
             cellTemplate:
               '<div class="grid-text-padding"' +
                 'alt="{{row.entity.description}}"' +
-                'title="{{row.entity.description}}">'+
+                'title="{{row.entity.description}}"' +
+                'ng-input="COL_FIELD"' +
+                'ng-change="updateEntity(COL_FIELD, row.entity, cellValue)"' +
+                'ng-model="cellValue">' +
                 '{{row.entity.title}}' +
               '</div>',
             width: 250
@@ -113,4 +139,3 @@ angular.module('gsApp.maps', [
       });
 
     }]);
-
