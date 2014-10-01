@@ -29,7 +29,7 @@ angular.module('gsApp.data', [
         sortInfo: {fields: ['workspace'], directions: ['asc']},
         enableCellSelection: false,
         enableRowSelection: true,
-        enableCellEdit: true,
+        enableCellEdit: false,
         selectWithCheckboxOnly: false,
         selectedItems: $scope.gridSelections,
         multiSelect: true,
