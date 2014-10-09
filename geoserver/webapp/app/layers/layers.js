@@ -56,9 +56,9 @@ angular.module('gsApp.layers', [
       '</div>'
   };
 })
-.controller('LayersCtrl', ['$scope', '$stateParams', 'GeoServer', '$state',
+.controller('LayersCtrl', ['$scope', 'GeoServer', '$state',
     '$log', '$modal', '$window',
-    function($scope, $stateParams, GeoServer, $state, $log, $modal, $window) {
+    function($scope, GeoServer, $state, $log, $modal, $window) {
       $scope.title = 'All Layers';
       $scope.thumbnail = '';
 
@@ -88,6 +88,8 @@ angular.module('gsApp.layers', [
 
       $scope.workspace = {};
       $scope.workspaces = [];
+      $scope.map = {};
+      $scope.maps = [];
 
       $scope.addLayer = function(ws) {
         var modalInstance = $modal.open({
@@ -124,6 +126,14 @@ angular.module('gsApp.layers', [
             }],
           size: 'lg'
         });
+      };
+
+      $scope.addSelectedLayerToMap = function(ws, map, gridSelections) {
+        $window.alert('TODO: Add the selected layers: ' + gridSelections +
+          ' to the workspace: ' + ws + ' and map: ' + map);
+
+        GeoServer.map.layers.put(ws, map, gridSelections);
+        $scope.map.saved = true;
       };
 
       $scope.deleteLayer = function(layer) {
@@ -293,9 +303,12 @@ angular.module('gsApp.layers', [
               '</li>',
             width: '7%'
           },
-          {field: 'lastEdited',
+          {field: 'modified',
             displayName: 'Last Edited',
-            cellTemplate: '<div ng-class="col.colIndex()"></div>',
+            cellTemplate:
+              '<div class="grid-text-padding">' +
+                '{{row.entity.modified}}' +
+              '</div>',
             width: '*'
           }
         ],
@@ -317,6 +330,22 @@ angular.module('gsApp.layers', [
         });
       };
 
+      $scope.refreshMaps = function(ws) {
+        GeoServer.maps.get(ws).then(
+        function(result) {
+          if (result.success) {
+            var maps = result.data;
+            $scope.maps = maps;
+          } else {
+            $scope.alerts = [{
+              type: 'warning',
+              message: 'Failed to get map list.',
+              fadeout: true
+            }];
+          }
+        });
+      };
+
       $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal != null) {
           var ws = $scope.workspace.selected;
@@ -329,7 +358,12 @@ angular.module('gsApp.layers', [
       $scope.$watch('workspace.selected', function(newVal) {
         if (newVal != null) {
           $scope.refreshLayers(newVal);
+          $scope.refreshMaps(newVal.name);
         }
+      });
+
+      $scope.$watch('maps.selected', function(){
+        $scope.map.saved = false;
       });
 
       GeoServer.workspaces.get().then(

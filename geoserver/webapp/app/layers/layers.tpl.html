@@ -1,12 +1,10 @@
 <div>
   <div class="container-fluid">
     <h3 class="page-title"><i class="icon-lg icon-stack"></i> {{title}}</h3>
-
     <div class="workspace-choice">
       <div class="workspace-label">Project Workspace:</div>
       <div class="workspace-picker">
-        <ui-select ng-model="workspace.selected"  ng-disabled="disabled"
-          theme="bootstrap" reset-search-input="false">
+        <ui-select ng-model="workspace.selected" theme="bootstrap" reset-search-input="false">
           <ui-select-match placeholder="Select a workspace...">
             {{$select.selected.name}}
           </ui-select-match>
@@ -15,19 +13,29 @@
           </ui-select-choices>
         </ui-select>
       </div>
-        <button type="button" class="btn btn-success btn-sm pull-right" style="display:inline-block;" ng-click="addLayer(workspace.selected.name)" alt="Add New Layer" title="Add New Layer">
-          + New Layer
-        </button>
+      <button type="button" class="btn btn-success btn-sm pull-right inline-display" ng-click="addLayer(workspace.selected.name)" alt="Add New Layer" title="Add New Layer">+ New Layer</button>
     </div>
     <div ng-grid="gridOptions"></div>
     <!--<div class="selectedItems">Selections: {{gridSelections}}</div>-->
     <br />
-    <strong>Add to Map: </strong>
-    <select name="newMap">
-        <option value="select">Select...</option>
-        <option value="lirr">LIRR</option>
-        <option value="queens">Queens Bus Map</option>
-        <option value="untitled">LIRR</option>
-    </select>
+    <div ng-if="gridSelections !=''">
+      <div class="workspace-choice">
+        <div class="workspace-label">Add to Map: </div>
+        <div class="workspace-picker">
+          <ui-select ng-model="map.selected" theme="bootstrap"  reset-search-input="false">
+            <ui-select-match placeholder="Select a map...">
+              {{$select.selected.title}}
+            </ui-select-match>
+            <ui-select-choices repeat="map in maps">
+              <span ng-bind-html="map.title | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <button ng-disabled="map.selected == undefined" type="button" class="btn btn-success btn-sm inline-display" ng-click="addSelectedLayerToMap(workspace.selected.name, map.selected.title, gridSelections)" alt="Add the Selected Layer(s) to Map" title="Add the Selected Layer(s) to Map">+ Add to Map</button>
+        <div class="alert-success" ng-show="map.saved">
+          <i class="fa fa-check"></i> The selected layers have been saved to the map '{{map.selected.title}}'.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
