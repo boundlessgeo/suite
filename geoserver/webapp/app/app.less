@@ -360,10 +360,22 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   cursor: text;
 }
 a {
-  text-decoration: none !important;
+  text-decoration: none;
   cursor: pointer;
 }
-#download-dropdown, #style-dropdown {
+
+/*
+  General dropdown styling.
+*/
+.icon-fixed {
+  position: fixed;
+}
+.dropdown-menu {
+  position: fixed;
+  top: inherit;
+  left: inherit;
+}
+.download-dropdown, #style-dropdown {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -374,9 +386,9 @@ a {
   -moz-box-shadow: 5px 5px 5px #888;
   -webkit-box-shadow: 5px 5px 5px #888;
   box-shadow: 5px 5px 5px #888;
-  margin: 5px 0px 0px 0px;
+  margin: 25px 0px 0px 6px;
 }
-#download-dropdown:before, #style-dropdown:before {
+.download-dropdown:before, #style-dropdown:before {
   position: absolute;
   top: -7px;
   left: 29px;
@@ -387,7 +399,7 @@ a {
   border-bottom-color: rgba(0, 0, 0, 0.2);
   content: '';
 }
-#download-dropdown:after, #style-dropdown:after {
+.download-dropdown:after, #style-dropdown:after {
   position: absolute;
   top: -6px;
   left: 30px;
@@ -397,21 +409,25 @@ a {
   border-left: 6px solid transparent;
   content: '';
 }
-#download-dropdown li, #style-dropdown li {
+.download-dropdown li, #style-dropdown li {
   background-color: #FFFFFF;
   color: #000000;
 }
-#download-dropdown li a:hover, #style-dropdown li a:hover {
+.download-dropdown li a:hover, #style-dropdown li a:hover {
   background-color: #1797d2;
   color: #FFFFFF;
 }
+
+/*
+  Styling used throughout the layers, maps, and data pages.
+*/
 .add-new-style {
-  background-color: #FFFFFF !important;
-  color: #1797d2 !important;
+  background-color: #FFFFFF;
+  color: #1797d2;
   border-top: 1px solid #d4d4d4;
 }
 .add-new-style:hover {
-  background-color: #d4d4d4 !important;
+  background-color: #d4d4d4;
 }
 .workspace-choice {
   margin-bottom: 30px;
@@ -468,12 +484,12 @@ legend {
   font-weight: bold;
 }
 .alert-danger {
-  margin: 0px 0px 0px 10px !important;
-  padding: 3px 10px 3px 10px !important;
+  margin: 0px 0px 0px 10px;
+  padding: 3px 10px 3px 10px;
 }
 .saved {
-  margin: 0px 0px 0px 10px !important;
-  padding: 3px 10px 3px 10px !important;
+  margin: 0px 0px 0px 10px;
+  padding: 3px 10px 3px 10px;
 }
 .thumbnail {
   height: 200px;
@@ -481,7 +497,7 @@ legend {
 }
 .custom-extent-type-warning {
   float: left;
-  width: auto !important;
+  width: auto;
   background-color: #fcf8e3;
   color: #c2863b;
   padding: 3px 10px 3px 10px;
@@ -495,4 +511,8 @@ legend {
 }
 .grid-icons {
   padding-top: 7px;
+}
+.alert-success {
+  margin-top: 5px;
+  padding: 3px 10px 3px 10px;
 }
