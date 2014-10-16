@@ -17,9 +17,9 @@ angular.module('gsApp.maps', [
           templateUrl: '/maps/detail/map.tpl.html'
         });
     }])
-.controller('MapsCtrl', ['$scope', 'GeoServer', '$state', '$log',
-  '$rootScope',
-    function($scope, GeoServer, $state, $log, $rootScope) {
+.controller('MapsCtrl', ['$scope', 'GeoServer', '$state', '$log', '$rootScope',
+    '$modal', '$window',
+    function($scope, GeoServer, $state, $log, $rootScope, $modal, $window) {
       $scope.title = 'All Maps';
 
       $scope.workspaceChanged = function(ws) {
@@ -35,6 +35,60 @@ angular.module('gsApp.maps', [
               }];
             }
           });
+      };
+
+      $scope.addMap = function(ws) {
+        var modalInstance = $modal.open({
+          templateUrl: '/maps/addnewmap-modal.tpl.html',
+          backdrop: 'static',
+          controller: ['$scope', '$window', '$modalInstance',
+            function($scope, $window, $modalInstance) {
+              $scope.projections = [{name: 'EPSG: 4326'}, {name: 'EPSG: 9999'}];
+              $scope.extents = [{name: 'Autocalc'}, {name: 'Custom'}];
+              $scope.ws = ws;
+
+              $scope.ok = function(mapName) {
+                $window.alert('TODO: add the new map: ' + mapName +
+                  ' to the workspace: ' + $scope.ws + '.');
+                GeoServer.maps.post(
+                  {workspace: $scope.ws},
+                  mapName
+                );
+                $modalInstance.dismiss('cancel');
+                //TODO: go to layers page to add layers to the new map.
+                //$state.go('/layers/layers.tpl.html');
+              };
+
+              $scope.cancel = function() {
+                $modalInstance.dismiss('cancel');
+              };
+
+              $scope.clearError = function() {
+                $scope.mapNameError = false;
+              };
+
+              $scope.checkName = function(mapName) {
+                $scope.mapNameCheck = GeoServer.map.get($scope.ws, mapName);
+
+                // Get all of the data stores
+                GeoServer.map.get($scope.ws, mapName).then(
+                  function(result) {
+                    if (result.success) {
+                      $scope.mapNameCheck = result.data;
+                    } else {
+                      $scope.alerts = [{
+                        type: 'warning',
+                        message: 'Maps could not be loaded.',
+                        fadeout: true
+                      }];
+                    }
+                    if ($scope.mapNameCheck.name) {$scope.mapNameError = true;}
+                    else {$scope.mapNameError = false;}
+                  });
+              };
+            }],
+          size: 'lg'
+        });
       };
 
       $scope.onCompose = function(map) {
