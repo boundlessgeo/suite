@@ -8,7 +8,7 @@
               <artifact pattern="${mvn.repo}/[organization]/[module]/[revision]/[module]-[revision](-[classifier]).[ext]"/> 
             </filesystem>
             <ibiblio name="central" m2compatible="true"/>
-            <ibiblio name="opengeo" m2compatible="true" root="http://repo.opengeo.org"/>
+            <ibiblio name="opengeo" m2compatible="true" root="http://repo.boundlessgeo.com/main"/>
         </chain>
     </resolvers>
 </ivysettings>
