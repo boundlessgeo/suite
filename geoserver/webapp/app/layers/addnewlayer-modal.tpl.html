@@ -3,15 +3,14 @@
     <h4 class="modal-title">Layers > New Layer</h4>
   </div>
   <div class="modal-body">
-    <form name="form.layer" role="form" class="settings">
+    <form name="layerForm" role="form" class="settings">
       <div class="container">
         <div class="col-xs-1"><label for="layerName">Layer Name: </label></div>
         <div class="col-xs-3">
-          <input type="text" class="form-control input-xs" id="layerName" placeholder="Layer Name" ng-model="Layer.name" required>
+          <input type="text" class="form-control input-xs" id="layerName" placeholder="Layer Name" ng-model="Layer.name" ng-change="checkName(Layer.name);" required>
         </div>
         <div class="col-xs-5">
-          <div ng-show="layer.saved && !layer.name.error" class="saved"><i class="fa fa-check"></i> Layer '{{Layer.name}}' has been added.</div>
-          <div ng-show="layer.saved && layer.name.error" class="alert-danger">Another layer already has the name '{{Layer.name}}'.</div>
+          <div ng-if="layerNameError" class="alert-danger">Another layer already has the name '{{Layer.name}}'.</div>
         </div>
       </div>
       <div class="container">
@@ -76,28 +75,35 @@
       </div>
       <div class="container">
         <div class="col-xs-1"><label for="projection">Extent:</label></div>
-        <div class="col-xs-3">
-          <input type="text" class="form-control input-xs" id="layerExtent" placeholder="[lower corner, upper corner]" ng-model="Layer.extent" ng-bind-html required>
-          <ui-select ng-model="extents.selected" ng-disabled="disabled" theme="bootstrap" reset-search-input="false">
-            <ui-select-match placeholder="Select an extent...">
-              {{$select.selected.name}}
-            </ui-select-match>
-            <ui-select-choices repeat="extent in extents">
-              <span ng-bind-html="extent.name | highlight: $select.search"></span>
-            </ui-select-choices>
-          </ui-select>
-
+        <div class="col-xs-5">
+          <div class="input-group">
+            <div class="input-group-btn">
+              <ui-select class="small-control" ng-model="extents.selected" theme="bootstrap" reset-search-input="false" required>
+                <ui-select-match placeholder="Select an extent...">
+                  {{$select.selected.name}}
+                </ui-select-match>
+                <ui-select-choices repeat="extent in extents">
+                  <span ng-bind-html="extent.name | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <input type="text" class="form-control" id="layerExtent" placeholder="[lower corner, upper corner]" ng-model="Layer.extent" ng-bind-html required>
+          </div>
           <div class="custom-extent-type-warning" ng-if="extents.selected.name=='Custom'" class="alert-warning">'Custom' enables a region on the map to be selected or direct entry.</div>
         </div>
+      </div>
+      <br />
+      <div class="container">
         <!--TODO: grab a thumbnail if it exists-->
-        <div class="col-xs-5">
+        <div class="col-xs-4 col-xs-offset-1">
           <img ng-hide="thumbnail == ''" class="thumbnail" ng-model="thumbnail" ng-src="{{thumbnail}}" alt="Thumbnail View" title="Thumbnail View" />
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success btn-sm" ng-click="ok()">Save</button>
+    <div>Layer Info: {{layerInfo}}</div>
+    <button class="btn btn-success btn-sm" ng-click="ok(Layer.name)" ng-disabled="layerForm.$invalid || layerNameError">Save</button>
     <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
   </div>
 </div>

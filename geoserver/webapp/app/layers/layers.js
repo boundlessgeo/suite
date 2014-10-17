@@ -76,7 +76,6 @@ angular.module('gsApp.layers', [
         var target = evt.targetScope;
         var field = target.col.field;
         var layer = target.row.entity;
-        var ws;
 
         var patch = {};
         patch[field] = layer[field];
@@ -92,8 +91,8 @@ angular.module('gsApp.layers', [
       $scope.addLayer = function(ws) {
         var modalInstance = $modal.open({
           templateUrl: '/layers/addnewlayer-modal.tpl.html',
-          controller: ['$scope', '$window', '$modalInstance',
-            function($scope, $window, $modalInstance) {
+          controller: ['$scope', '$stateParams', '$window', '$modalInstance',
+            function($scope, $stateParams, $window, $modalInstance) {
               $scope.datastores = GeoServer.datastores.get('ws');
               $scope.projections = [{name: 'EPSG: 4326'}, {name: 'EPSG: 9999'}];
               $scope.types = [
@@ -122,17 +121,29 @@ angular.module('gsApp.layers', [
                   }
                 });
 
-              $scope.ok = function() {
-                $window.alert('TODO: add the new layer.');
-                //GeoServer.layers.put({workspace: $scope.ws},
-                  //$scope.form.layer);
+              $scope.ok = function(layerName) {
+                $window.alert('TODO: add the new layer: ' + layerName +
+                  ' to the workspace: ' + $scope.ws + '.');
+                GeoServer.layers.put(
+                  {workspace: $scope.ws},
+                  layerName
+                );
                 $modalInstance.dismiss('cancel');
               };
 
               $scope.cancel = function() {
                 $modalInstance.dismiss('cancel');
               };
+
+              $scope.checkName = function(layerName) {
+                GeoServer.layer.get({ name: layerName,
+                  workspace: $scope.ws }).$promise.then(function(layer) {
+                  if (layer.name) { $scope.layerNameError = true; }
+                  else { $scope.layerNameError = false; }
+                });
+              };
             }],
+          backdrop: 'static',
           size: 'lg'
         });
       };
@@ -154,6 +165,7 @@ angular.module('gsApp.layers', [
                 $modalInstance.dismiss('cancel');
               };
             }],
+          backdrop: 'static',
           size: 'med'
         });
       };
@@ -162,6 +174,7 @@ angular.module('gsApp.layers', [
         var modalInstance = $modal.open({
           templateUrl: '/workspaces/detail/modals/addnew-modal.tpl.html',
           controller: 'AddNewModalCtrl',
+          backdrop: 'static',
           size: 'lg',
           resolve: {
             workspace: function() {
