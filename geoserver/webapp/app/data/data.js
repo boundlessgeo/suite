@@ -20,6 +20,19 @@ angular.module('gsApp.data', [
       });*/
       $scope.datastores = GeoServer.datastores.get().datastores;
 
+      $scope.$on('ngGridEventEndCellEdit', function(evt){
+        var target = evt.targetScope;
+        var field = target.col.field;
+        var layer = target.row.entity;
+
+        var patch = {};
+        patch[field] = layer[field];
+
+        //TODO: report error
+        GeoServer.layer
+          .update({ workspace: layer.workspace, name: layer.name}, patch);
+      });
+
       $scope.pagingOptions = {
         pageSizes: [25, 50, 100],
         pageSize: 25
@@ -29,7 +42,7 @@ angular.module('gsApp.data', [
         sortInfo: {fields: ['workspace'], directions: ['asc']},
         enableCellSelection: false,
         enableRowSelection: true,
-        enableCellEdit: true,
+        enableCellEdit: false,
         selectWithCheckboxOnly: false,
         selectedItems: $scope.gridSelections,
         multiSelect: true,
@@ -37,12 +50,12 @@ angular.module('gsApp.data', [
           {field: 'workspace',
             displayName: 'Workspace',
             cellClass: 'text-left',
-            width: '10%'
+            width: '15%'
           },
           {field: 'store',
             displayName: 'Store',
             cellClass: 'text-left',
-            width: '10%'
+            width: '15%'
           },
           {field: 'type',
             displayName: 'Data Type',
@@ -56,8 +69,9 @@ angular.module('gsApp.data', [
           },
           {field: 'description',
             displayName: 'Description',
+            enableCellEdit: true,
             cellClass: 'text-left',
-            width: '20%'
+            width: '25%'
           },
           {field: 'srs',
             displayName: 'SRS',
