@@ -17,10 +17,7 @@
         </ui-select>
       </div>
       <span>
-        <button type="button" class="btn btn-success btn-sm pull-right" style="display:inline-block;" ng-click="onNewMap()"
-          alt="Add New Map" title="Add New Map">
-          + New Map
-        </button>
+        <button type="button" class="btn btn-success btn-sm pull-right" style="display:inline-block;" ng-click="addMap(workspace.selected.name)" alt="Add New Map" title="Add New Map">+ New Map</button>
       </span>
     </div>
     <div ng-grid="gridOptions"></div>
