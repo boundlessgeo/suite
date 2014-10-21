@@ -19,7 +19,9 @@
         </button>
     </div>
     <div ng-grid="gridOptions"></div>
+    <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm pull-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="itemsPerPage" total-items="totalItems"></pagination>
     <!--<div class="selectedItems">Selections: {{gridSelections}}</div>-->
+    <!--<div class="selectedItems">Current Page: {{currentPage}}</div>-->
     <br />
 
     <div ng-if="gridSelections != ''">
