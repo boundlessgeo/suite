@@ -18,13 +18,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" collapse="navCollapsed" id="collapse-items">
       <ul class="nav navbar-nav">
+        <li><a href="{{adminLink}}/web/" target="_blank">GeoServer Admin</a></li>
         <li><a href="https://github.com/bmmpxf/suite/tree/yslddocs/docs/usermanual/source/cartography/ysld" target="_blank">Help</a></li>
          <li ng-if="session.active" class="user dropdown">
            <a class="dropdown-toggle" data-toggle="dropdown-user">
              <span>{{ session.user }}</span> <span class="caret"></span>
            </a>
            <ul id="dropdown-user" class="dropdown-menu" role="menu">
-            <li><a href="{{adminLink}}/web/" target="_blank">GeoServer Admin</a></li>
             <li class="divider"></li>
             <li ng-if="session.active"><a ui-sref="#" ng-click="logout()">Logout</a></li>
            </ul>
