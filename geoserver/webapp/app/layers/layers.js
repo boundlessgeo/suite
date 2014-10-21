@@ -260,10 +260,11 @@ angular.module('gsApp.layers', [
       };
 
       $scope.pagingOptions = {
-        pageSizes: [25, 50, 100],
-        pageSize: 25,
+        pageSizes: [10, 50, 100],
+        pageSize: 10,
         currentPage: 1
       };
+
       $scope.filterOptions = {
           filterText: '',
           useExternalFilter: true
@@ -401,7 +402,7 @@ angular.module('gsApp.layers', [
         ],
         enablePaging: true,
         enableColumnResize: false,
-        showFooter: true,
+        showFooter: false,
         totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions
       };
@@ -415,6 +416,8 @@ angular.module('gsApp.layers', [
           if (result.success) {
             $scope.layerData = result.data.layers;
             $scope.totalServerItems = result.data.total;
+            $scope.itemsPerPage = $scope.pagingOptions.pageSize;
+            $scope.totalItems = $scope.totalServerItems;
           } else {
             $rootScope.alerts = [{
               type: 'warning',
@@ -441,6 +444,11 @@ angular.module('gsApp.layers', [
           }
         });
       };
+
+      $scope.$watch('currentPage', function () {
+        if (!$scope.currentPage) { $scope.currentPage = 1; }
+        $scope.pagingOptions.currentPage = $scope.currentPage;
+      });
 
       $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal != null) {
