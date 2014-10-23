@@ -125,6 +125,13 @@
         </copy>
     </target>
 
+    <target name="copy-contrib">
+        <!-- copy contrib (third-party libs) resources -->
+        <copy todir="${app.build}/src/contrib">
+            <fileset dir="${app.fullpath}/src/contrib"/>
+        </copy>
+    </target>
+
     <target name="copy-ext" if="use.ext">
         <!-- copy Ext resources -->
         <copy todir="${app.build}/src/ext">
@@ -195,7 +202,7 @@
         </copy>
     </target>
 
-    <target name="build" depends="checkpath,copy-app,use-checks,copy-ext,copy-openlayers,copy-geoext,copy-gxp,copy-jquery,copy-bootstrap,copy-fa,copy-bootbox,copy-ol3,copy-css">
+    <target name="build" depends="checkpath,copy-app,copy-contrib,use-checks,copy-ext,copy-openlayers,copy-geoext,copy-gxp,copy-jquery,copy-bootstrap,copy-fa,copy-bootbox,copy-ol3,copy-css">
         <fail message="Directory '${app.fullpath}' doesn't exist." unless="app.exists"/>
         <echo file="${sdk.logfile}" append="true" message="Building application resources for '${app.fullpath}'.${line.separator}"/>
         <!-- build app js -->
