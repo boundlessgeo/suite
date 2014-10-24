@@ -196,7 +196,7 @@ angular.module('gsApp.core.backend',[])
           },
           update: function(workspace, layer, patch) {
             return http({
-              method: 'PUT',
+              method: 'PATCH',
               url: apiRoot+'/layers/'+workspace+'/'+layer,
               data: patch
             });

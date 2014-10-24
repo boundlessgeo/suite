@@ -40,12 +40,12 @@
         <div class="col-xs-9"><fieldset><legend>Properties</legend></fieldset></div>
       </div>
       <div class="container">
-        <div class="col-xs-1 label-padding"><label for="layerTitle">Title: </label></div>
-        <div class="col-xs-3 label-padding">
-          <input type="text" class="form-control input-xs label-padding" id="layerTitle" placeholder="(Display Title)" ng-model="Layer.title" required>
+        <div class="col-xs-1"><label for="layerTitle">Title: </label></div>
+        <div class="col-xs-3">
+          <input type="text" class="form-control input-xs" id="layerTitle" placeholder="(Display Title)" ng-model="Layer.title" required>
         </div>
-        <div class="col-xs-1 label-padding"><label for="projection">Projection SRS:</label></div>
-        <div class="col-xs-3 label-padding">
+        <div class="col-xs-1"><label for="projection">Projection SRS:</label></div>
+        <div class="col-xs-3">
           <ui-select ng-model="projections.selected" ng-disabled="disabled" theme="bootstrap" reset-search-input="false">
             <ui-select-match placeholder="Select a projection...">
               {{$select.selected.name}}
@@ -57,8 +57,8 @@
         </div>
       </div>
       <div class="container">
-        <div class="col-xs-1 label-padding"><label for="type">Type:</label></div>
-        <div class="col-xs-3 label-padding">
+        <div class="col-xs-1"><label for="type">Type:</label></div>
+        <div class="col-xs-3">
           <ui-select ng-model="types.selected" ng-disabled="disabled" theme="bootstrap" reset-search-input="false">
             <ui-select-match placeholder="Select a layer type...">
               {{$select.selected.name}}
@@ -68,7 +68,7 @@
             </ui-select-choices>
           </ui-select>
         </div>
-        <div class="col-xs-5 label-padding">
+        <div class="col-xs-5">
           <button class="btn btn-default btn-sm" ng-click="editOtherSettings()"><img src="images/settings.png" alt="Edit Other Settings" title="Edit Other Settings" /> Edit Other Settings</button>
           <i>Default settings will be applied.</i>
         </div>
@@ -101,8 +101,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <div>Layer Info: {{layerInfo}}</div>
-    <button class="btn btn-success btn-sm" ng-click="ok(Layer.name)" ng-disabled="layerForm.$invalid || layerNameError">Save</button>
+    <!--<div>Layer Info: {{layerInfo}}</div>-->
+    <button class="btn btn-success btn-sm" ng-click="ok(Layer.name, datastores.selected.name, Layer.title, projections.selected.name, types.selected.name, extents.selected.name, Layer.extent)" ng-disabled="layerForm.$invalid || layerNameError">Save</button>
     <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
   </div>
 </div>

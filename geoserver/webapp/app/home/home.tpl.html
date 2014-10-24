@@ -1,11 +1,17 @@
 <div class="container-fluid">
 <h3 class="page-title"><i class="icon-lg icon-home"></i> {{title}}</h3>
   <div class="row">
-    <div class="col-sm-12">
-      <h4>GeoServer Details</h4>
-      <p ng-if="server.title">{{ server.title }}</p>
-      <p>{{ server.url }}</p>
+    <div class="col-sm-12"><h4>GeoServer Details</h4></div>
+    <div class="col-sm-3">
+      <p>{{ server.title }}{{ server.url }}</p>
+      <!--<p>{{ serverInfo }}</p>-->
     </div>
+    <div class="col-sm-3">
+      <div ng-if="server.status != 'ok'" class="alert-danger" style="margin-top: -3px;"><i class="fa fa-exclamation-circle"></i> Server is not running.</div>
+      <div ng-if="server.status == 'ok'" class="alert-success" style="margin-top: -3px;"><i class="fa fa-check-circle"></i> Server is running ok.</div>
+    </div>
+    <div class="col-sm-1"><a href="logs">Logs</a></div>
+    <div class="col-sm-5"></div>
   </div>
   <div class="row">
     <div class="col-sm-9">

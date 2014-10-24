@@ -15,7 +15,7 @@
       </div>
       <br />
       <div class="container">
-        <div class="col-xs-1 label-padding"><label for="layerTitle">Title: </label></div>
+        <div class="col-xs-1 label-padding"><label for="mapTitle">Title: </label></div>
         <div class="col-xs-3 label-padding">
           <input type="text" class="form-control input-xs label-padding" id="mapTitle" placeholder="(Display Title)" ng-model="Map.title" required>
         </div>
@@ -25,7 +25,7 @@
         <div class="col-xs-1 label-padding"><label for="projection">Projection SRS:</label></div>
         <div class="col-xs-3 label-padding">
           <ui-select ng-model="projections.selected" theme="bootstrap" reset-search-input="false" required>
-            <ui-select-match placeholder="Select a projection...">
+            <ui-select-match ng-model="Map.projection" placeholder="Select a projection...">
               {{$select.selected.name}}
             </ui-select-match>
             <ui-select-choices repeat="projection in projections">
@@ -46,8 +46,8 @@
         <div class="col-xs-5">
           <div class="input-group">
             <div class="input-group-btn">
-              <ui-select class="small-control" ng-model="extents.selected" theme="bootstrap" reset-search-input="false" required>
-                <ui-select-match placeholder="Select an extent...">
+              <ui-select class="small-control" ng-model="extents.selected" theme="bootstrap" reset-search-input="false" id="mapExtent" required>
+                <ui-select-match ng-model="Map.extent" placeholder="Select an extent...">
                   {{$select.selected.name}}
                 </ui-select-match>
                 <ui-select-choices repeat="extent in extents">
@@ -62,14 +62,14 @@
       </div>
       <div class="container">
         <!--TODO: grab a thumbnail if it exists-->
-        <div class="col-xs-4 col-xs-offset-1">
+        <!--<div class="col-xs-4 col-xs-offset-1">
           <img ng-hide="thumbnail == ''" class="thumbnail" ng-model="thumbnail" ng-src="{{thumbnail}}" alt="Thumbnail View" title="Thumbnail View" />
-        </div>
+        </div>-->
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-success btn-sm" ng-click="ok(Map.name)" ng-disabled="mapForm.$invalid || mapNameError">Next: Select Layers</button>
+    <button class="btn btn-success btn-sm" ng-click="ok(Map.name, Map.title, projections.selected.name, extents.selected.name, Map.extent)" ng-disabled="mapForm.$invalid || mapNameError">Next: Select Layers</button>
   </div>
 </div>
