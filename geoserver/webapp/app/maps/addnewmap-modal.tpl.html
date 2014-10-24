@@ -13,17 +13,16 @@
           <div ng-if="mapNameError" class="alert-danger">Another map already has the name '{{Map.name}}'.</div>
         </div>
       </div>
-      <br />
       <div class="container">
-        <div class="col-xs-1 label-padding"><label for="layerTitle">Title: </label></div>
-        <div class="col-xs-3 label-padding">
-          <input type="text" class="form-control input-xs label-padding" id="mapTitle" placeholder="(Display Title)" ng-model="Map.title" required>
+        <div class="col-xs-1"><label for="layerTitle">Title: </label></div>
+        <div class="col-xs-3">
+          <input type="text" class="form-control input-xs" id="mapTitle" placeholder="(Display Title)" ng-model="Map.title" required>
         </div>
         <div class="col-xs-5">&nbsp;</div>
       </div>
       <div class="container">
-        <div class="col-xs-1 label-padding"><label for="projection">Projection SRS:</label></div>
-        <div class="col-xs-3 label-padding">
+        <div class="col-xs-1"><label for="projection">Projection SRS:</label></div>
+        <div class="col-xs-3">
           <ui-select ng-model="projections.selected" theme="bootstrap" reset-search-input="false" required>
             <ui-select-match placeholder="Select a projection...">
               {{$select.selected.name}}
@@ -35,7 +34,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="col-xs-8 label-padding col-xs-offset-1">
+        <div class="col-xs-8 col-xs-offset-1">
           <button class="btn btn-default btn-sm" ng-click="editOtherSettings()"><img src="images/settings.png" alt="Edit Other Settings" title="Edit Other Settings" /> Edit Other Settings</button><br />
           <i>Default settings will be applied.</i>
         </div>
