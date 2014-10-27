@@ -47,12 +47,21 @@ angular.module('gsApp.maps', [
               $scope.extents = [{name: 'Autocalc'}, {name: 'Custom'}];
               $scope.ws = ws;
 
-              $scope.ok = function(mapName) {
-                $window.alert('TODO: add the new map: ' + mapName +
+              $scope.ok = function(name, title, projection, extentType,
+                extent) {
+                var mapData = {
+                  name: name,
+                  title: title,
+                  projection: projection,
+                  extentType: extentType,
+                  extent: extent
+                };
+                
+                $window.alert('TODO: add the new map: ' + name +
                   ' to the workspace: ' + $scope.ws + '.');
                 GeoServer.map.create(
                   $scope.ws,
-                  mapName
+                  mapData
                 );
                 $modalInstance.dismiss('cancel');
                 //TODO: set the newly created map as the default so that we
@@ -104,13 +113,10 @@ angular.module('gsApp.maps', [
         var target = evt.targetScope;
         var field = target.col.field;
         var map = target.row.entity;
-
         var patch = {};
         patch[field] = map[field];
 
-        //TODO: report error
-        GeoServer.map
-          .update({ workspace: map.workspace, name: map.name}, patch);
+        GeoServer.map.update(map.workspace, map.name, {title: patch[field]});
       });
 
       $scope.pagingOptions = {
@@ -128,7 +134,7 @@ angular.module('gsApp.maps', [
             'ng-model="allSelected" ng-change="toggleSelectAll(allSelected)"/>',
         sortInfo: {fields: ['name'], directions: ['asc']},
         showSelectionCheckbox: true,
-        selectWithCheckboxOnly: false,
+        selectWithCheckboxOnly: true,
         selectedItems: $scope.gridSelections,
         multiSelect: true,
         columnDefs: [
@@ -185,6 +191,8 @@ angular.module('gsApp.maps', [
         enablePaging: true,
         enableColumnResize: false,
         showFooter: true,
+        footerTemplate: '/components/grid/ngGrid.custom.footer.tpl.html',
+        totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions,
         filterOptions: {
           filterText: '',
@@ -194,6 +202,19 @@ angular.module('gsApp.maps', [
 
       $scope.workspace = {};
       $scope.workspaces = [];
+
+      $scope.setPage = function (page) {
+        $scope.pagingOptions.currentPage = page;
+      };
+
+      $scope.$watch('pagingOptions', function (newVal, oldVal) {
+        if (newVal != null) {
+          var ws = $scope.workspace.selected;
+          if (ws != null) {
+            $scope.refreshLayers(ws);
+          }
+        }
+      }, true);
 
       GeoServer.workspaces.get().then(
         function(result) {

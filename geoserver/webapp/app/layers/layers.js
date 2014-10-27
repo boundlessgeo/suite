@@ -74,13 +74,11 @@ angular.module('gsApp.layers', [
         var target = evt.targetScope;
         var field = target.col.field;
         var layer = target.row.entity;
-
         var patch = {};
         patch[field] = layer[field];
 
-        //TODO: report error
-        GeoServer.layer
-          .update({ workspace: layer.workspace, name: layer.name}, patch);
+        GeoServer.layer.update(layer.workspace, layer.name,
+          {title: patch[field]});
       });
 
       $scope.workspace = {};
@@ -120,12 +118,23 @@ angular.module('gsApp.layers', [
                   }
                 });
 
-              $scope.ok = function(layerName) {
-                $window.alert('TODO: add the new layer: ' + layerName +
+              $scope.ok = function(name, datastore, title, projection, type,
+                extentType, extent) {
+                var layerInfo = {
+                  name: name,
+                  datastore: datastore,
+                  title: title,
+                  projection: projection,
+                  type: type,
+                  extentType: extentType,
+                  extent: extent
+                };
+
+                $window.alert('TODO: add the new layer: ' + name +
                   ' to the workspace: ' + $scope.ws + '.');
-                GeoServer.layers.put(
-                  {workspace: $scope.ws},
-                  layerName
+                GeoServer.layer.create(
+                  $scope.ws,
+                  layerInfo
                 );
                 $modalInstance.dismiss('cancel');
               };
@@ -165,7 +174,7 @@ angular.module('gsApp.layers', [
               //      Is this even required here as the user is creating the
               //      layer for the first time and thus there won't be a
               //      thumbnail of this layer yet?
-              /*
+              $window.alert($scope.Layer.name);
               if ($scope.layerForm.Layer.name) {
                 $scope.thumbnail = GeoServer.map.thumbnail.get($scope.ws,
                   $scope.layer.name, 400, 200);
@@ -190,7 +199,6 @@ angular.module('gsApp.layers', [
                     }
                   });
               }
-              */
             }],
           size: 'lg'
         });
@@ -242,32 +250,12 @@ angular.module('gsApp.layers', [
         });
       };
 
-      angular.element($window).bind('scroll', function(){
-        if ($scope.dropdownBoxSelected != '') {
-          $scope.setTop($scope.dropdownBoxSelected);
-        }
-      });
-
-      $scope.setTop = function(e) {
-        var winScroll = angular.element($window).scrollTop();
-        var icon = angular.element('#icon-' + e);
-        var iconTop = $window.Number(icon.css('top').replace('px',''));
-        var dropdownBox = angular.element('#download-' + e);
-        var dropdownBoxTop = iconTop - winScroll;
-
-        dropdownBox.css('top', dropdownBoxTop + 'px');
-        $scope.dropdownBoxSelected = e;
-      };
-
       $scope.pagingOptions = {
-        pageSizes: [25, 50, 100],
-        pageSize: 25,
+        pageSizes: [10, 50, 100],
+        pageSize: 10,
         currentPage: 1
       };
-      $scope.filterOptions = {
-          filterText: '',
-          useExternalFilter: true
-        };
+
       $scope.gridSelections = [];
       $scope.gridOptions = {
         data: 'layerData',
@@ -282,7 +270,7 @@ angular.module('gsApp.layers', [
         },
         sortInfo: {fields: ['name'], directions: ['asc']},
         showSelectionCheckbox: true,
-        selectWithCheckboxOnly: false,
+        selectWithCheckboxOnly: true,
         selectedItems: $scope.gridSelections,
         multiSelect: true,
         columnDefs: [
@@ -364,20 +352,14 @@ angular.module('gsApp.layers', [
             cellClass: 'text-center',
             sortable: false,
             cellTemplate:
-              '<li class="list-unstyled dropdown">' +
-                '<div id="icon-{{row.entity.name}}" class="icon-fixed"></div>' +
-                '<a ng-click="setTop(row.entity.name)" ' +
-                  'class="dropdown-toggle">' +
-                  '<div class="fa fa-download grid-icons" ' +
-                    'alt="Download Layer" title="Download Layer"></div>' +
-                '</a>' +
-                '<ul id="download-{{row.entity.name}}" ' +
-                  'class="download-dropdown dropdown-menu">' +
-                  '<li><a href="#">Shapefile</a></li>' +
-                  '<li><a href="#">GeoJSON</a></li>' +
-                  '<li><a href="#">KML</a></li>' +
-                '</ul>' +
-              '</li>',
+              '<a popover-placement="bottom" popover-html-unsafe="' +
+                '<a href=\'#\'>Shapefile</a><br />' +
+                '<a href=\'#\'>GeoJSON</a><br />' +
+                '<a href=\'#\'>KML</a>"' +
+                'popover-append-to-body="true">' +
+                '<div class="fa fa-download grid-icons" ' +
+                  'alt="Download Layer" title="Download Layer"></div>' +
+              '</a>',
             width: '7%'
           },
           {field: 'lastEdited',
@@ -402,19 +384,28 @@ angular.module('gsApp.layers', [
         enablePaging: true,
         enableColumnResize: false,
         showFooter: true,
+        footerTemplate: '/components/grid/ngGrid.custom.footer.tpl.html',
         totalServerItems: 'totalServerItems',
-        pagingOptions: $scope.pagingOptions
+        pagingOptions: $scope.pagingOptions,
+        filterOptions: {
+          filterText: '',
+          useExternalFilter: true
+        }
       };
 
       $scope.refreshLayers = function(ws) {
         GeoServer.layers.get(
           ws.name,
           $scope.pagingOptions.currentPage-1,
-          $scope.pagingOptions.pageSize
+          $scope.pagingOptions.pageSize,
+          $scope.gridOptions.sortInfo.fields,
+          $scope.gridOptions.sortInfo.directions
         ).then(function(result) {
           if (result.success) {
             $scope.layerData = result.data.layers;
             $scope.totalServerItems = result.data.total;
+            $scope.itemsPerPage = $scope.pagingOptions.pageSize;
+            $scope.totalItems = $scope.totalServerItems;
           } else {
             $rootScope.alerts = [{
               type: 'warning',
@@ -440,6 +431,10 @@ angular.module('gsApp.layers', [
             }];
           }
         });
+      };
+
+      $scope.setPage = function (page) {
+        $scope.pagingOptions.currentPage = page;
       };
 
       $scope.$watch('pagingOptions', function (newVal, oldVal) {

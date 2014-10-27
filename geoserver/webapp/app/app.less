@@ -361,72 +361,22 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   padding: 5px 0px 0px 0px;
   cursor: text;
 }
+.nggrid-row {
+  float:left;
+  margin-right: 10px;
+}
+.nggrid-pager {
+  float: right;
+  margin-top: -10px;
+}
 a {
   text-decoration: none;
   cursor: pointer;
 }
 
 /*
-  General dropdown styling.
-*/
-.icon-fixed {
-  position: fixed;
-}
-
-.download-dropdown, #style-dropdown {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  background-color: #FFFFFF;
-  border: 1px solid #c2c2c2;
-  width: 35px;
-  -moz-box-shadow: 5px 5px 5px #888;
-  -webkit-box-shadow: 5px 5px 5px #888;
-  box-shadow: 5px 5px 5px #888;
-  margin: 25px 0px 0px 6px;
-}
-.download-dropdown:before, #style-dropdown:before {
-  position: absolute;
-  top: -7px;
-  left: 29px;
-  display: inline-block;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
-  border-left: 7px solid transparent;
-  border-bottom-color: rgba(0, 0, 0, 0.2);
-  content: '';
-}
-.download-dropdown:after, #style-dropdown:after {
-  position: absolute;
-  top: -6px;
-  left: 30px;
-  display: inline-block;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
-  border-left: 6px solid transparent;
-  content: '';
-}
-.download-dropdown li, #style-dropdown li {
-  background-color: #FFFFFF;
-  color: #000000;
-}
-.download-dropdown li a:hover, #style-dropdown li a:hover {
-  background-color: #1797d2;
-  color: #FFFFFF;
-}
-
-/*
   Styling used throughout the layers, maps, and data pages.
 */
-.add-new-style {
-  background-color: #FFFFFF;
-  color: #1797d2;
-  border-top: 1px solid #d4d4d4;
-}
-.add-new-style:hover {
-  background-color: #d4d4d4;
-}
 .workspace-choice {
   margin-bottom: 30px;
 
@@ -450,13 +400,6 @@ a {
     margin-right: 10px;
     vertical-align: top;
   }
-}
-label {
-  font-weight: normal;
-  float: left;
-  margin-top: 5px;
-  padding: 0px 15px 0px 0px;
-  white-space: nowrap;
 }
 .input-xs {
   height: 28px;
@@ -503,9 +446,6 @@ legend {
 .center-column {
   text-align: center;
   padding-top: 7px;
-}
-.label-padding {
-  margin-bottom: 5px;
 }
 .grid-icons {
   padding-top: 7px;

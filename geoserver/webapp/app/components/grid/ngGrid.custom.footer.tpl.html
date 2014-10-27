@@ -1,0 +1,16 @@
+<div ng-show="showFooter" ng-class="{'ui-widget-content': jqueryUITheme, 'ui-corner-bottom': jqueryUITheme}" ng-style="footerStyle()">
+  <div class="ngTotalSelectContainer" >
+    <div class="ngFooterTotalItems" ng-class="{'ngNoMultiSelect': !multiSelect}" >
+      <span class="ngLabel">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show="filterText.length > 0" class="ngLabel">({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span>
+    </div>
+    <!--<div class="ngFooterSelectedItems" ng-show="multiSelect">
+      <span class="ngLabel">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span>
+    </div>-->
+  </div>
+  <div class="ngPagerContainer nggrid-pager" ng-show="enablePaging" ng-class="{'ngNoMultiSelect': !multiSelect}">
+    <div class="ngRowCountPicker nggrid-row">
+      <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-change="setPage(currentPage)" class="pagination-sm pull-right" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="itemsPerPage" total-items="totalItems"></pagination>
+      <!--<br /><div class="selectedItems">Current Page: {{currentPage}}</div>-->
+    </div>
+  </div>
+</div>
