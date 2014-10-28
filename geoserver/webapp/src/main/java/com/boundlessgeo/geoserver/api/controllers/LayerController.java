@@ -8,6 +8,8 @@ import static org.geoserver.catalog.Predicates.equal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -81,6 +83,8 @@ public class LayerController extends ApiController {
         super(geoServer);
         this.importer = importer;
     }
+    
+    protected LinkedList<String> recentLayers = new LinkedList<String>();
 
     @RequestMapping(value="/{wsName}", method = RequestMethod.GET)
     public @ResponseBody
@@ -176,6 +180,7 @@ public class LayerController extends ApiController {
         
         cat.save(l.getResource());
         cat.save(l);
+        updateRecentLayers(l.getId());
         return IO.layer(new JSONObj(), l);
     }
     
@@ -189,6 +194,7 @@ public class LayerController extends ApiController {
     public @ResponseBody void delete(@PathVariable String wsName, @PathVariable String name) throws IOException {
         Catalog cat = geoServer.getCatalog();
         LayerInfo layer = findLayer(wsName, name, cat);
+        recentLayers.remove(layer.getId());
         new CascadeDeleteVisitor(cat).visit(layer);
     }
 
@@ -196,6 +202,7 @@ public class LayerController extends ApiController {
     public @ResponseBody JSONObj patch(@PathVariable String wsName, @PathVariable String name, @RequestBody JSONObj obj) throws IOException {
         Catalog cat = geoServer.getCatalog();
         LayerInfo layer = findLayer(wsName, name, cat);
+        updateRecentLayers(layer.getId());
         return  update(layer, obj);
     }
 
@@ -203,6 +210,7 @@ public class LayerController extends ApiController {
     public @ResponseBody JSONObj put(@PathVariable String wsName, @PathVariable String name, @RequestBody JSONObj obj) throws IOException {
         Catalog cat = geoServer.getCatalog();
         LayerInfo layer = findLayer(wsName, name, cat);
+        updateRecentLayers(layer.getId());
         return  update(layer, obj);
     }
     
@@ -359,6 +367,28 @@ public class LayerController extends ApiController {
             }
         }
         return obj;
+    }
+    
+    @RequestMapping(value="/recent", method = RequestMethod.GET)
+    public @ResponseBody JSONArr listRecentLayers(HttpServletRequest req) {
+        Catalog cat = geoServer.getCatalog();
+        JSONArr arr = new JSONArr();
+        
+        Iterator<String> it = recentLayers.iterator();
+        while (it.hasNext()) {
+            String id = it.next();
+            LayerInfo layer = cat.getLayer(id);
+            IO.layer(arr.addObject(), layer);
+        }
+        return arr;
+    }
+
+    private void updateRecentLayers(String id) {
+        recentLayers.remove(id);
+        recentLayers.addFirst(id);
+        if (recentLayers.size() > RECENT_CACHE_SIZE) {
+            recentLayers.removeLast();
+        }
     }
 
     String findUniqueStyleName(String wsName, String name, Catalog cat) {

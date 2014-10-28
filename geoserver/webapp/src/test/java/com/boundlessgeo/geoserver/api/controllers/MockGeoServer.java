@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 import javax.xml.transform.TransformerException;
@@ -382,9 +383,12 @@ public class MockGeoServer {
 
             String wsName = workspaceBuilder.workspace.getName();
             map = mock(LayerGroupInfo.class);
+            String uuid = UUID.randomUUID().toString();
+            when(map.getId()).thenReturn(uuid);
             when(map.getName()).thenReturn(name);
             when(map.getMode()).thenReturn(Mode.SINGLE);
             when(map.prefixedName()).thenReturn(wsName + ":" + name);
+            when(map.getWorkspace()).thenReturn(workspaceBuilder.workspace);
             
             when(map.layers()).thenAnswer(new Answer<List<LayerInfo>>() {
                 @Override
@@ -434,6 +438,7 @@ public class MockGeoServer {
             when(map.getMetadata()).thenReturn(meta);
 
             Catalog catalog = workspaceBuilder.catalogBuilder.catalog;
+            when(catalog.getLayerGroup(uuid)).thenReturn(map);
             when(catalog.getLayerGroupByName(name)).thenReturn(map);
             when(catalog.getLayerGroupByName(wsName, name)).thenReturn(map);
         }
@@ -489,6 +494,8 @@ public class MockGeoServer {
 
             String wsName = workspaceBuilder.workspace.getName();
             layer = mock(LayerInfo.class);
+            String uuid = UUID.randomUUID().toString();
+            when(layer.getId()).thenReturn(uuid);
             when(layer.getName()).thenReturn(name);
             when(layer.prefixedName()).thenReturn(wsName+":"+name);
 
@@ -499,6 +506,7 @@ public class MockGeoServer {
 
             Catalog catalog = workspaceBuilder.catalogBuilder.catalog;
             
+            when(catalog.getLayer(uuid)).thenReturn(layer);
             when(catalog.getLayerByName(wsName+":"+name)).thenReturn(layer);
             when(catalog.getLayerByName(new NameImpl(workspaceBuilder.namespace.getURI(), name))).thenReturn(layer);
         }

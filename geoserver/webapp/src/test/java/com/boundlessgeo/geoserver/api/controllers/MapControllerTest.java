@@ -16,11 +16,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Collections;
+
 import javax.annotation.Nullable;
 
 import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.LayerGroupInfo;
 import org.geoserver.config.GeoServer;
+import org.geoserver.security.impl.GeoServerRole;
+import org.geoserver.security.impl.GeoServerUser;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -28,6 +33,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -59,6 +67,21 @@ public class MapControllerTest {
         mvc = MockMvcBuilders.standaloneSetup(ctrl).setMessageConverters(new JSONMessageConverter()).build();
     }
 
+    @Before
+    public void setUpAuth() {
+ 
+        GeoServerUser bob = GeoServerUser.createDefaultAdmin();
+        //GroupAdminProperty.set(bob.getProperties(), new String[]{"users"});
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+            bob, bob.getPassword(), Collections.singletonList(GeoServerRole.GROUP_ADMIN_ROLE));
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+    
+    @After
+    public void clearAuth() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+    
     @Test
     public void testCreate() throws Exception {
         MockGeoServer.get().catalog()
@@ -270,6 +293,57 @@ public class MapControllerTest {
 
         assertEquals( "one.ysld", m.getStyles().get(0).getFilename() );
         assertEquals( "two.ysld", m.getStyles().get(1).getFilename() );
+    }
+    
+    @Test
+    public void testRecentMaps() throws Exception {
+        @SuppressWarnings("unused")
+        GeoServer gs = MockGeoServer.get().catalog()
+            .workspace("foo", "http://scratch.org", true)
+            .map("map1")
+              .defaults()
+              .layer("one").featureType().defaults().map().workspace()
+            .map("map2")
+              .defaults()
+              .layer("one").featureType().defaults().map().workspace()
+            .map("map3")
+              .defaults()
+              .layer("one").featureType().defaults()
+            .geoServer().build(geoServer);
+        
+        JSONObj obj;
+        MockHttpServletRequestBuilder req;
+
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/maps/foo/map3")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/maps/foo/map2")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/maps/foo/map1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        
+        MvcResult result = mvc.perform(get("/api/maps/recent"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+        JSONArr arr = JSONWrapper.read(result.getResponse().getContentAsString()).toArray();
+        assertTrue(arr.size() == Math.min(ApiController.RECENT_CACHE_SIZE, 3));
+        
+        for(int i = 0; i < Math.min(ApiController.RECENT_CACHE_SIZE, 3); i++) {
+            obj = arr.object(i);
+            assertEquals("map"+(i+1), obj.str("name"));
+        }
     }
 
 }

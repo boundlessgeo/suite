@@ -28,7 +28,7 @@ import com.google.common.collect.Iterables;
  * Base class for api controllers.
  */
 public abstract class ApiController {
-
+    public static final int RECENT_CACHE_SIZE = 10;
     public static final int DEFAULT_PAGESIZE = 25;
 
     protected GeoServer geoServer;

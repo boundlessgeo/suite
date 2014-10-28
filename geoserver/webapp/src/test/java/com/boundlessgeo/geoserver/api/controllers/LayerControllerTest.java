@@ -292,4 +292,51 @@ public class LayerControllerTest {
     String toString(Resource r) {
         return new String(((ByteArrayOutputStream)r.out()).toByteArray());
     }
+    
+    @Test
+    public void testRecentLayers() throws Exception {
+        @SuppressWarnings("unused")
+        GeoServer gs = MockGeoServer.get().catalog()
+            .workspace("foo", "http://scratch.org", true)
+                .layer("layer1")
+                    .featureType().defaults().workspace()
+                .layer("layer2")
+                    .featureType().defaults().workspace()
+                .layer("layer3")
+                    .featureType().defaults().workspace()
+                .geoServer().build(geoServer);
+
+        JSONObj obj;
+        MockHttpServletRequestBuilder req;
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/layers/foo/layer3")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/layers/foo/layer2")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        obj = new JSONObj().put("title", "new title");
+        req = put("/api/layers/foo/layer1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(obj.toString());
+        mvc.perform(req).andExpect(status().isOk()).andReturn();
+        
+        
+        MvcResult result = mvc.perform(get("/api/layers/recent"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+        JSONArr arr = JSONWrapper.read(result.getResponse().getContentAsString()).toArray();
+
+        assertTrue(arr.size() == Math.min(ApiController.RECENT_CACHE_SIZE, 3));
+        for(int i = 0; i < Math.min(ApiController.RECENT_CACHE_SIZE, 3); i++) {
+            obj = arr.object(i);
+            assertEquals("layer"+(i+1), obj.str("name"));
+        }
+    }
 }

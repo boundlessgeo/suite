@@ -8,6 +8,7 @@ import static org.geoserver.catalog.Predicates.equal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -61,13 +62,14 @@ import com.vividsolutions.jts.geom.Envelope;
 @Controller
 @RequestMapping("/api/maps")
 public class MapController extends ApiController {
-
     static Logger LOG = Logging.getLogger(MapController.class);
 
     @Autowired
     public MapController(GeoServer geoServer) {
         super(geoServer);
     }
+    
+    protected LinkedList<String> recentMaps = new LinkedList<String>();
 
     @RequestMapping(value = "/{wsName}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -153,6 +155,7 @@ public class MapController extends ApiController {
         Metadata.modified(map, created);
 
         cat.add( map );
+        updateRecentMaps(map.getId());
         return mapDetails(new JSONObj(), map, wsName );
     }
 
@@ -172,7 +175,7 @@ public class MapController extends ApiController {
                                         @PathVariable String name) {
         LayerGroupInfo map = findMap(wsName,name);
         geoServer.getCatalog().remove(map);
-        
+        recentMaps.remove(map.getId());
         return list(wsName);
     }
     
@@ -231,7 +234,7 @@ public class MapController extends ApiController {
             map.layers().clear();
             map.layers().addAll(layers);
         }
-        // update configuration history        
+        // update configuration history
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
         map.getMetadata().put("user", user );
         map.getMetadata().put("modified", new Date() );
@@ -242,7 +245,7 @@ public class MapController extends ApiController {
             map.getMetadata().put("change", "modified "+obj.keys() );
         }
         cat.save(map);
-        
+        updateRecentMaps(map.getId());
         return mapDetails(new JSONObj(), map, wsName);
     }
     
@@ -335,9 +338,33 @@ public class MapController extends ApiController {
 
         m.getStyles().clear();
         m.getStyles().addAll(reStyles);
-
         cat.save(m);
         return mapLayers(m);
+    }
+    
+    @RequestMapping(value="/recent", method = RequestMethod.GET)
+    public @ResponseBody JSONArr listRecentMaps() {
+        JSONArr arr = new JSONArr();
+        Catalog cat = geoServer.getCatalog();
+
+        Iterator<String> it = recentMaps.iterator();
+        while (it.hasNext()) {
+            String id = it.next();
+            LayerGroupInfo map = cat.getLayerGroup(id);
+            if( checkMap( map ) ){
+                JSONObj obj = arr.addObject();
+                map(obj, map, map.getWorkspace().getName());
+            }
+        }
+        return arr;
+    }
+    
+    private void updateRecentMaps(String id) {
+        recentMaps.remove(id);
+        recentMaps.addFirst(id);
+        if (recentMaps.size() > RECENT_CACHE_SIZE) {
+            recentMaps.removeLast();
+        }
     }
 
     private boolean checkMap(LayerGroupInfo map) {
