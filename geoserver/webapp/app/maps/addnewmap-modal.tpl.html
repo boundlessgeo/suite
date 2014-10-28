@@ -3,73 +3,114 @@
     <h4 class="modal-title">Maps > New Map</h4>
   </div>
   <div class="modal-body">
-    <form name="mapForm" role="form" class="settings">
-      <div class="container">
-        <div class="col-xs-1"><label for="mapName">Map Name: </label></div>
-        <div class="col-xs-3">
-          <input type="text" class="form-control input-xs" id="mapName" placeholder="Map Name" ng-model="Map.name" ng-change="checkName(Map.name);" required>
-        </div>
-        <div class="col-xs-5">
-          <div ng-if="mapNameError" class="alert-danger">Another map already has the name '{{Map.name}}'.</div>
-        </div>
-      </div>
-      <br />
-      <div class="container">
-        <div class="col-xs-1 label-padding"><label for="mapTitle">Title: </label></div>
-        <div class="col-xs-3 label-padding">
-          <input type="text" class="form-control input-xs label-padding" id="mapTitle" placeholder="(Display Title)" ng-model="Map.title" required>
-        </div>
-        <div class="col-xs-5">&nbsp;</div>
-      </div>
-      <div class="container">
-        <div class="col-xs-1 label-padding"><label for="projection">Projection SRS:</label></div>
-        <div class="col-xs-3 label-padding">
-          <ui-select ng-model="projections.selected" theme="bootstrap" reset-search-input="false" required>
-            <ui-select-match ng-model="Map.projection" placeholder="Select a projection...">
-              {{$select.selected.name}}
-            </ui-select-match>
-            <ui-select-choices repeat="projection in projections">
-              <span ng-bind-html="projection.name | highlight: $select.search"></span>
-            </ui-select-choices>
-          </ui-select>
-        </div>
-      </div>
-      <div class="container">
-        <div class="col-xs-8 label-padding col-xs-offset-1">
-          <button class="btn btn-default btn-sm" ng-click="editOtherSettings()"><img src="images/settings.png" alt="Edit Other Settings" title="Edit Other Settings" /> Edit Other Settings</button><br />
-          <i>Default settings will be applied.</i>
-        </div>
-      </div>
-      <br />
-      <div class="container">
-        <div class="col-xs-1"><label for="projection">Extent:</label></div>
-        <div class="col-xs-5">
-          <div class="input-group">
-            <div class="input-group-btn">
-              <ui-select class="small-control" ng-model="extents.selected" theme="bootstrap" reset-search-input="false" id="mapExtent" required>
-                <ui-select-match ng-model="Map.extent" placeholder="Select an extent...">
-                  {{$select.selected.name}}
-                </ui-select-match>
-                <ui-select-choices repeat="extent in extents">
-                  <span ng-bind-html="extent.name | highlight: $select.search"></span>
-                </ui-select-choices>
-              </ui-select>
+    <div class="row">
+      <div class="col-sm-12">
+        <form ng-hide="step==2" name="newMap" role="form" class="new-map-form form-1">
+          <div class="container">
+            <div class="col-xs-2"><label for="mapName">Map Name: </label></div>
+            <div class="col-xs-3">
+              <input type="text" class="form-control input-sm" name="name" ng-model="mapInfo.name" ng-maxlength="10" ng-minlength="1" required ng-pattern="/^[^\s]+$/" ng-model-options="{updateOn: 'blur'}" ng-change="checkName(mapInfo.name);" placeholder="Map name" required>
+                <span ng-show="newMap.name.$error.pattern" class="error">No spaces allowed.</span>
+                <span ng-show="newMap.name.$dirty && newMap.name.$error.required" class="error">Required</span>
+                <small>(No spaces, max 10 characters.)</small>
             </div>
-            <input ng-if="extents.selected.name=='Custom'" type="text" class="form-control" id="mapExtent" placeholder="[lower corner, upper corner]" ng-model="Map.extent" ng-bind-html>
+            <div class="col-xs-5">
+              <div ng-if="mapNameError" class="alert-danger">Another map already has the name '{{mapInfo.name}}'.</div>
+            </div>
           </div>
-          <div class="custom-extent-type-warning" ng-if="extents.selected.name=='Custom'" class="alert-warning">'Custom' enables a region on the map to be selected or direct entry.</div>
+          <br />
+          <div class="container">
+            <div class="col-xs-2"><label for="title">Title: </label></div>
+            <div class="col-xs-3">
+              <input type="text" class="form-control input-sm" name="title" placeholder="Display title" ng-model="mapInfo.title" ng-model-options="{updateOn: 'blur'}" required>
+            </div>
+            <div class="col-xs-7">&nbsp;</div>
+          </div>
+          <br />
+          <div class="container">
+            <div class="col-xs-2">
+              <label for="projection">Projection SRS <span class="crs-warning" popover-html-unsafe="{{crsTooltip}}" popover-trigger="click"><i class="fa fa-info-circle"></i></span>: </label>
+            </div>
+            <div class="col-xs-3">
+              <proj-field name="crs" proj="mapInfo.proj" ng-model-options="{updateOn: 'default blur', 'allowInvalid': true}"></proj-field>
+              <small>(e.g. EPSG:4326)</small>
+            </div>
+            <div class="col-xs-7">
+              <div ng-show="newMap.crs.$dirty && !newMap.crs.$error.pattern && !newMap.crs.$error.required" class="alert-success"><i class="fa fa-check-circle"></i> Valid CRS.</div>
+              <div ng-show="newMap.crs.$dirty && !newMap.crs.$error.pattern && newMap.crs.$error.required" class="alert-danger">Required</div>
+            </div>
+          </div>
+          <br />
+          <div class="container">
+            <div class="col-xs-2">
+              <label for="abstract">Abstract</label>
+            </div>
+            <div class="col-xs-8">
+              <textarea rows="4" cols="40" class="form-control abstract" name="abstract" ng-model="mapInfo.abstract">Description for map</textarea>
+            </div>
+          </div>
+          <br />
+          <div class="container">
+            <div class="col-xs-8 label-padding col-xs-offset-2">
+              <button class="btn btn-default btn-sm" ng-click="editOtherSettings()"><img src="images/settings.png" alt="Edit Other Settings" title="Edit Other Settings" /> Edit Other Settings</button> <i>Default settings will be applied.</i>
+            </div>
+          </div>
+          <br />
+          <div class="container">
+            <div class="col-xs-2"><label for="projection">Extent:</label></div>
+            <div class="col-xs-5">
+              <div class="input-group">
+                <div class="input-group-btn">
+                  <ui-select class="small-control" ng-model="extents.selected" theme="bootstrap" reset-search-input="false" id="mapExtent" required>
+                    <ui-select-match ng-model="Map.extent" placeholder="Select an extent...">
+                      {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="extent in extents">
+                      <span ng-bind-html="extent.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+                <input ng-if="extents.selected.name=='Custom'" type="text" class="form-control" id="mapExtent" placeholder="[lower corner, upper corner]" ng-model="Map.extent" ng-bind-html>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div ng-hide="mapCreated" style="margin-top:15px;"></div>
+        <div ng-show="mapCreated" class="saved" style="text-align: left;color:#4cae4c;"><i class="fa fa-check"></i> Map Created.</div>
+      </div>
+    </div>
+    <div class="row" ng-show="step==2 && layers.length > 0">
+      <div class="col-sm-4">
+        <div class="map-choice">
+          <div class="map-label">Add Layers above to Map: </div>
+          <div class="map-picker">
+            <ui-select ng-model="map.selected" ng-disabled="disabled" theme="bootstrap" reset-search-input="false" ng-change="setMap(map.selected);">
+              <ui-select-match placeholder="Select a map...">
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="map in mapsToCreate">
+                <span ng-bind-html="map.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <button type="button" class="btn btn-success btn-sm inline map-button" ng-disabled="!selectedMap" ng-click="createMap(layerSelections)">
+            <span ng-if="!createMap">+ Add to Map</span>
+            <span ng-if="createMap">Create Map with Selected</span>
+          </button>
         </div>
       </div>
-      <div class="container">
-        <!--TODO: grab a thumbnail if it exists-->
-        <!--<div class="col-xs-4 col-xs-offset-1">
-          <img ng-hide="thumbnail == ''" class="thumbnail" ng-model="thumbnail" ng-src="{{thumbnail}}" alt="Thumbnail View" title="Thumbnail View" />
-        </div>-->
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="form-footer">
+          <div class="submit-buttons pull-right">
+            <button ng-show="step!==1" class="btn btn-default btn-sm" ng-click="step=1;">&larr; Back</button>
+            <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
+            <button ng-show="step==2" class="btn btn-primary btn-sm" ng-click="createMap(layerSelections)" ng-disabled="map.layers.length==0">Create Map</button>
+            <button ng-show="step==1" class="btn btn-success btn-sm" ng-click="step=2;" ng-disabled="!newMap.$valid">Add Layers &rarr;</button>
+          </div>
+        </div>
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-success btn-sm" ng-click="ok(Map.name, Map.title, projections.selected.name, extents.selected.name, Map.extent)" ng-disabled="mapForm.$invalid || mapNameError">Next: Select Layers</button>
+    </div>
   </div>
 </div>
