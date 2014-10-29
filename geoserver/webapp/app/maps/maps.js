@@ -1,6 +1,10 @@
 angular.module('gsApp.maps', [
   'ngGrid',
   'ui.select',
+  'ngSanitize',
+  'gsApp.alertpanel',
+  'gsApp.projfield',
+  'gsApp.core.utilities',
   'gsApp.maps.compose'
 ])
 .config(['$stateProvider',
@@ -18,9 +22,11 @@ angular.module('gsApp.maps', [
         });
     }])
 .controller('MapsCtrl', ['$scope', 'GeoServer', '$state', '$log', '$rootScope',
-    '$modal', '$window',
-    function($scope, GeoServer, $state, $log, $rootScope, $modal, $window) {
+    '$modal', '$window', '$stateParams',
+    function($scope, GeoServer, $state, $log, $rootScope, $modal, $window,
+      $stateParams) {
       $scope.title = 'All Maps';
+      $scope.workspace = $stateParams.workspace;
 
       $scope.workspaceChanged = function(ws) {
         GeoServer.maps.get(ws.name).then(
@@ -41,32 +47,75 @@ angular.module('gsApp.maps', [
         var modalInstance = $modal.open({
           templateUrl: '/maps/addnewmap-modal.tpl.html',
           backdrop: 'static',
-          controller: ['$scope', '$window', '$modalInstance',
-            function($scope, $window, $modalInstance) {
-              $scope.projections = [{name: 'EPSG: 4326'}, {name: 'EPSG: 9999'}];
+          controller: ['$scope', '$window', '$modalInstance', '$state',
+            function($scope, $window, $modalInstance, $state) {
               $scope.extents = [{name: 'Autocalc'}, {name: 'Custom'}];
-              $scope.ws = ws;
+              $scope.workspace = ws;
+              $scope.mapInfo = {
+                'abstract': ''
+              };
+              $scope.selectedLayers = [];
+              $scope.newMap = {};
+              $scope.map = {};
+              $scope.title = 'New Map';
+              $scope.step = 1;
+              
+              $scope.crsTooltip =
+              '<h5>Add a projection in EPSG</h5>' +
+              '<p>Coordinate Reference System (CRS) info is available at ' +
+                '<a href="http://prj2epsg.org/search" target="_blank">' +
+                  'http://prj2epsg.org' +
+                '</a>' +
+              '</p>';
 
-              $scope.ok = function(name, title, projection, extentType,
-                extent) {
-                var mapData = {
-                  name: name,
-                  title: title,
-                  projection: projection,
-                  extentType: extentType,
-                  extent: extent
-                };
-                
-                $window.alert('TODO: add the new map: ' + name +
-                  ' to the workspace: ' + $scope.ws + '.');
-                GeoServer.map.create(
-                  $scope.ws,
-                  mapData
-                );
+              $scope.layers = [];
+              $scope.layerSelections = [];
+              $scope.totalServerItems = [];
+
+              $scope.pagingOptions = {
+                pageSizes: [10, 50, 100],
+                pageSize: 10,
+                currentPage: 1
+              };
+
+              $scope.createMap = function(layerSelections) {
+                $scope.mapInfo.layers = [];
+                for (var i=0; i< layerSelections.length; i++) {
+                  $scope.mapInfo.layers.push({
+                    'name': layerSelections[i].name,
+                    'workspace': $scope.workspace
+                  });
+                }
+
+                GeoServer.map.create($scope.workspace, $scope.mapInfo).then(
+                  function(result) {
+                    $modalInstance.dismiss('cancel');
+                    if (result.success) {
+                      $rootScope.alerts = [{
+                        type: 'success',
+                        message: 'Map ' + result.data.name + ' created  with ' +
+                          result.data.layers.length + ' layer(s).',
+                        fadeout: true
+                      }];
+                      $scope.maps.push(result.data);
+                    } else {
+                      modalInstance.dismiss('cancel');
+                      $rootScope.alerts = [{
+                        type: 'danger',
+                        message: 'Could not create map.',
+                        fadeout: true
+                      }];
+                    }
+                    //$window.location.reload();
+                  });
+              }; // end createMap
+
+              $scope.createNewLayers = function() {
+                $state.go('workspace.data.import.file', {
+                  workspace: $scope.workspace,
+                  maps: [$scope.mapInfo]
+                });
                 $modalInstance.dismiss('cancel');
-                //TODO: set the newly created map as the default so that we
-                //      can add layers directly to it.
-                $state.go('layers');
               };
 
               $scope.cancel = function() {
@@ -78,11 +127,12 @@ angular.module('gsApp.maps', [
               };
 
               $scope.checkName = function(mapName) {
-                $scope.mapNameCheck = GeoServer.map.get($scope.ws, mapName);
+                $scope.mapNameCheck = GeoServer.map.get($scope.workspace,
+                  mapName);
 
                 //Check to see if the incoming mapName already exists for this
-                //  workspace. If it does, show the error, if not, keep going.
-                GeoServer.map.get($scope.ws, mapName).then(
+                //workspace. If it does, show the error, if not, hide the error.
+                GeoServer.map.get($scope.workspace, mapName).then(
                   function(result) {
                     if (result.success) {
                       $scope.mapNameCheck = result.data;
@@ -97,8 +147,154 @@ angular.module('gsApp.maps', [
                     else {$scope.mapNameError = false;}
                   });
               };
+
+              $scope.loadLayers = function() {
+                GeoServer.layers.get(
+                  $scope.workspace,
+                  $scope.pagingOptions.currentPage-1,
+                  $scope.pagingOptions.pageSize
+                ).then(function(result) {
+                  if (result.success) {
+                    $scope.layers = result.data.layers;
+                    $scope.totalServerItems = result.data.total;
+                  } else {
+                    $rootScope.alerts = [{
+                      type: 'danger',
+                      message: 'Layers for workspace ' + $scope.workspace.name +
+                        ' could not be loaded.',
+                      fadeout: true
+                    }];
+                  }
+                });
+              };
+              $scope.loadLayers();
+
+              $scope.gridOptions = {
+                data: 'layers',
+                enableCellSelection: false,
+                enableRowSelection: true,
+                enableCellEdit: false,
+                checkboxHeaderTemplate:
+                  '<input class="ngSelectionHeader" type="checkbox"' +
+                    'ng-model="allSelected"' +
+                    'ng-change="toggleSelectAll(allSelected)"/>',
+                sortInfo: {fields: ['name'], directions: ['asc']},
+                showSelectionCheckbox: true,
+                selectWithCheckboxOnly: true,
+                selectedItems: $scope.layerSelections,
+                multiSelect: true,
+                columnDefs: [
+                  {field: 'name', displayName: 'Map Name', width: '150'},
+                  {field: 'title',
+                    displayName: 'Title',
+                    enableCellEdit: true,
+                    cellTemplate:
+                      '<div class="grid-text-padding"' +
+                        'alt="{{row.entity.description}}"' +
+                        'title="{{row.entity.description}}">'+
+                        '{{row.entity.title}}' +
+                      '</div>',
+                    width: '200'
+                  },
+                  {field: 'geometry',
+                    displayName: 'Type',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                      '<div class="grid-text-padding">' +
+                        '{{row.entity.geometry}}' +
+                      '</div>',
+                    width: '100'
+                  },
+                  {field: 'srs',
+                    displayName: 'SRS',
+                    cellClass: 'text-center',
+                    cellTemplate:
+                      '<div class="grid-text-padding">' +
+                        '{{row.entity.proj.srs}}' +
+                      '</div>',
+                    width: '150'
+                  }
+                ],
+                enablePaging: true,
+                enableColumnResize: false,
+                showFooter: true,
+                footerTemplate: '/components/grid/footer.tpl.html',
+                totalServerItems: 'totalServerItems',
+                pagingOptions: $scope.pagingOptions,
+                filterOptions: {
+                  filterText: '',
+                  useExternalFilter: true
+                }
+              };
+
+              $scope.setMap = function(map) {
+                $scope.selectedMap = map;
+              };
+
+              $scope.mapsToCreate = [$scope.mapInfo];
+
+              $scope.updatePaging = function () {
+                var ws = $scope.workspace.selected;
+                $scope.refreshLayers(ws);
+              };
+
+              $scope.setPage = function (page) {
+                $scope.pagingOptions.currentPage = page;
+              };
+
+              $scope.$watch('pagingOptions', function (newVal, oldVal) {
+                if (newVal != null) {
+                  var ws = $scope.workspace.selected;
+                  if (ws != null) {
+                    $scope.refreshLayers(ws);
+                  }
+                }
+              }, true);
             }],
           size: 'lg'
+        });
+      };
+
+      $scope.deleteMap = function(map, ws) {
+        var modalInstance = $modal.open({
+          templateUrl: '/maps/deletemap-modal.tpl.html',
+          controller: ['$scope', '$window', '$modalInstance', '$state',
+            function($scope, $window, $modalInstance, $state) {
+              $scope.workspace = ws.name;
+              $scope.map = map.name;
+
+              $scope.ok = function() {
+                GeoServer.map.remove($scope.workspace, $scope.map).then(
+                  function(result) {
+                    //$modalInstance.dismiss('cancel');
+                    if (result.success) {
+                      $rootScope.alerts = [{
+                        type: 'success',
+                        message: 'Map "' + $scope.map + '"" has been deleted ' +
+                          'from the workspace "' + $scope.workspace + '".',
+                        fadeout: true
+                      }];
+                    } else {
+                      $rootScope.alerts = [{
+                        type: 'danger',
+                        message: 'Map "' + $scope.map + '"" could not be ' +
+                          'deleted from the workspace "' +
+                          $scope.workspace + '".',
+                        fadeout: true
+                      }];
+                    }
+                    if ($scope.mapNameCheck.name) {$scope.mapNameError = true;}
+                    else {$scope.mapNameError = false;}
+                  });
+                //$window.location.reload();
+              };
+
+              $scope.cancel = function() {
+                $modalInstance.dismiss('cancel');
+              };
+            }],
+          backdrop: 'static',
+          size: 'med'
         });
       };
 
@@ -120,8 +316,11 @@ angular.module('gsApp.maps', [
       });
 
       $scope.pagingOptions = {
-        pageSizes: [25, 50, 100],
-        pageSize: 25
+        pageSizes: [15, 50, 100],
+        pageSize: 15
+      };
+      $scope.filterOptions = {
+        filterText: ''
       };
       $scope.gridSelections = [];
       $scope.gridOptions = {
@@ -186,22 +385,36 @@ angular.module('gsApp.maps', [
               '</div>',
             width: '10%'
           },
-          {field: '', displayName: '', width: '*'},
+          {field: '',
+            displayName: '',
+            cellClass: 'text-center',
+            sortable: false,
+            cellTemplate:
+              '<div ng-class="col.colIndex()">' +
+                '<a ng-click="deleteMap(row.entity, workspace.selected)">' +
+                  '<img ng-src="images/delete.png" alt="Remove Map"' +
+                    'title="Remove Map" />' +
+                '</a>' +
+              '</div>',
+            width: '*'
+          }
         ],
         enablePaging: true,
         enableColumnResize: false,
         showFooter: true,
-        footerTemplate: '/components/grid/ngGrid.custom.footer.tpl.html',
+        footerTemplate: '/components/grid/footer.tpl.html',
         totalServerItems: 'totalServerItems',
         pagingOptions: $scope.pagingOptions,
-        filterOptions: {
-          filterText: '',
-          useExternalFilter: true
-        }
+        filterOptions: $scope.filterOptions
       };
 
       $scope.workspace = {};
       $scope.workspaces = [];
+
+      $scope.updatePaging = function () {
+        var ws = $scope.workspace.selected;
+        $scope.refreshLayers(ws);
+      };
 
       $scope.setPage = function (page) {
         $scope.pagingOptions.currentPage = page;
@@ -226,7 +439,6 @@ angular.module('gsApp.maps', [
             });
             $scope.workspaces = workspaces;
           } else {
-            // TODO move alerts to top of header nav
             $scope.alerts = [{
               type: 'warning',
               message: 'Workspace update failed.',
