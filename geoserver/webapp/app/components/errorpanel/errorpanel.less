@@ -1,8 +1,8 @@
-/* alertpanel.less */
+/* errorpanel.less */
 
 @import url('../../variables.less');
 
-.alert-panel {
+.error-panel {
   position:absolute;
   margin-left: -19%;
   width: 35%;
@@ -17,15 +17,15 @@
     .rounded(2px);
   }
 
-  .alert:first-child {
+  .error:first-child {
     margin-top: 5px;
   }
 
-  .alert:last-child {
+  .error:last-child {
     margin-bottom: 0px;
   }
 
-  .alert {
+  .error {
     padding: 5px 25px 5px 10px;
     margin-bottom: 5px;
     -webkit-transition:all linear 1s;
@@ -34,17 +34,17 @@
     .box-shadow(3px 3px 3px 0px rgba(50,50,50,.8));
   }
 
-  .alert.ng-hide {
+  .error.ng-hide {
     opacity: 0;
   }
 
-  .alert-details {
+  .error-details {
     cursor: pointer;
     float: right;
   }
 }
 
-.alert-modal-details {
+.error-modal-details {
   white-space: pre;
   max-height: 600px;
   overflow-y: scroll;

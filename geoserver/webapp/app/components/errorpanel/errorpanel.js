@@ -4,38 +4,26 @@ angular.module('gsApp.errorpanel', [
 .directive('errorPanel', ['$modal', '$interval', '$log', '$window',
     function($modal, $interval, $log, $window) {
       return {
-        restrict: 'ACME',
+        restrict: 'EA',
         scope: {
           errors: '=?'
         },
         templateUrl: '/components/errorpanel/errorpanel.tpl.html',
-        controller: function($scope, $element) {
-          $scope.type = 'warning';
-          $scope.message.details = 'Critical error.';
-          $scope.msg.message = 'Test message...';
-          $scope.groups = [
-            {
-              title: 'Error Heading - 1',
-              content: 'Error Body - 1'
-            },
-            {
-              title: 'Errror Heading - 2',
-              content: 'Error Body - 2'
-            }
-          ];
-
-          $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
+        controller: function($scope, $element, $window) {
           $scope.$watch('errors', function(newVal) {
             if (newVal != null) {
               $scope.messages = newVal.map(function(val) {
-                var msg = angular.extend({show:true}, val);
-                if (msg.fadeout == true) {
+                $scope.msg = angular.extend({show:true}, val);
+                $scope.exception = $scope.msg.exception;
+                $scope.message = $scope.msg.message;
+                $scope.fadeout = $scope.msg.fadeout;
+
+                if ($scope.fadeout == true) {
                   $interval(function() {
-                    msg.show = false;
+                    $scope.msg.show = false;
                   }, 5000, 1);
                 }
-                return msg;
+                return $scope.msg;
               });
             }
           });
@@ -44,18 +32,22 @@ angular.module('gsApp.errorpanel', [
           };
           $scope.showDetails = function(message) {
             var modal = $modal.open({
-              templateUrl: '/components/errorpanel/errorpaneldetails.tpl.html',
+              templateUrl: 'error-modal',
               size: 'lg',
               resolve: {
                 message: function() {
                   return message;
                 }
               },
-              controller: function($scope, $modalInstance, message) {
+              controller: function($scope, $modalInstance, message, $window) {
                 $scope.message = message;
-                
-                $scope.copy = function(message) {
-                  $modalInstance.close();
+                $scope.fullMessage = message.message;
+                $scope.message = message.message;
+                $scope.allErrors = message.allErrors;
+                $scope.entireMessage = message;
+
+                $scope.copy = function() {
+                  return $scope.entireMessage;
                 };
                 $scope.close = function() {
                   $modalInstance.close();
