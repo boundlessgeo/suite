@@ -2,7 +2,9 @@ angular.module('gsApp.layers', [
   'gsApp.workspaces.data',
   'ngGrid',
   'ui.select',
-  'gsApp.layers.style'
+  'gsApp.layers.style',
+  'gsApp.alertpanel',
+  'gsApp.errorpanel'
 ])
 .config(['$stateProvider',
     function($stateProvider) {
@@ -82,6 +84,20 @@ angular.module('gsApp.layers', [
 
       $scope.workspace = {};
       $scope.workspaces = [];
+
+      //Show me an error...just for fun.
+      /*$rootScope.errors = [{
+        exception: 'Danger',
+        message: 'Network is not accessible.',
+        fadeout: false,
+        allErrors: [
+          {name: 'HTTP Send', error: 'HTTP request could not be sent.'},
+          {name: 'HTTP Receive', error: 'HTTP request could not be retrieved.'},
+          {name: 'Error 3', error: 'This is critical error #3.'},
+          {name: 'Error 4', error: 'Error #4.'},
+          {name: 'Error 5', error: 'You know...error #5.'}
+        ]
+      }];*/
 
       $scope.addLayer = function(ws) {
         var modalInstance = $modal.open({
