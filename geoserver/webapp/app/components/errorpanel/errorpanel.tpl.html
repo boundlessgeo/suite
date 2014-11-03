@@ -2,7 +2,7 @@
   <script type="text/ng-template" id="error-modal">
     <div class="modal-body">
       <div class="error-modal-details">
-        <div>Message: {{fullMessage}}</div>
+        <div class="alert-danger">{{fullMessage}}</div>
         <div>
           <accordion>
             <accordion-group heading="{{error.name}}" ng-repeat="error in allErrors">
@@ -13,11 +13,12 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" clip-copy="entireMessage" clip-click="close()">Copy</button>
+      <div class="pull-right alert-success" ng-show="copied" class="alert-success"> <i class="fa fa-check"></i> Copied to clipboard.</div>
+      <button class="btn btn-primary" clip-copy="copy()">Copy</button>
       <button class="btn btn-primary" ng-click="close()">Close</button>
     </div>
   </script>
-  <error ng-repeat="msg in messages" type="{{type}}" close="close($index)">{{exception}}: {{message}}
-    <a ng-click="showDetails(msg)" class="error-details">More details...</a>
+  <error ng-repeat="msg in messages" type="{{type}}" close="close($index)">{{exception}}<span ng-if="message.length > 0">: {{message}}</span>
+    <a ng-if="details" ng-click="showDetails(msg)" class="error-details">More details...</a>
   </error>
 </div>

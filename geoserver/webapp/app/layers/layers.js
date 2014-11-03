@@ -2,7 +2,9 @@ angular.module('gsApp.layers', [
   'gsApp.workspaces.data',
   'ngGrid',
   'ui.select',
-  'gsApp.layers.style'
+  'gsApp.layers.style',
+  'gsApp.alertpanel',
+  'gsApp.errorpanel'
 ])
 .config(['$stateProvider',
     function($stateProvider) {
@@ -56,10 +58,9 @@ angular.module('gsApp.layers', [
       '</div>'
   };
 })
-.controller('LayersCtrl', ['$scope', 'GeoServer', '$state', 'AppEvent',
+.controller('LayersCtrl', ['$scope', 'GeoServer', '$state',
     '$log', '$modal', '$window', '$rootScope',
-    function($scope, GeoServer, $state, AppEvent, $log, $modal, $window,
-      $rootScope) {
+    function($scope, GeoServer, $state, $log, $modal, $window, $rootScope) {
       $scope.title = 'All Layers';
       $scope.thumbnail = '';
       $scope.dropdownBoxSelected = '';
@@ -84,6 +85,20 @@ angular.module('gsApp.layers', [
       $scope.workspace = {};
       $scope.workspaces = [];
 
+      //Show me an error...just for fun.
+      /*$rootScope.errors = [{
+        exception: 'Danger',
+        message: 'Network is not accessible.',
+        fadeout: false,
+        allErrors: [
+          {name: 'HTTP Send', error: 'HTTP request could not be sent.'},
+          {name: 'HTTP Receive', error: 'HTTP request could not be retrieved.'},
+          {name: 'Error 3', error: 'This is critical error #3.'},
+          {name: 'Error 4', error: 'Error #4.'},
+          {name: 'Error 5', error: 'You know...error #5.'}
+        ]
+      }];*/
+
       $scope.addLayer = function(ws) {
         var modalInstance = $modal.open({
           templateUrl: '/layers/addnewlayer-modal.tpl.html',
@@ -91,7 +106,6 @@ angular.module('gsApp.layers', [
           controller: ['$scope', '$window', '$modalInstance',
             function($scope, $window, $modalInstance) {
               $scope.datastores = GeoServer.datastores.get('ws');
-              $scope.projections = [{name: 'EPSG: 4326'}, {name: 'EPSG: 9999'}];
               $scope.types = [
                 {name: 'line'},
                 {name: 'multi-line'},
@@ -437,20 +451,32 @@ angular.module('gsApp.layers', [
       };
 
       $scope.$watch('pagingOptions', function (newVal, oldVal) {
-        if (newVal != null) {
-          var ws = $scope.workspace.selected;
-          if (ws != null) {
-            $scope.refreshLayers(ws);
+        if (newVal !== null) {
+          if ($scope.workspace.selected) {
+            var ws = $scope.workspace.selected;
+            if (ws !== null) {
+              $scope.refreshLayers(ws);
+            }
+
+            throw {
+              message: 'Big time error.',
+              cause: 'Network error: no packets sent.',
+              trace: [
+                {name: 'Error 1', error: 'HTTP request could not be sent.'},
+                {name: 'Error 2', error: 'HTTP request could not be...'},
+                {name: 'Error 3', error: 'This is critical error #3.'},
+                {name: 'Error 4', error: 'Error #4.'},
+                {name: 'Error 5', error: 'You know...error #5.'}
+              ]
+            };
           }
         }
       }, true);
 
       $scope.$watch('workspace.selected', function(newVal) {
-        if (newVal != null) {
-          $scope.refreshLayers(newVal);
+        if (newVal) {
+          $scope.refreshLayers(newVal.name);
           $scope.refreshMaps(newVal.name);
-          $rootScope.$broadcast(AppEvent.WorkspaceSelected,
-            newVal.name);
         }
       });
 
@@ -464,7 +490,7 @@ angular.module('gsApp.layers', [
           if (result.success) {
             var workspaces = result.data;
             workspaces.filter(function(ws) {
-              return ws.default == true;
+              return ws.default === true;
             }).forEach(function(ws) {
               $scope.workspace.selected = ws;
             });
