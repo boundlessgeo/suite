@@ -76,7 +76,10 @@ angular.module('gsApp.maps.compose', [
       };
 
       $scope.zoomToLayer = function(layer) {
-        $scope.mapOpts.bounds = layer.bbox.native;
+        $scope.mapOpts.bounds = {
+          bbox: layer.bbox,
+          proj: layer.proj
+        };
       };
       $scope.removeLayer = function(layer, index) {
         GeoServer.map.layers.delete(wsName, $scope.map.name, layer.name)
