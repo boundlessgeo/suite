@@ -60,11 +60,8 @@ angular.module('gsApp.olmap', [])
 
         // determine projection from first layer
         var p = mapOpts.proj;
-        var proj = new ol.proj.Projection({
-          code: p.srs,
-          units: p.unit,
-          axisOrientation: p.type == 'geographic' ? 'neu' : 'enu'
-        });
+        proj4.defs(p.srs, p.wkt);
+        var proj = ol.proj.get(p.srs);
 
         // initial extent
         var bbox = mapOpts.bbox;
