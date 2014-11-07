@@ -21,9 +21,16 @@ angular.module('gsApp.sidenav', [
     $scope.toggleWkspc = {}; // workspaces in wide sidenav
     $scope.toggleWkspc2 = {}; // workspaces in collapse sidenav
 
+    GeoServer.serverInfo.get().then(function(serverInfo) {
+      $scope.serverInfo = serverInfo;
+
+      if ($scope.serverInfo.status == 200) { $scope.status = 'ok'; }
+      else { $scope.status = 'not running'; }
+    });
+
     // Hug partial menu to sidebar bottom if height's enough
     $scope.onWindowResize = function() {
-      var windowHeight = $window.innerHeight - 150;
+      var windowHeight = $window.innerHeight - 200;
       if (windowHeight < 300) {
         $scope.sideStyle = {'position': 'relative'};
         $scope.sideBottom = {'position': 'relative'};

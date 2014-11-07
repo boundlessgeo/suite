@@ -5,12 +5,8 @@
       <p>{{ server.title }}{{ server.url }}</p>
       <!--<p>{{ serverInfo }}</p>-->
     </div>
-    <div class="col-sm-3">
-      <div ng-if="server.status != 'ok'" class="alert-danger" style="margin-top: -3px;"><i class="fa fa-exclamation-circle"></i> Server is not running.</div>
-      <div ng-if="server.status == 'ok'" class="alert-success" style="margin-top: -3px;"><i class="fa fa-check-circle"></i> Server is running ok.</div>
-    </div>
     <div class="col-sm-1"><a href="logs">Logs</a></div>
-    <div class="col-sm-5"></div>
+    <div class="col-sm-8"></div>
   </div>
 
   <div>
