@@ -16,4 +16,3 @@ angular.module('gsApp.topnav', [])
       };
       $scope.adminLink = GeoServer.baseUrl();
     }]);
-

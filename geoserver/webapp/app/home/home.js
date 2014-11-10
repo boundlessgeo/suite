@@ -14,17 +14,16 @@ angular.module('gsApp.home', [])
       GeoServer.serverInfo.get().then(function(serverInfo) {
         $scope.serverInfo = serverInfo;
         $scope.server = serverInfo.server;
-        //$scope.serverInfo = serverInfo;
 
         if (!$scope.server) {
           $scope.server = {};
+
+          if (serverInfo.title) { $scope.server.title = serverInfo.title; }
+          else { $scope.server.title = 'localhost:8000'; }
+
+          $scope.server.url = GeoServer.baseUrl();
         }
 
-        if (serverInfo.title) { $scope.server.title = serverInfo.title; }
-        else { $scope.server.title = 'localhost:8000'; }
-        //$scope.server.status = serverInfo.status;
-        $scope.server.status = 'ok';
-        $scope.server.url = GeoServer.baseUrl();
         $scope.catalog = serverInfo.catalog;
         $scope.services = serverInfo.services;
       });
