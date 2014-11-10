@@ -13,7 +13,7 @@
         <input type="text" ng-model="proj.srs" class="form-control input-sm" size="10"
           required ng-pattern="/^(epsg|EPSG):[0-9]+$/"
           typeahead="p.srs for p in projList | filter:$viewValue"
-          placeholder="{{placeholder? placeholder : 'e.g. EPSG:2263'}}"
+          placeholder="{{placeholder? placeholder : 'EPSG:4326'}}"
           ng-focus="$parent.proj = 'other'"
           focus-me="$parent.custom.proj"
           />

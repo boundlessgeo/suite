@@ -9,7 +9,7 @@
           <div class="container">
             <div class="col-xs-1"><label for="layerName">Layer Name: </label></div>
             <div class="col-xs-3">
-              <input type="text" class="form-control input-sm" name="name" placeholder="Layer Name" ng-model="layerInfo.name" ng-maxlength="10" ng-minlength="1" ng-change="checkName(layerInfo.name);" ng-pattern="/^[^\s]+$/" ng-model-options="{updateOn: 'blur'}" required>
+              <input type="text" class="form-control input-sm" name="name" placeholder="Layer Name" ng-model="layerInfo.name" ng-maxlength="10" ng-minlength="1" ng-change="checkName(layerInfo.name);" ng-pattern="/^[^\s]+$/" ng-model-options="{updateOn: 'blur'}" required focus-init />
               <small>(No spaces, max 10 characters.)</small>
             </div>
             <div class="col-xs-5">
