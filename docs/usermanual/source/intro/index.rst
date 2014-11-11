@@ -1,7 +1,7 @@
 .. _intro:
 
-Getting Started
-===============
+Introduction
+============
 
 This section will guide you through the basic functionality of OpenGeo Suite, including installation information and a tour of the various features. More detailed information is available in later sections.
 
@@ -9,7 +9,7 @@ This section will guide you through the basic functionality of OpenGeo Suite, in
    :maxdepth: 2
 
    whatis
-   installation/index
+   start/index
    dashboard
    extensions
    recipes
