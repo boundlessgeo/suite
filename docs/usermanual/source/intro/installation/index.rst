@@ -1,7 +1,7 @@
 .. _intro.installation:
 
-Installation
-============
+Getting Started
+===============
 
 This section describes how to install OpenGeo Suite on your platform. Both new installations and upgrades are covered in the sections below.
 
