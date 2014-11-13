@@ -61,6 +61,7 @@ angular.module('gsApp.workspaces.layers.settings', [])
                   fadeout: true
                 }];
               }
+              $modalInstance.dismiss('cancel');
             });
         }
       };

@@ -1,3 +1,6 @@
+var gProjection = 'latlon';
+var gCustomProjection = '';
+
 angular.module('gsApp.workspaces.maps.new', [
   'ngSanitize',
   'gsApp.alertpanel',
@@ -115,6 +118,9 @@ angular.module('gsApp.workspaces.maps.new', [
     };
 
     $scope.stepBack = function () {
+      gProjection = 'latlon';
+      gCustomProjection = '';
+
       if ($state.is('workspace.maps.new.add')) {
         $state.go('workspace.maps.new.form');
       }
@@ -123,12 +129,28 @@ angular.module('gsApp.workspaces.maps.new', [
       }
     };
 
+    $scope.setProjection = function(projection) {
+      gProjection = projection;
+    };
+
     $scope.addLayers = function() {
+      var projection = '';
+
+      if (gProjection == 'other') {
+        projection = gCustomProjection;
+      }
+      else {
+        projection = gProjection;
+      }
+      //$window.alert(gProjection + ' - ' + gCustomProjection + ' - ' +
+        //projection);
+
       $state.go('workspace.maps.new.add', {
         workspace: $scope.workspace,
         layers: $scope.layers,
         datastores: $scope.datastores,
-        mapInfo: $scope.mapInfo
+        mapInfo: $scope.mapInfo,
+        projection: projection
       });
     };
 

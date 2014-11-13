@@ -22,14 +22,14 @@
           </label>
           <div class="projection-options">
             <div class="proj-check">
-              <input type="radio" ng-model="proj" value="latlon">
+              <input type="radio" ng-model="proj" value="latlon" ng-click="setProjection('latlon')" />
               Lat/Lon (WGS)
             </div>
             <div class="proj-check">
-              <input type="radio" ng-model="proj" value="mercator"> Web Mercator
+              <input type="radio" ng-model="proj" value="mercator" ng-click="setProjection('mercator')" /> Web Mercator
             </div>
             <div class="proj-check other">
-              <input type="radio" ng-model="proj" value="other" ng-click="custom.proj = true"> Other
+              <input type="radio" ng-model="proj" value="other" ng-click="setProjection('other')"> Other
               <proj-field name="crs" id="otherproj" proj="customproj" ng-model-options="{updateOn: 'default blur', 'allowInvalid': true}"></proj-field>
               <span ng-show="newMap.crs.$dirty && !newMap.crs.$error.pattern && !newMap.crs.$error.required" class="success"><i class="fa fa-check"></i> Valid CRS.</span>
               <span ng-show="!newMap.crs.$error.pattern && newMap.crs.$error.required" class="error">Required</span>
