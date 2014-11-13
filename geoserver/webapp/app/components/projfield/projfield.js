@@ -1,3 +1,6 @@
+var gProjection = 'latlon';
+var gCustomProjection = '';
+
 angular.module('gsApp.projfield', [
   'ui.bootstrap',
   'gsApp.core.backend'
@@ -28,6 +31,11 @@ angular.module('gsApp.projfield', [
               $scope.valid = result.success;
               if (result.success) {
                 $scope.proj.wkt = result.data.wkt;
+                gProjection = 'other';
+                gCustomProjection = {
+                  'srs': $scope.proj.srs,
+                  'wkt': $scope.proj.wkt
+                };
               }
             });
           };
