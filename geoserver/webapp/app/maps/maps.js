@@ -22,9 +22,9 @@ angular.module('gsApp.maps', [
         });
     }])
 .controller('MapsCtrl', ['$scope', 'GeoServer', '$state', '$log', '$rootScope',
-    '$modal', '$window', '$stateParams', 'AppEvent',
+    '$modal', '$window', '$stateParams', 'AppEvent', '$timeout',
     function($scope, GeoServer, $state, $log, $rootScope, $modal, $window,
-      $stateParams, AppEvent) {
+      $stateParams, AppEvent, $timeout) {
       $scope.title = 'All Maps';
       $scope.workspace = $stateParams.workspace;
 
@@ -53,7 +53,7 @@ angular.module('gsApp.maps', [
       };
 
       $scope.addMap = function(ws) {
-        var modalInstance = $modal.open({
+        /*var modalInstance = $modal.open({
           templateUrl: '/maps/addnewmap-modal.tpl.html',
           backdrop: 'static',
           controller: ['$scope', '$window', '$modalInstance', '$state',
@@ -265,7 +265,9 @@ angular.module('gsApp.maps', [
               }, true);
             }],
           size: 'lg'
-        });
+        });*/
+
+        $window.location = '/#/workspace/' + ws + '/maps/';
       };
 
       $scope.deleteMap = function(map, ws) {
@@ -386,7 +388,7 @@ angular.module('gsApp.maps', [
             sortable: false,
             cellTemplate:
               '<div class="grid-text-padding" ng-class="col.colIndex()">' +
-                '<a ng-click="onCompose(row.entity)">Compose</a>' +
+                '<a ng-click="newOLWindow(row.entity)">Compose</a>' +
               '</div>',
             width: '10%'
           },
