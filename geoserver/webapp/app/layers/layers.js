@@ -237,7 +237,7 @@ angular.module('gsApp.layers', [
               '</div>',
             width: '7%'
           },
-          {field: 'download',
+          /*{field: 'download',
             displayName: 'Download',
             cellClass: 'text-center',
             sortable: false,
@@ -251,7 +251,7 @@ angular.module('gsApp.layers', [
                   'alt="Download Layer" title="Download Layer"></div>' +
               '</a>',
             width: '7%'
-          },
+          },*/
           {field: 'modified.timestamp',
             displayName: 'Modified',
             cellTemplate:
