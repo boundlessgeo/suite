@@ -179,6 +179,7 @@ angular.module('gsApp.layers', [
           {field: 'geometry',
             displayName: 'Type',
             cellClass: 'text-center',
+            sortable: false,
             cellTemplate:
               '<div get-type ' +
                 'geometry="{{row.entity.geometry}}">' +

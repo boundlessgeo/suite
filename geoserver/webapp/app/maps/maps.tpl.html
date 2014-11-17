@@ -16,7 +16,7 @@
             </ui-select-choices>
           </ui-select>
         </div>
-        <input type="text" class="form-control grid-filter" ng-model="filterOptions.filterText" placeholder="Filter by name, title, description..." size="25" ng-change="updatePaging()" />
+        <input type="text" class="form-control grid-filter" ng-model="filterOptions.filterText" placeholder="Filter by name, title, description..." size="25" ng-change="refreshMaps()" />
         <span>
           <button type="button" class="new-map-btn btn btn-primary btn-sm pull-right" ng-click="addMap(workspace.selected.name)" alt="Add New Map" title="Add New Map">+ New Map</button>
         </span>
