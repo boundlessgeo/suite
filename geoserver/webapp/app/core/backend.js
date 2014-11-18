@@ -250,10 +250,28 @@ angular.module('gsApp.core.backend',[])
         },
 
         maps: {
-          get: function(workspace) {
+          /*get: function(workspace) {
             return http({
               method: 'GET',
               url: apiRoot+'/maps/'+workspace
+            });
+          },*/
+          get: function(workspace, page, count, sort, filter) {
+            if (workspace) {
+              if (workspace.name) {
+                workspace = workspace.name;
+              }
+            } else {
+              workspace = 'default';
+            }
+            page = page? page : 0;
+            count = count? count : 25;
+            sort = sort? '&sort='+sort : '';
+            filter = filter? '&filter='+filter : '';
+            return http({
+              method: 'GET',
+              url: apiRoot+'/maps/'+workspace+'?page='+page+
+                '&count='+count + sort + filter
             });
           },
           post: function(workspace, name) {
