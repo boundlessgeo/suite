@@ -45,6 +45,7 @@ angular.module('gsApp.maps', [
               }];
             }
           });
+        $scope.refreshMaps();
       };
 
       $scope.newOLWindow = function(map) {
@@ -115,6 +116,80 @@ angular.module('gsApp.maps', [
           size: 'med'
         });
       };
+
+      $scope.$watch('gridOptions.ngGrid.config.sortInfo', function() {
+        $scope.refreshMaps();
+      }, true);
+
+      $scope.refreshMaps = function() {
+        $scope.sort = '';
+        $scope.ws = $scope.workspace.selected;
+        if ($scope.gridOptions.sortInfo.directions == 'asc') {
+          $scope.sort = $scope.gridOptions.sortInfo.fields+':asc';
+        }
+        else {
+          $scope.sort = $scope.gridOptions.sortInfo.fields+':desc';
+        }
+
+        if ($scope.ws) {
+          GeoServer.maps.get(
+            $scope.ws.name,
+            $scope.pagingOptions.currentPage-1,
+            $scope.pagingOptions.pageSize,
+            $scope.sort,
+            $scope.filterOptions.filterText
+          ).then(function(result) {
+            if (result.success) {
+              $scope.layerData = result.data.maps;
+              $scope.totalServerItems = result.data.total;
+              $scope.itemsPerPage = $scope.pagingOptions.pageSize;
+
+              if ($scope.filterOptions.filterText.length > 0) {
+                $scope.totalItems =
+                  $scope.gridOptions.ngGrid.filteredRows.length;
+              }
+              else {
+                $scope.totalItems = $scope.totalServerItems;
+              }
+            } else {
+              $rootScope.alerts = [{
+                type: 'warning',
+                message: 'Maps for workspace ' + $scope.ws.name +
+                  ' could not be loaded.',
+                fadeout: true
+              }];
+            }
+          });
+        }
+      };
+
+      $scope.updatePaging = function () {
+        $scope.refreshMaps();
+      };
+
+      $scope.setPage = function (page) {
+        $scope.pagingOptions.currentPage = page;
+      };
+
+      $scope.$watch('pagingOptions', function (newVal, oldVal) {
+        if (newVal != null) {
+          if ($scope.workspace.selected) {
+            $scope.refreshMaps();
+
+            /*throw {
+              message: 'Big time error.',
+              cause: 'Network error: no packets sent.',
+              trace: [
+                {name: 'Error 1', error: 'HTTP request could not be sent.'},
+                {name: 'Error 2', error: 'HTTP request could not be...'},
+                {name: 'Error 3', error: 'This is critical error #3.'},
+                {name: 'Error 4', error: 'Error #4.'},
+                {name: 'Error 5', error: 'You know...error #5.'}
+              ]
+            };*/
+          }
+        }
+      }, true);
 
       $scope.editMapSettings = function(map) {
         var modalInstance = $modal.open({
@@ -306,8 +381,7 @@ angular.module('gsApp.maps', [
       $scope.workspaces = [];
 
       $scope.updatePaging = function () {
-        var ws = $scope.workspace.selected;
-        $scope.refreshLayers(ws);
+        $scope.refreshMaps();
       };
 
       $scope.setPage = function (page) {
@@ -316,10 +390,7 @@ angular.module('gsApp.maps', [
 
       $scope.$watch('pagingOptions', function (newVal, oldVal) {
         if (newVal != null) {
-          var ws = $scope.workspace.selected;
-          if (ws != null) {
-            $scope.refreshLayers(ws);
-          }
+          $scope.refreshMaps();
         }
       }, true);
 
