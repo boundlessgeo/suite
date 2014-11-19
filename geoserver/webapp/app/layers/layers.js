@@ -300,6 +300,7 @@ angular.module('gsApp.layers', [
           {field: 'geometry',
             displayName: 'Type',
             cellClass: 'text-center',
+            sortable: false,
             cellTemplate:
               '<div get-type ' +
                 'geometry="{{row.entity.geometry}}">' +
@@ -309,6 +310,7 @@ angular.module('gsApp.layers', [
           {field: 'srs',
             displayName: 'SRS',
             cellClass: 'text-center',
+            sortable: false,
             cellTemplate:
               '<div class="grid-text-padding">' +
                 '{{row.entity.proj.srs}}' +
@@ -355,6 +357,7 @@ angular.module('gsApp.layers', [
           },
           {field: 'modified.timestamp',
             displayName: 'Modified',
+            sortable: false,
             cellTemplate:
               '<div class="grid-text-padding" style="font-size: .9em">' +
               '{{row.entity.modified.timestamp|amDateFormat:"MMM D, h:mm a"}}' +
