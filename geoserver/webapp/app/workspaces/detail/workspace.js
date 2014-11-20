@@ -69,6 +69,9 @@ angular.module('gsApp.workspaces.home', [
           destroying = true;
         });
         $scope.selectTab = function(t) {
+          if (t.route.indexOf('maps') > -1) { $scope.currentTab = 'maps'; }
+          else { $scope.currentTab = ''; }
+
           if (!destroying) {
             $scope.go(t.route);
           }
