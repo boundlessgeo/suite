@@ -73,10 +73,12 @@
   }
 
   .single-workspace-info {
-    font-size: 1.5em;
+    font-size: 1em;
     .box-shadow(3px 3px 1px @monacoblue);
-    padding: 8px 12px 0 12px;
+    padding: 5px 12px 0 12px;
+    margin-top: 2px;
     margin-bottom: 0;
+    height: 30px;
     position: fixed;
     z-index: 100;
     .transition(.5s, ease-out);
@@ -116,6 +118,8 @@
         }
       }
     }
+
+    .no-underline {text-decoration: none}
 
     .workspace-info {
       display: inline-block;
@@ -162,3 +166,5 @@
     }
   }
 }
+
+.pointer {cursor: pointer}

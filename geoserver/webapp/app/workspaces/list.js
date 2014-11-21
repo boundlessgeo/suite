@@ -52,7 +52,7 @@ angular.module('gsApp.workspaces.list', [
               $scope.selected.showInfo = true;
               $timeout(function() {
                 $scope.selected.showInfo = false;
-              }, 2000);
+              }, 4000);
             } else {
               $scope.alerts = [{
                 type: 'warning',

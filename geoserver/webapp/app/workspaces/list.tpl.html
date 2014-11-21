@@ -29,8 +29,10 @@
       </div>
       <div class="col-sm-3">
         <div class="panel panel-default single-workspace-info" ng-show="selected.showInfo">
-          <p>Workspace: <strong>{{ selected.workspaceInfo.name }}</strong></p>
-          <p>{{ selected.workspaceInfo.maps }} Maps, {{ selected.workspaceInfo.layers }} Layers, {{ selected.workspaceInfo.stores }} Stores</p>
+          <p>
+            Workspace: <strong>{{ selected.workspaceInfo.name }}</strong> -
+             {{ selected.workspaceInfo.maps }} Map<span ng-if="selected.workspaceInfo.maps==0 || selected.workspaceInfo.maps>1">s</span>, {{ selected.workspaceInfo.layers }} Layer<span ng-if="selected.workspaceInfo.layers==0 || selected.workspaceInfo.layers>1">s</span>, {{ selected.workspaceInfo.stores }} Store<span ng-if="selected.workspaceInfo.stores==0 || selected.workspaceInfo.stores>1">s</span>
+          </p>
         </div>
       </div>
     </div>
@@ -39,22 +41,23 @@
         <div class="workspaces-summary">
           <div class="row" ng-init="predicate='modified.timestamp'" ng-repeat="row in workspaces | orderBy:predicate:reverse | filter:filterText | partition:3">
             <div class="col-sm-4" ng-repeat="workspace in row">
-              <a class="workspace-summary-detail">
+              <span class="workspace-summary-detail">
                 <div class="workspace-icon" ng-mouseover="mouse=true" ng-mouseleave="mouse=false" ng-init="mouse=false">
-                  <i class="icon-folder"></i>
+                  <a ng-click="onWorkspaceClick(workspace)" class="no-underline"><i class="icon-folder"></i></a>
                   <div class="workspace-details in-folder" ng-show="mouse">
-                    <span class="view" ng-click="onWorkspaceClick(workspace)">Open</span>
+                    <span class="view pointer" ng-click="onWorkspaceClick(workspace)">Open</span>
                   </div>
                 </div>
                 <div class="workspace-info">
                   <div class="inline">
-                  <h4 class="workspace-name inline" ng-click="onWorkspaceClick(workspace)">{{ workspace.name }}</h4> <div class="workspace-default" ng-if="workspace.default" pop="{{ defaultDesc }}" pop-show="{{ showDefaultDesc }}" pop-placement="bottom" ng-click="showDefaultDesc=!showDefaultDesc;"><i class="icon-star"></i> Default</div>
+                  <a ng-click="onWorkspaceClick(workspace)"><h4 class="workspace-name inline" ng-click="onWorkspaceClick(workspace)">{{ workspace.name }}</h4><div class="workspace-default" ng-if="workspace.default" pop="{{ defaultDesc }}" pop-show="{{ showDefaultDesc }}" pop-placement="bottom" ng-click="showDefaultDesc=!showDefaultDesc;"></a>
+                  <a ng-click="onWorkspaceClick(workspace)" class="no-underline"><i class="icon-star"></i> Default</div></a>
                   </div>
                   <small class="modified" ng-if="workspace.modified">Modified {{ workspace.modified.pretty }}</small>
-                  <small class="workspace-settings" ng-click="go('workspace.settings', workspace);"><i class="fa fa-gear" title="Edit Workspace Settings"></i> Settings</small>
-                  <small class="workspace-view" ng-init="showInfo=false" ng-click="onWorkspaceInfo(workspace);"><i class="icon-info"></i> Info</small>
+                  <small class="workspace-settings pointer" ng-click="go('workspace.settings', workspace);"><i class="fa fa-gear" title="Edit Workspace Settings"></i> Settings</small>
+                  <small class="workspace-view pointer" ng-init="showInfo=false" ng-click="onWorkspaceInfo(workspace);"><i class="icon-info"></i> Info</small>
                 </div>
-              </a>
+              </span>
             </div>
           </div>
         </div>
