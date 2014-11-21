@@ -1,27 +1,31 @@
 <div>
   <div class="container-fluid">
     <h3 class="section-title">
-      <a ng-click="go('workspace.maps.main')">
+      <a ng-if="currentTab != 'maps'" ng-click="go('workspace.maps.main')">
         <i class="icon-lg icon-folder-open"></i>
         {{ title }}
       </a>
+      <span ng-if="currentTab == 'maps'">
+        <i class="icon-lg icon-folder-open"></i>
+        {{ title }}
+      </span>
       <span class="workspace-buttons">
         <span class="divider"></span>
         <a class="newmap" ng-click="createMap();">
-          <i class="icon-plus icon"></i> <span class="text">New Map</span>
+          <i class="icon-plus icon"></i> <span class="text" alt="New Map" title="New Map">New Map</span>
         </a>
         <span class="divider"></span>
         <a class="import" ng-click="importData();">
-          <i class="fa fa-share icon"></i> <span class="text">Add Data</span>
+          <i class="fa fa-share icon"></i> <span class="text" alt="Add Data" title="Add Data">Add Data</span>
         </a>
         <span class="divider"></span>
         <a class="settings" ng-click="go('workspace.settings');">
-          <i class="fa fa-gear icon"></i> <span class="text">Settings</span>
+          <i class="fa fa-gear icon"></i> <span class="text" alt="Settings" title="Settings">Settings</span>
         </a>
       </span>
     </h3>
     <tabset class="maps-data-tabs" ng-show="!showSettings">
-      <tab ng-repeat="t in tabs" select="selectTab(t)" active="t.active">
+      <tab ng-repeat="t in tabs" select="selectTab(t)" active="t.active" alt="{{t.heading}}" title="{{t.heading}}">
         <tab-heading>
           <i ng-class="t.icon" class="tab-icon"></i> {{ t.heading }}
         </tab-heading>
