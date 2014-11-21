@@ -38,6 +38,8 @@
     <copy todir="${webappsdir}/root">
       <fileset dir="dashboard/target/war" includes="**/*"/>
     </copy>
+    <copy tofile="${webappsdir}/root/EULA.txt"
+      file="LICENSE\ EULA.txt" />
     <copy todir="${webappsdir}/geoserver">
       <fileset dir="geoserver/app/target/geoserver" includes="**/*">
         <exclude name="META-INF/**"/>
@@ -47,12 +49,22 @@
     <copy todir="${webappsdir}/geowebcache">
       <fileset dir="geowebcache/target/war" includes="**/*"/>
     </copy>
+    <copy tofile="${webappsdir}/geowebcache/LICENSE.txt"
+      file="LICENSE\ GPL.txt" />
+    <copy tofile="${webappsdir}/geowebcache/EULA.txt"
+      file="LICENSE\ EULA.txt" />
+
     <copy todir="${webappsdir}/geoexplorer">
       <fileset dir="geoexplorer/target/war" includes="**/*"/>
     </copy>
+    <copy tofile="${webappsdir}/geoexplorer/LICENSE.txt"
+      file="LICENSE\ GPL.txt" />
+    <copy tofile="${webappsdir}/geoexplorer/EULA.txt"
+      file="LICENSE\ EULA.txt" />
+
     <copy todir="${webappsdir}">
       <fileset dir="docs/target" includes="opengeo-docs/**/*"/>
-    </copy>
+    </copy>      
     <unzip dest="${webappsdir}/apps" src="apps/target/apps.war"/>
     <unzip dest="${webappsdir}/recipes" src="recipes/target/recipes.war"/>
     <unzip dest="${webappsdir}/recipes" src="recipes/target/recipes.war"/>
