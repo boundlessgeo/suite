@@ -22,7 +22,7 @@ angular.module('gsApp', [
     function($scope, $state, AppEvent, AppSession, $window) {
       $scope.session = AppSession;
 
-      var height = $window.innerHeight - 65;
+      var height = $window.innerHeight - 75;
       $scope.pageHeight = {'height': height};
 
       // handle an un-authorized event and forward to the login page

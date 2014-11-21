@@ -18,7 +18,12 @@
       ng-class="{toggled: toggleSide, fullWidth: !session.active}"
       ng-init="toggleSide=false">
       <div sidenav></div>
-      <div ui-view id="page-content-wrapper" ng-style="pageHeight"></div>
+      <div id="page-content-wrapper" ng-style="pageHeight">
+         <div ui-view></div>
+      </div>
+      <div class="page-footer">
+        &copy; 2014, Boundless
+        </div>
     </div>
     <script type="text/javascript" src="ol.js"></script>
     <script type="text/javascript" src="codemirror.min.js"></script>
