@@ -644,9 +644,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
        
        /* If application is not geoexplorer - but another application using
        * geoexplorer - dont assume /viewer file to be the presentation file */
-       var publishUrl = "../viewer/#maps/" + this.id
+       var publishUrl = "../viewer/#maps/" + this.id;
        if (window.location.href.indexOf('geoexplorer') == -1) {
-           publishUrl = window.location.href
+           publishUrl = window.location.href;
        }
        var embedMap = new gxp.EmbedMapDialog({
            id: 'geobuilder-1',
