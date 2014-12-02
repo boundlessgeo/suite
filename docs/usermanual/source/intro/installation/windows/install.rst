@@ -28,9 +28,17 @@ Installation
 
 #. At the **Welcome** screen, click :guilabel:`Next`.
 
-   .. figure:: img/welcome.png
+   .. only:: basic
 
-      Welcome screen
+       .. figure:: img/welcome-basic.png
+
+          Welcome screen
+
+   .. only:: enterprise
+   
+       .. figure:: img/welcome-ee.png
+
+          Welcome screen
 
 #. Read the **License Agreement** then click :guilabel:`I Agree`.
 
@@ -72,9 +80,17 @@ Installation
 
 #. After installation, click :guilabel:`Finish`.
 
-   .. figure:: img/finish.png
+   .. only:: basic
+   
+      .. figure:: img/finish-basic.png
 
-      OpenGeo Suite successfully installed
+         OpenGeo Suite successfully installed
+
+   .. only:: enterprise
+
+      .. figure:: img/finish-ee.png
+
+         OpenGeo Suite successfully installed
 
 After installation
 ------------------
