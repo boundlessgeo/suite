@@ -7,6 +7,8 @@ On Windows and OS X, PostgreSQL is configured to be accessed immediately. No fur
 
 However, on Linux, both on Ubuntu and Red Hat-based systems, additional work needs to be undertaken. This is because the default PostgreSQL configuration on both Ubuntu and Red Hat-based systems has connections turned off for the ``postgres`` user by default.
 
+Depending on how OpenGeo Suite was installed pgAdmin may or may not have been installed. See the :ref:`installation` section for installation instructions.
+
 So after install of OpenGeo Suite, if you try to connect to PostgreSQL via the :command:`psql` command-line utility or through `pgAdmin <dataadmin.pgGettingStarted.pgadmin>`_, you will get the following connection error::
 
   psql: FATAL:  peer authentication failed for user "postgres"
