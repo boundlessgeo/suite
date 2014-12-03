@@ -5,6 +5,8 @@
 Loading raster data into PostGIS from the Command Line
 ======================================================
 
+This section uses the command line utility ``raster2pgsql`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of OpenGeo Suite. Please see the :ref:`intro.installation` section for information on how to install these tools for your platform.
+
 PostGIS provides a ``raster2pgsql`` tool for converting raster data sources into database tables. This section describes how to use this tool to load a single or multiple raster files.
 
 
@@ -13,7 +15,7 @@ How It Works
 
 ``raster2pgsql`` converts a raster file into a series of SQL commands that can be loaded into a database–it does **not** perform the actual loading. The output of this command may be captured into a SQL file, or piped to the ``psql`` command, which will execute the commands against a target database.
 
-.. note:: Since ``raster2pgsql`` is compiled as part of PostGIS, the tool will support the same raster types as those compiled in the :term:`GDAL` dependency library. 
+.. note:: Since ``raster2pgsql`` is compiled as part of PostGIS, the tool will support the same raster types as those compiled in the :term:`GDAL` dependency library.
 
 Preparation
 -----------
@@ -22,7 +24,7 @@ Preparation
 
 #. Identify the SRID ("projection") of your data. If available, this information is accessed via the layer metadata in GeoServer.
 
-#. Either identify the target database where you would like to load the data, or  ref:`create a new database <dataadmin.pgGettingStarted.createdb>`. 
+#. Either identify the target database where you would like to load the data, or  ref:`create a new database <dataadmin.pgGettingStarted.createdb>`.
 
 Loading data
 ------------
@@ -52,7 +54,7 @@ Loading data
    
       raster2pgsql -G
 
-   .. code-block:: console   
+   .. code-block:: console
 
      Available GDAL raster formats:
        Virtual Raster
@@ -89,11 +91,11 @@ Loading data
    * ``<DBTABLE>``—New database table to be created (usually the same name as the source raster file)
    * ``<DATABASE>``—Target database where the table will be created
  
-   The following example uses ``raster2pgsql`` to create an input file and upload it into 100x100 tiles. The ``-I`` option will create a spatial GiST index on the raster column after the table is created. This is strongly recommended for improved performance. The ``-C`` option will apply the raster constraints (SRID, pixel size and so on) to ensure the new raster table is correctly registered in the ``raster_columns`` view.  
+   The following example uses ``raster2pgsql`` to create an input file and upload it into 100x100 tiles. The ``-I`` option will create a spatial GiST index on the raster column after the table is created. This is strongly recommended for improved performance. The ``-C`` option will apply the raster constraints (SRID, pixel size and so on) to ensure the new raster table is correctly registered in the ``raster_columns`` view.
 
    .. code-block:: console
 
-      raster2pgsql -s 4236 -I -C -M *.tif -F -t 100x100 public.demelevation | psql -d gisdb 
+      raster2pgsql -s 4236 -I -C -M *.tif -F -t 100x100 public.demelevation | psql -d gisdb
 
 
    .. note:: If you omit the name of the schema and use *demelevation* instead of *public.demelevation*, the raster table will be created in the default schema of the database or user.
@@ -169,7 +171,7 @@ You can also add rasters and raster tables directly to the database. A typical w
       CREATE TABLE myRaster(rid serial primary key, rast raster);
 
 
-#. Populate the table with some raster data by either creating empty rasters or creating rasters from other geometries. 
+#. Populate the table with some raster data by either creating empty rasters or creating rasters from other geometries.
 
    
    * To create an empty raster, use :command:`ST_MakeEmptyRaster()`.
@@ -253,4 +255,3 @@ You can also add rasters and raster tables directly to the database. A typical w
 
 
    .. note:: Pre-2.0 versions of PostGIS raster were based on the envelope rather than the convex hull. To ensure spatial indexes work correctly in PostGIS 2.0, drop any existing envelope indexes and replace them with convex hull based indexes.
-
