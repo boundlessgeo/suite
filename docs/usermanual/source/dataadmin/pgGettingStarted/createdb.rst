@@ -6,6 +6,11 @@ Creating a spatial database
 
 This section describes the process of creating a new spatially enabled PostGIS database.
 
+.. note::
+   This section uses the command line utility ``createdb`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of OpenGeo Suite. Please see the :ref:`intro.installation` section for information on how to install these tools for your platform.
+
+This section describes the process of creating a new spatially enabled PostGIS database.
+
 #. Expand the :guilabel:`Databases` item in the :guilabel:`Object browser` to reveal the available databases. 
 
 #. Right-click :guilabel:`Databases` and select :guilabel:`New Database`.
