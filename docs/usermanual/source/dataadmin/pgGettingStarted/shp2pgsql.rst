@@ -4,6 +4,8 @@
 Loading data into PostGIS from the Command Line
 ===============================================
 
+Depending on how OpenGeo Suite was installed pgAdmin and/or shp2pgsql may or may not have been installed. See the :ref:`installation` section for installation instructions.
+
 PostGIS includes the ``shp2pgsql`` tool for converting shapefiles into database tables. This section describes how to use this tool to load a single or multiple shapefiles.
 
 
