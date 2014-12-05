@@ -81,6 +81,3 @@ Now that the connection has been made, you can publish a table from the PostGIS 
       curl -v -u admin:geoserver -X GET http://localhost:8080/geoserver/rest/workspaces/opengeo/datastores/pgstore/featuretypes.xml
 
    You should see the layer listed in the output. You can also view the layer in the GeoServer Layer Preview.
-
-
-

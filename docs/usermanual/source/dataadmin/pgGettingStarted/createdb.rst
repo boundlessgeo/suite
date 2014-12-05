@@ -6,7 +6,9 @@ Creating a spatial database
 
 This section describes the process of creating a new spatially enabled PostGIS database.
 
-#. Expand the :guilabel:`Databases` item in the :guilabel:`Object browser` to reveal the available databases. 
+This section uses the command line utility ``createdb`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of OpenGeo Suite. Please see the :ref:`intro.installation` section for information on how to install these tools for your platform.
+
+#. Expand the :guilabel:`Databases` item in the :guilabel:`Object browser` to reveal the available databases.
 
 #. Right-click :guilabel:`Databases` and select :guilabel:`New Database`.
 
@@ -27,7 +29,7 @@ This section describes the process of creating a new spatially enabled PostGIS d
 
 #. Either click :guilabel:`Execute arbitrary SQL queries` on the pgAdmin toolbar or click :menuselection:`Tools --> Query tool` to open the :guilabel:`Query` dialog box.
 
-#. Enter the following query into the :guilabel:`SQL editor` input box and click the :guilabel:`Execute query` button, or press **F5**, to run the query. 
+#. Enter the following query into the :guilabel:`SQL editor` input box and click the :guilabel:`Execute query` button, or press **F5**, to run the query.
 
    .. code-block:: sql
 
@@ -37,7 +39,7 @@ This section describes the process of creating a new spatially enabled PostGIS d
 
       Creating a new PostGIS database.
 
-#. Verify the database was created correctly by running the management function ``postgis_full_version()`` in the :guilabel:`SQL editor`. It should return version and build configuration information. 
+#. Verify the database was created correctly by running the management function ``postgis_full_version()`` in the :guilabel:`SQL editor`. It should return version and build configuration information.
 
    .. code-block:: sql
 
@@ -65,10 +67,9 @@ Creating a spatial database from the command line
 
 .. todo:: Say more about groups and roles.
 
-You can also create a PostGIS database from the command line with the ``createdb`` and ``psql`` commands. 
+You can also create a PostGIS database from the command line with the ``createdb`` and ``psql`` commands.
 
 .. code-block::  console
 
   createdb -U postgres <DATABASENAME>
   psql -U postgres -d <DATABASENAME> -c 'CREATE EXTENSION postgis'
-
