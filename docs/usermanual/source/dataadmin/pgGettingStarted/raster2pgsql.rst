@@ -5,6 +5,9 @@
 Loading raster data into PostGIS from the Command Line
 ======================================================
 
+.. note::
+   This section uses the command line utility ``raster2pgsql`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of OpenGeo Suite. Please see the :ref:`intro.installation` section for information on how to install these tools for your platform.
+
 PostGIS provides a ``raster2pgsql`` tool for converting raster data sources into database tables. This section describes how to use this tool to load a single or multiple raster files.
 
 
