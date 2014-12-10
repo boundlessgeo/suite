@@ -535,14 +535,24 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             activeItem: 0
         });
         
+        var northPanel = new Ext.Panel({
+            border: true,
+            region: "north",
+            split: true,
+            height: 30,
+            bbar: toolbar,
+            id: "panelHeading",
+            collapseMode: "mini"            
+        });          
+        
         this.portalItems = [{
             region: "center",
             layout: "border",
-            tbar: toolbar,
             items: [
                 this.mapPanelContainer,
                 westPanel,
-                southPanel
+                southPanel,
+                northPanel
             ]
         }];
         
