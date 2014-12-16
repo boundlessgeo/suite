@@ -21,9 +21,12 @@ angular.module('gsApp.maps.compose', [
     }])
 .controller('MapComposeCtrl',
     ['$scope', '$rootScope', '$state', '$stateParams', '$timeout', '$compile',
-    '$log', 'AppEvent', 'GeoServer', '$modal', '_',
+    '$log', 'AppEvent', 'GeoServer', '$modal', '_', '$window', '$document',
     function($scope, $rootScope, $state, $stateParams, $timeout, $compile,
-      $log, AppEvent, GeoServer, $modal, _) {
+      $log, AppEvent, GeoServer, $modal, _, $window, $document) {
+
+      $rootScope.fullScreen = false;
+      $scope.fullscreenDirection = 'Maximize';
 
       var wsName = $stateParams.workspace;
       $scope.workspace = wsName;
@@ -157,7 +160,7 @@ angular.module('gsApp.maps.compose', [
               $scope.markers = null;
               $rootScope.alerts = [{
                 type: 'success',
-                message: 'Styled saved.',
+                message: 'Style saved.',
                 fadeout: true
               }];
               $scope.refreshMap();
@@ -294,4 +297,14 @@ angular.module('gsApp.maps.compose', [
         $scope.mapBackground = {'background': color};
       });
 
+      $scope.fullscreenMode = function() {
+        if ($rootScope.fullScreen) {
+          $rootScope.fullScreen = false;
+          $scope.fullscreenDirection = 'Maximize';
+        }
+        else {
+          $rootScope.fullScreen = true;
+          $scope.fullscreenDirection = 'Minimize';
+        }
+      };
     }]);
