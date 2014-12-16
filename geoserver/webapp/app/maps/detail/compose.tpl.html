@@ -3,7 +3,7 @@
     <div class="col-xs-12 map-name-row">
       <nav class="navbar navbar-default map-name" role="navigation">
         <div class="row">
-          <div class="col-xs-6 col-lg-7">
+          <div class="col-xs-6 col-lg-6">
             <div class="navbar-brand">
               <a ng-click="viewWorkspace(workspace);"><i class="icon-lg icon-folder-open"></i>{{ workspace }}</a>
               <a ng-click="editMapSettings(map);"><i class="fa fa-angle-right" style="padding: 0 5px;"></i> <span class="icon-wonky"><i class="icon-map"></i></span> <span class="map-name-span">{{ map.name }}</span></a>
@@ -14,7 +14,7 @@
             </span>
             <featureinfo-panel featureinfo="featureinfo" active-layer="activeLayer"></featureinfo-panel>
           </div>
-          <div class="col-xs-6 col-lg-5 info">
+          <div class="col-xs-6 col-lg-6 info">
             <div class="top">
               <a class="layers-toggle" ng-click="toggleLayers()">{{ map.layers.length }} Layer<span ng-if="map.layers.length > 1">s</span></a>
               <button class="btn btn-default btn-sm add-layer" ng-click="addMapLayer()"><i class="fa fa-plus"></i> Add Layer</button>
@@ -33,10 +33,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-6 col-lg-7" ng-style="mapBackground">
+    <div class="col-xs-6 col-lg-6" ng-style="mapBackground">
       <div ol-map class="map" map-opts="mapOpts"></div>
     </div>
-    <div class="col-xs-6 col-lg-5">
+    <div class="col-xs-6 col-lg-6">
       <div class="editor-background">
         <div class="map-layers" ng-class="{show: toggle == true}">
           <div class="reorder-info">Drag to Reorder</div>
@@ -66,14 +66,54 @@
               <style-editor-save editor="editor" click="saveStyle"></style-editor-save>
               <style-editor-undo editor="editor"></style-editor-undo>
               <style-editor-color editor="editor"></style-editor-color>
+              <style-editor-display editor="editor"></style-editor-display>
               <style-editor-icons editor="editor"></style-editor-icons>
               <style-editor-attrs editor="editor" layer="activeLayer"></style-editor-attrs>
-              <style-editor-display editor="editor"></style-editor-display>
+              <a href="" onclick="DoFullScreen()" alt="Fullscreen toggle" title="Fullscreen toggle"><i class="icon-fullscreen"></i> Fullscreen</a>
+              <a href="" onclick="fullscreenModeTest()" ng-click="fullscreenMode()" alt="Fullscreen toggle" title="Fullscreen toggle"><i class="icon-fullscreen"></i> {{fullscreenDirection}}</a>
             </ul>
           </div>
-          <style-editor layer="activeLayer" style="style" editor="editor" markers="markers"></style-editor>
+          <div style="height: 92%;"><style-editor layer="activeLayer" style="style" editor="editor" markers="markers"></style-editor></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var fullscreenMode = false;
+
+  function DoFullScreen() {
+    var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) || (document.mozFullScreen || document.webkitIsFullScreen);
+
+    var docElm = document.documentElement;
+    if (!isInFullScreen) {
+      if (docElm.requestFullscreen) { docElm.requestFullscreen(); }
+      else if (docElm.mozRequestFullScreen) { docElm.mozRequestFullScreen(); }
+      else if (docElm.webkitRequestFullScreen) { docElm.webkitRequestFullScreen(); }
+    }
+  }
+
+  function fullscreenModeTest() {
+    var topNav = parent.parent.document.getElementsByName("topNavBar")[0];
+    var sideNav = parent.parent.document.getElementsByName("sideNavBar")[0];
+    var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) || (document.mozFullScreen || document.webkitIsFullScreen);
+
+    if (!fullscreenMode)
+    {
+      fullscreenMode = true;
+      topNav.style.display = "none";
+      topNav.style.visibility = "hidden";
+      sideNav.style.display = "none";
+      sideNav.style.visibility = "hidden";
+    }
+    else
+    {
+      fullscreenMode = false;
+      topNav.style.display = "block";
+      topNav.style.visibility = "visible";
+      sideNav.style.display = "block";
+      sideNav.style.visibility = "visible";
+    }
+  }
+</script>

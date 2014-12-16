@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="geoserver.css" />
   </head>
   <body ng-controller="AppCtrl">
-    <top-nav></top-nav>
+    <top-nav name="topNavBar"></top-nav>
     <div id="wrapper"
       ng-class="{toggled: toggleSide, fullWidth: !session.active}"
       ng-init="toggleSide=false">
-      <div sidenav></div>
+      <div sidenav name="sideNavBar"></div>
       <div ui-view id="page-content-wrapper" ng-style="pageHeight"></div>
     </div>
     <script type="text/javascript" src="ol.js"></script>

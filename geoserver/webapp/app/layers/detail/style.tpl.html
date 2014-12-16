@@ -20,12 +20,14 @@
           <style-editor-save editor="editor" click="saveStyle"></style-editor-save>
           <style-editor-undo editor="editor"></style-editor-undo>
           <style-editor-color editor="editor"></style-editor-color>
-          <style-editor-icons editor="editor"></style-editor-icons>
-          <style-editor-attrs editor="editor" layer="layer"></style-editor-attrs>
           <style-editor-display editor="editor"></style-editor-display>
+          <style-editor-icons editor="editor"></style-editor-icons>
+          <style-editor-attrs editor="editor" layer="activeLayer"></style-editor-attrs>
+          <a href="" onclick="DoFullScreen()" alt="Fullscreen toggle" title="Fullscreen toggle"><i class="icon-fullscreen"></i> Fullscreen</a>
+          <a href="" onclick="fullscreenModeTest()" ng-click="fullscreenMode()" alt="Fullscreen toggle" title="Fullscreen toggle"><i class="icon-fullscreen"></i> {{fullscreenDirection}}</a>
         </ul>
       </div>
-      <div style-editor editor="editor" layer="layer" style="style" markers="markers"></div>
+      <div style="height: 92%;"><style-editor layer="layer" style="style" editor="editor" markers="markers"></style-editor></div>
     </div>
   </div>
 </div>
