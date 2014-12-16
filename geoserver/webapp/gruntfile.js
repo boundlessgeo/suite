@@ -34,7 +34,7 @@ var sources = {
 var deps = {
   js: [
     '/vendor/openlayers/ol.js',
-    'jquery/dist/jquery.min.js',
+    'jquery/dist/jquery.js',
     'jquery-ui/ui/core.js',
     'jquery-ui/ui/widget.js',
     'jquery-ui/ui/mouse.js',
@@ -63,9 +63,9 @@ var deps = {
     'ng-file-upload/angular-file-upload-shim.js',
     'ng-file-upload/angular-file-upload.js',
     'ng-clip/src/ngClip.js',
-    'ng-lodash/build/ng-lodash.min.js',
+    'ng-lodash/build/ng-lodash.js',
     'proj4/dist/proj4.js',
-    'angular-ui-utils/scrollfix.min.js',
+    'angular-ui-utils/scrollfix.js',
     'moment/moment.js',
     'angular-moment/angular-moment.js'
   ],
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
             // debug script loader
             middlewares.push(function(req, res, next) {
               var parts = url.parse(req.url);
-              if (parts.pathname.endsWith('/geoserver.min.js')) {
+              if (parts.pathname.endsWith('/geoserver.js')) {
                 var template = path.join(__dirname, 'app', 'loader.js');
                 fs.readFile(template, 'utf8', function(err, string) {
                   if (err) {
@@ -262,7 +262,7 @@ module.exports = function(grunt) {
     uglify: {
       codemirror: {
         files: {
-          'build/codemirror.min.js': ['build/codemirror.js']
+          'build/codemirror.js': ['build/codemirror.js']
         }
       },
       dist: {
@@ -270,7 +270,7 @@ module.exports = function(grunt) {
           mangle: false
          },
          files: {
-            'build/geoserver.min.js': prefixDeps(standaloneDeps())
+            'build/geoserver.js': prefixDeps(standaloneDeps())
                 .concat('build/geoserver.js', 'build/templates.js')
          }
        }
