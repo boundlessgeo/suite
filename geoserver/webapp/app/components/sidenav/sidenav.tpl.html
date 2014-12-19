@@ -25,7 +25,7 @@
         <span class="projects-header">Project Workspaces</span>
       </div>
       <ul class="workspaces" role="menu">
-        <li class="single-workspace" ng-repeat="workspace in workspaces |
+        <li class="single-workspace" ng-repeat="workspace in recentWorkspaces |
           limitTo:numWorkspaces" ng-class="{'open': toggleWkspc[workspace.name]}">
           <a href="" ng-click="onWorkspaceClick(workspace);" alt="{{ workspace.name }}">
             <i ng-class="{'icon-folder': !toggleWkspc[workspace.name], 'icon-folder-open': toggleWkspc[workspace.name]}"></i> <span class="txt">{{ workspace.name }}</span>

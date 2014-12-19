@@ -20,6 +20,7 @@ angular.module('gsApp.workspaces.list', [
     function($scope, GeoServer, $state, $log, $rootScope, AppEvent, _,
       workspacesListModel, $timeout) {
       $scope.title = 'All Project Workspaces';
+      $scope.predicate = 'name';
 
       $scope.onWorkspaceClick = function(workspace) {
         var params = {workspace: workspace.name};
@@ -105,13 +106,7 @@ angular.module('gsApp.workspaces.list', [
                 return ws;
               }
             });
-            // sort by timestamp
-          workspaces = _.sortBy(workspaces, function(ws) {
-            if (ws.modified) {
-              return ws.modified.timestamp;
-            }
-          });
-          _this.setWorkspaces(workspaces.reverse());
+          _this.setWorkspaces(workspaces);
         } else {
           // special case, check for 401 Unauthorized, if so be quiet
           if (result.status != 401) {
