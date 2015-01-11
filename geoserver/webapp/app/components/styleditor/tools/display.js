@@ -19,7 +19,7 @@ angular.module('gsApp.styleditor.display', [])
               'BgColor'+
               '<ul class="dropdown-menu">'+
                 '<li class="bg-submenu">'+
-                  '<small>(Screen only)</small></li>'+
+                  '<small>(Map screen only)</small></li>'+
                 '<li ng-repeat="(b,c) in bgcolors"'+
                   'ng-class="{active: b == bgcolor}">'+
                   '<a href ng-click="chooseBgcolor(b)">{{b}}</a>'+
