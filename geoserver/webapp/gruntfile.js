@@ -138,7 +138,7 @@ module.exports = function(grunt) {
             // debug script loader
             middlewares.push(function(req, res, next) {
               var parts = url.parse(req.url);
-              if (parts.pathname.endsWith('/geoserver.min.js')) {
+              if (parts.pathname.endsWith('/geoserver.js')) {
                 var template = path.join(__dirname, 'app', 'loader.js');
                 fs.readFile(template, 'utf8', function(err, string) {
                   if (err) {
@@ -262,7 +262,7 @@ module.exports = function(grunt) {
     uglify: {
       codemirror: {
         files: {
-          'build/codemirror.min.js': ['build/codemirror.js']
+          'build/codemirror.js': ['build/codemirror.js']
         }
       },
       dist: {
@@ -272,7 +272,7 @@ module.exports = function(grunt) {
           sourceMapIncludeSources: true
          },
          files: {
-            'build/geoserver.min.js': prefixDeps(standaloneDeps())
+            'build/geoserver.js': prefixDeps(standaloneDeps())
                 .concat('build/geoserver.js', 'build/templates.js')
          }
        }
