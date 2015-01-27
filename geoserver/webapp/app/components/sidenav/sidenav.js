@@ -87,17 +87,63 @@ angular.module('gsApp.sidenav', [
       }
     }
 
+    $scope.getWorkspaces = function() {
+      return this.recentWorkspaces;
+    };
+
+    $scope.setWorkspaces= function(workspaces) {
+      this.recentWorkspaces = workspaces;
+    };
+
     $scope.openWorkspaces = function() {
-      $scope.workspaces = workspacesListModel.getWorkspaces();
+      $scope.workspaces = $scope.getWorkspaces();
       if (!$scope.workspaces) {
-        workspacesListModel.fetchWorkspaces().then(
+        $scope.fetchRecentWorkspaces().then(
         function() {
-          $scope.workspaces = workspacesListModel.getWorkspaces();
+          $scope.workspaces = $scope.getWorkspaces();
           $rootScope.$broadcast(AppEvent.WorkspacesFetched,
             $scope.workspaces);
         });
       }
       reopenWorkspaceFolder();
+    };
+
+    $scope.fetchRecentWorkspaces = function() {
+      return GeoServer.workspaces.recent().then(
+        function(result) {
+          if (result.success) {
+            var workspaces = _.map(result.data,
+              function(ws) {
+                if (ws.modified) {  // convert time strings to Dates
+                  return _.assign(ws, {'modified': {
+                    'timestamp': new Date(ws.modified.timestamp),
+                    'pretty': ws.modified.pretty
+                  }});
+                } else {
+                  return ws;
+                }
+              });
+
+              // sort by timestamp
+            workspaces = _.sortBy(workspaces, function(ws) {
+              if (ws.modified) {
+                //$window.alert(ws.name + ': ' + ws.modified.timestamp);
+                return ws.modified.timestamp;
+              }
+            });
+
+            $scope.setWorkspaces(workspaces);
+          } else {
+            // special case, check for 401 Unauthorized, if so be quiet
+            if (result.status != 401) {
+              $rootScope.alerts = [{
+                type: 'warning',
+                message: 'Could not get workspaces.',
+                fadeout: true
+              }];
+            }
+          }
+        });
     };
 
     $scope.onResize = function() {

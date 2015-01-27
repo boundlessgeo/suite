@@ -5,7 +5,7 @@
       <div class="col-sm-12">
         <div class="workspaces-count-sort">
           <div class="workspaces-count">
-            <strong>{{ workspaces.length }} project workspace<span ng-if="workspaces.length==0 || workspaces.length>1">s</span></strong>
+            <strong>{{ workspaces.length }} project workspace<span ng-if="workspaces.length!=1">s</span></strong>
           </div>
           <div class="pull-right">
             <div class="sort-by">
@@ -39,7 +39,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="workspaces-summary">
-          <div class="row" ng-init="predicate='modified.timestamp'" ng-repeat="row in workspaces | orderBy:predicate:reverse | filter:filterText | partition:3">
+          <div class="row" ng-repeat="row in workspaces | orderBy:predicate:reverse | filter:filterText | partition:3">
             <div class="col-sm-4" ng-repeat="workspace in row">
               <span class="workspace-summary-detail">
                 <div class="workspace-icon" ng-mouseover="mouse=true" ng-mouseleave="mouse=false" ng-init="mouse=false">
