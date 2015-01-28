@@ -53,18 +53,17 @@ angular.module('gsApp', [
           {
             case '/':
               if (toParams.workspace) {
-                tabTitle += ' | Workspace: ' + toParams.workspace;
+                tabTitle += ' | ' + toParams.workspace;
               }
               break;
             case '/compose':
-              tabTitle += ' | Editing Map: ' + toParams.workspace + ' >' +
-              toParams.name;
+              tabTitle += ' | ' + toParams.workspace + ' >' + toParams.name;
               break;
             case '/layers':
               tabTitle += ' | All Layers';
               break;
             case '/list':
-              tabTitle += ' | All Project Workspaces';
+              tabTitle += ' | All Workspaces';
               break;
             case '/maps':
               tabTitle += ' | All Maps';
