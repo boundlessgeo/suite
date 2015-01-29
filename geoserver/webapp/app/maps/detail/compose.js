@@ -31,12 +31,24 @@ angular.module('gsApp.maps.compose', [
 
         if (tries > 0) {
           $timeout(function() {
+            //Turn off the outer scroll bars, we don't want a dual scrollbar
+            //with the editor for large styles.
+            angular.element('body').css({overflow: 'hidden'});
+
+            //Set heights
+            var offset = 12;
+            var navbarHeight = angular.element('#navbar').height();
+            var screenHeight = $window.innerHeight - navbarHeight * 2 + offset;
+            var editingPanelHeight = angular.element('#editingPanel').height();
+            var styleToolbarHeight = angular.element('#styleToolbar').height();
+            var newHeight = editingPanelHeight - styleToolbarHeight;
+
+            //Set Widths
             var screenWidth = $window.innerWidth;
             var sideWidth = angular.element('#sidebar-wrapper').width();
             var resizerWidth = angular.element('#resizer').width();
             var editingWidth = angular.element('#editingPanel').width();
-            var mapWidth = screenWidth - editingWidth - resizerWidth -
-              sideWidth;
+            var mapWidth = screenWidth - editingWidth - resizerWidth -sideWidth;
             var editingLeft = sideWidth + mapWidth + resizerWidth;
             var resizerLeft = sideWidth + mapWidth;
 
@@ -44,6 +56,11 @@ angular.module('gsApp.maps.compose', [
               angular.element('#mapPanel').css({width: mapWidth + 'px'});
               angular.element('#editingPanel').css({left: editingLeft + 'px'});
               angular.element('#resizer').css({left: resizerLeft + 'px'});
+
+              angular.element('#mapPanel').css({height: screenHeight + 'px'});
+              angular.element('#editingPanel').css({height: screenHeight+'px'});
+              angular.element('#resizer').css({height: screenHeight + 'px'});
+              angular.element('#editor').css({height: newHeight + 'px'});
             } else {
               //The element is not ready, so decrement the tries,
               //wait a bit, and try again:
@@ -57,6 +74,9 @@ angular.module('gsApp.maps.compose', [
 
       scope.setSizes();
       $window.addEventListener('orientationchange', scope.setSizes());
+      angular.element($window).bind('resize', function() {
+        scope.setSizes();
+      });
     }
   };
 }])
@@ -70,6 +90,7 @@ angular.module('gsApp.maps.compose', [
 
         function mousemove(event) {
           var xPos = event.pageX;
+          var offset = 2;
           var screenWidth = $window.innerWidth;
           var resizerWidth = angular.element('#resizer').width();
           var sideWidth = angular.element('#sidebar-wrapper').width();
@@ -88,7 +109,7 @@ angular.module('gsApp.maps.compose', [
           angular.element('#mapPanel').css({width: mapWidth + 'px'});
           angular.element('#editingPanel').css({
             left: (xPos + resizerWidth) + 'px',
-            width: (screenWidth - xPos)
+            width: (screenWidth - xPos - offset)
           });
         }
         function mouseup() {
