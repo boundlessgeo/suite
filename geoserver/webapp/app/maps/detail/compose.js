@@ -144,6 +144,8 @@ angular.module('gsApp.maps.compose', [
         //Sometimes the modal backdrop doesn't go away.
         angular.element($document[0].querySelectorAll('.modal-backdrop'))
           .css('display', 'none');
+
+        angular.element('body').css({overflow: 'auto'});
       });
 
       $scope.editorSave = function(nextWindowType) {
