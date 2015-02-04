@@ -8,6 +8,7 @@ This section will discuss how to manage OpenGeo Suite deployments, including ser
 .. toctree::
    :maxdepth: 2
 
+   startup/index
    production/index
    jvm/index
    manager/index
