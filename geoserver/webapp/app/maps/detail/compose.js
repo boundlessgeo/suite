@@ -202,6 +202,10 @@ angular.module('gsApp.maps.compose', [
         });
       };
 
+      $scope.showLegend = function() {
+        $scope.legendToggle = !$scope.legendToggle;
+      };
+
       GeoServer.map.get(wsName, name).then(function(result) {
         var map = result.data;
 
@@ -211,6 +215,8 @@ angular.module('gsApp.maps.compose', [
           if (result.success) {
             map.layers = result.data;
             $scope.activeLayer = map.layers.length > 0 ? map.layers[0] : null;
+
+            $scope.legend = GeoServer.map.legend.get($scope.activeLayer.name);
 
             // map options, extend map obj and add visible flag to layers
             $scope.map = map;
@@ -277,6 +283,9 @@ angular.module('gsApp.maps.compose', [
             layerState[activeLayer.name].style = $scope.style;
           }
           $scope.activeLayer = layer;
+          $scope.legendCheck = false;
+          $scope.legendToggle = false;
+          $scope.legend = GeoServer.map.legend.get(layer.name);
         }
       };
 

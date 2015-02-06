@@ -37,6 +37,13 @@
   <div class="row">
     <div id="mapPanel" class="col-xs-6 col-lg-7" ng-style="mapBackground">
       <div ol-map class="map" map-opts="mapOpts"></div>
+
+      <div id="legend" style="position: absolute; top: 70px; right: 5px;">
+        <div class="text-right">
+          <input type="checkbox" ng-model="legendCheck" ng-click="showLegend()"> Legend<br />
+        </div>
+        <img ng-if="legendToggle" ng-src="{{legend}}" />
+      </div>
     </div>
     <div id="editingPanel" class="col-xs-6 col-lg-5">
       <div class="editor-background">
