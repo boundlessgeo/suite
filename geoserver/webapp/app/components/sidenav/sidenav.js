@@ -22,6 +22,7 @@ angular.module('gsApp.sidenav', [
   function($scope, $rootScope, GeoServer, AppEvent, $state, $log,
     $timeout, $window, AppSession, $location, _, workspacesListModel) {
 
+    $scope.currentYear = new Date();
     $scope.toggleWkspc = {}; // workspaces in wide sidenav
     $scope.toggleWkspc2 = {}; // workspaces in collapse sidenav
 
