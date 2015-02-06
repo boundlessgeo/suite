@@ -45,20 +45,18 @@ angular.module('gsApp', [
         $state.go('login');
       });
       $scope.$on(AppEvent.Timeout, function(e){
-        if (!$rootScope.timeoutModal) {
+        if (!$rootScope.timeoutModal && $location.path() != '/login') {
           var modalInstance = $modal.open({
             templateUrl: '/core/modals/timeout.tpl.html',
             scope: $scope,
             controller: ['$scope', '$window', '$modalInstance', '$state',
               '$document',
               function($scope, $window, $modalInstance, $state, $document) {
-                $scope.countdownTotal = 120;
-                $scope.countdown = $scope.countdownTotal;
+                $scope.countdown = 120;
                 $rootScope.timeoutModal = true;
 
                 $interval(function(){
                   $scope.countdown--;
-                  $scope.bar = ($scope.countdown/$scope.countdownTotal) * 100;
 
                   if ($scope.countdown == 0) {
                     $rootScope.modalInstance.dismiss('cancel');
@@ -74,7 +72,7 @@ angular.module('gsApp', [
                 };
               }],
             backdrop: 'static',
-            size: 'med'
+            size: 'md'
           });
           $rootScope.modalInstance = modalInstance;
         }
@@ -83,15 +81,19 @@ angular.module('gsApp', [
       // track app state changes
       $scope.state = {};
       $scope.sessionTracker = function(){
+        //Cancel any previous timeouts and set up a new one.
+        if ($rootScope.timeout) { $timeout.cancel($rootScope.timeout); }
+
         if($location.path() != '/login') {
           AppSession.update(AppSession.id, AppSession.user);
 
-          $timeout(function(){}, $rootScope.sessionWarning).then(function() {
+          $rootScope.timeout = $timeout(function(){},
+            $rootScope.sessionWarning).then(function() {
             $scope.$broadcast(AppEvent.SessionTimeout);
           });
         }
         else {
-          if ($rootScope.timeoutModal) {
+          if ($rootScope.modalInstance) {
             $rootScope.timeoutModal = false;
             $rootScope.modalInstance.dismiss('cancel');
           }

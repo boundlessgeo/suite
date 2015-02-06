@@ -6,7 +6,8 @@ angular.module('gsApp.alertpanel', [
   'ui.bootstrap'
 ])
 .directive('alertPanel', ['$modal', '$interval', '$log', '$rootScope',
-    function($modal, $interval, $log, $rootScope) {
+    '$location',
+    function($modal, $interval, $log, $rootScope, $location) {
       return {
         restrict: 'EA',
         scope: {
@@ -43,24 +44,26 @@ angular.module('gsApp.alertpanel', [
             $scope.messages.splice(i, 1);
           };
           $scope.showDetails = function(message) {
-            var modal = $modal.open({
-              templateUrl: 'alert-modal',
-              size: 'lg',
-              resolve: {
-                message: function() {
-                  return message;
+            if ($location.path() != '/login') {
+              var modal = $modal.open({
+                templateUrl: 'alert-modal',
+                size: 'lg',
+                resolve: {
+                  message: function() {
+                    return message;
+                  }
+                },
+                controller: function($scope, $modalInstance, message) {
+                  $scope.message = message;
+                  $scope.copy = function(message) {
+                    $modalInstance.close();
+                  };
+                  $scope.close = function() {
+                    $modalInstance.close();
+                  };
                 }
-              },
-              controller: function($scope, $modalInstance, message) {
-                $scope.message = message;
-                $scope.copy = function(message) {
-                  $modalInstance.close();
-                };
-                $scope.close = function() {
-                  $modalInstance.close();
-                };
-              }
-            });
+              });
+            }
           };
         }
       };
