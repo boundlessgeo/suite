@@ -61,8 +61,8 @@
             </li>
           </ul>
         </div>
-        <div class="map-editor">
-          <div class="style-toolbar">
+        <div id="mapEditor" class="map-editor">
+          <div id="styleToolbar" class="style-toolbar">
             <ul class="list-unstyled list-inline">
               <style-editor-layers click="toggleLayers"></style-editor-layers>
               <style-editor-save editor="editor" click="saveStyle"></style-editor-save>
@@ -73,14 +73,16 @@
               <style-editor-display editor="editor"></style-editor-display>
             </ul>
           </div>
-          <style-editor layer="activeLayer" style="style" editor="editor" markers="markers"></style-editor>
+          <div id="editor">
+            <style-editor layer="activeLayer" style="style" editor="editor" markers="markers"></style-editor>
+          </div>
         </div>
       </div>
     </div>
     <div id="resizer"
         resizer="vertical"
         left-min="300"
-        right-min="450"
+        right-min="635"
         alt="Drag to resize"
         title="Drag to resize">
     </div>
