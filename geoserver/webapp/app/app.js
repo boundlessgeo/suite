@@ -19,9 +19,9 @@ angular.module('gsApp', [
   'gsApp.maps'
 ])
 .controller('AppCtrl', ['$scope', '$state', 'AppEvent', 'AppSession', '$window',
-    '$timeout', '$rootScope', '$modal', '$location', '$interval',
+    '$timeout', '$rootScope', '$modal', '$location', '$interval', 'GeoServer',
     function($scope, $state, AppEvent, AppSession, $window, $timeout,
-      $rootScope, $modal, $location, $interval) {
+      $rootScope, $modal, $location, $interval, GeoServer) {
       $scope.session = AppSession;
       $rootScope.modal = false;
 
@@ -80,13 +80,33 @@ angular.module('gsApp', [
 
       // track app state changes
       $scope.state = {};
-      $scope.sessionTracker = function(){
+      $scope.sessionTracker = function() {
+        if($location.path() != '/login') {
+          if (angular.isUndefined($rootScope.sessionTimeout)) {
+            GeoServer.session().then(function(result) {
+              if (result.success) {
+                $rootScope.sessionWarning = (result.data.timeout - 120) * 1000 ;
+                $rootScope.sessionTimeout = result.data.timeout * 1000;
+
+                $scope.setSession();
+              }
+              else {
+                $scope.sessionTracker();
+              }
+            });
+          }
+          else {
+            $scope.setSession();
+          }
+        }
+      };
+
+      $scope.setSession = function() {
         //Cancel any previous timeouts and set up a new one.
         if ($rootScope.timeout) { $timeout.cancel($rootScope.timeout); }
 
         if($location.path() != '/login') {
           AppSession.update(AppSession.id, AppSession.user);
-
           $rootScope.timeout = $timeout(function(){},
             $rootScope.sessionWarning).then(function() {
             $scope.$broadcast(AppEvent.SessionTimeout);
