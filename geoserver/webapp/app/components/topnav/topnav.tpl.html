@@ -1,37 +1,39 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="TopNavCtrl">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-target="#collapse-items"
-        ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="home">
-        <span class="brand-strong">Suite</span>
-        <span class="brand-light">Composer</span>
-        <span class="brand-beta">beta</span>
-      </a>
-    </div>
-    <alert-panel alerts="alerts"></alert-panel>
-    <error-panel errors="errors"></error-panel>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" collapse="navCollapsed" id="collapse-items">
-      <ul class="nav navbar-nav">
-        <li><a href="/opengeo-docs/webmaps/composer/" target="_blank">Help</a></li>
-         <li ng-if="session.active" class="user dropdown">
-           <a class="dropdown-toggle" data-toggle="dropdown-user">
-             <span>{{ session.user }}</span> <span class="caret"></span>
-           </a>
-           <ul id="dropdown-user" class="dropdown-menu" role="menu">
-            <li><a href="{{adminLink}}/web/" target="_blank">GeoServer Admin</a></li>
-            <li class="divider"></li>
-            <li ng-if="session.active"><a ui-sref="#" ng-click="logout()">Logout</a></li>
-           </ul>
-         </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+<div id="navbarWrapper">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="TopNavCtrl">
+    <div id="navbar" class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-target="#collapse-items"
+          ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">
+          <span class="brand-strong">Suite</span>
+          <span class="brand-light">Composer</span>
+          <span class="brand-beta">beta</span>
+        </a>
+      </div>
+      <alert-panel alerts="alerts"></alert-panel>
+      <error-panel errors="errors"></error-panel>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" collapse="navCollapsed" id="collapse-items">
+        <ul class="nav navbar-nav">
+          <li><a href="/opengeo-docs/webmaps/composer/" target="_blank">Help</a></li>
+           <li ng-if="session.active" class="user dropdown">
+             <a class="dropdown-toggle" data-toggle="dropdown-user">
+               <span>{{ session.user }}</span> <span class="caret"></span>
+             </a>
+             <ul id="dropdown-user" class="dropdown-menu" role="menu">
+              <li><a href="{{adminLink}}/web/" target="_blank">GeoServer Admin</a></li>
+              <li class="divider"></li>
+              <li ng-if="session.active"><a ui-sref="#" ng-click="logout()">Logout</a></li>
+             </ul>
+           </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+</div>

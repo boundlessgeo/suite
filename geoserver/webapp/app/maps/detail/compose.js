@@ -27,8 +27,11 @@ angular.module('gsApp.maps.compose', [
 
       var wsName = $stateParams.workspace;
       $scope.workspace = wsName;
+      $scope.showMaximize = true;
+      angular.element('body').css({overflow: 'hidden'});
       var name = $stateParams.name;
       var hiddenLayers = $stateParams.hiddenLayers;
+
       if (hiddenLayers && typeof hiddenLayers === 'string') {
         hiddenLayers = hiddenLayers.split(',');
       }
@@ -45,6 +48,23 @@ angular.module('gsApp.maps.compose', [
         //Sometimes the modal backdrop doesn't go away.
         angular.element($document[0].querySelectorAll('.modal-backdrop'))
           .css('display', 'none');
+        angular.element('body').css({overflow: 'auto'});
+      });
+
+      angular.element($window).bind('resize', function() {
+        if ($scope.showMaximize) {
+        }
+        else {
+          var screenWidth = $window.innerWidth;
+          var offsetRight = 50;
+          var editorWidth = 650;
+
+          angular.element('#editingPanel').css({
+            left: screenWidth - editorWidth - offsetRight
+          });
+        }
+
+        $rootScope.$broadcast(AppEvent.SidenavResized);
       });
 
       $scope.editorSave = function(nextWindowType) {
@@ -122,6 +142,117 @@ angular.module('gsApp.maps.compose', [
           backdrop: 'static',
           size: 'med'
         });
+      };
+
+      $scope.maximize = function() {
+        var screenWidth = $window.innerWidth;
+        var screenHeight = $window.innerHeight;
+
+        $scope.navbarHeight = angular.element('#navbar').height();
+        $scope.infoHeight = angular.element('#info').height();
+        $scope.sidebarWidth = angular.element('#sidebar-wrapper').width();
+        $scope.wrapColor = angular.element('#wrapper').css('background-color');
+        $scope.wrapperWidth = angular.element('#wrapp').width();
+        $scope.editingWidth = angular.element('#editingPanel').width();
+        $scope.resizerWidth = angular.element('#resizer').width();
+        var offsetTop = 50;
+        var offsetBottom = 150;
+        var offsetRight = 50;
+        var newEditingHeight = screenHeight - offsetTop - offsetBottom;
+        var editorWidth = 650;
+        $scope.showMaximize = false;
+
+        //Remove nav, sidenav, resizer and info bars
+        angular.element('#navbarWrapper').css({
+          display: 'none'
+        });
+        angular.element('#navbar').css({
+          height: 0 + 'px',
+          display: 'none'
+        });
+        angular.element('#info').css({
+          height: 0 + 'px',
+          display: 'none'
+        });
+        angular.element('#wrapper').css({
+          background: '#FFFFFF'
+        });
+        angular.element('#sidebar-wrapper').css({
+          width: 0 + 'px',
+          display: 'none'
+        });
+        angular.element('#resizer').css({
+          width: 0 + 'px',
+          display: 'none'
+        });
+
+        //Set the map and editing panel information
+        angular.element('#mapPanel').css({
+          position: 'absolute',
+          top: 0 + 'px',
+          height: 100 + '%',
+          left: 0 + 'px',
+          width: 100 + '%'
+        });
+        angular.element('#editingPanel').css({
+          position: 'absolute',
+          top: offsetTop + 'px',
+          height: newEditingHeight + 'px',
+          width: editorWidth + 'px',
+          left: screenWidth - editorWidth - offsetRight
+        });
+
+        $rootScope.$broadcast(AppEvent.SidenavResized);
+      };
+
+      $scope.minimize = function() {
+        var screenWidth = $window.innerWidth;
+        var screenHeight = $window.innerHeight;
+        $scope.showMaximize = true;
+        var panelsWidth = screenWidth - $scope.sidebarWidth;
+        var editorWidth = $scope.editingWidth;
+        var mapWidth = panelsWidth - editorWidth;
+
+        //Restore all of the nav, sidenav, resizer and info bars
+        angular.element('#navbarWrapper').css({
+          display: 'block'
+        });
+        angular.element('#navbar').css({
+          height: $scope.navbarHeight + 'px',
+          display: 'block'
+        });
+        angular.element('#info').css({
+          height: $scope.infoHeight + 'px',
+          display: 'block'
+        });
+        angular.element('#wrapper').css({
+          background: $scope.wrapColor
+        });
+        angular.element('#sidebar-wrapper').css({
+          width: $scope.sidebarWidth + 'px',
+          display: 'block'
+        });
+        angular.element('#resizer').css({
+          width: $scope.resizerWidth + 'px',
+          display: 'block'
+        });
+
+        //Set the map and editing panel information
+        angular.element('#mapPanel').css({
+          position: 'relative',
+          top: 0 + 'px',
+          width: 100 * mapWidth/panelsWidth + '%',
+          height: 100 + '%'
+        });
+        angular.element('#editingPanel').css({
+          position: 'relative',
+          top: 0 + 'px',
+          width: 100 * editorWidth/panelsWidth + '%',
+          left: 0 + 'px',
+          height: 100 + '%'
+        });
+
+        $rootScope.$broadcast(AppEvent.SidenavResized);
       };
 
       GeoServer.map.get(wsName, name).then(function(result) {

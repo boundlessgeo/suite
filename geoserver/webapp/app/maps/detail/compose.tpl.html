@@ -1,6 +1,6 @@
 <div tracking></div>
 <div class="map-detail-compose">
-  <div class="row">
+  <div id="info" class="row">
     <div class="col-xs-12 map-name-row">
       <nav class="navbar navbar-default map-name" role="navigation">
         <div class="row">
@@ -71,6 +71,8 @@
               <style-editor-icons editor="editor"></style-editor-icons>
               <style-editor-attrs editor="editor" layer="activeLayer"></style-editor-attrs>
               <style-editor-display editor="editor"></style-editor-display>
+              <div class="minmaxButton"><a ng-if="showMaximize" ng-click="maximize()"><img src="images/maximize.png" alt="Maximize Map" title="Maximize Map" /></a></div>
+              <div class="minmaxButton"><a ng-if="!showMaximize" ng-click="minimize()"><img src="images/minimize.png" alt="Minimize Map" title="Minimize Map" /></a></div>
             </ul>
           </div>
           <style-editor layer="activeLayer" style="style" editor="editor" markers="markers"></style-editor>
