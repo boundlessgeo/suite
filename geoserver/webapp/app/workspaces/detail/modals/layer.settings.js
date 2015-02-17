@@ -94,39 +94,4 @@ angular.module('gsApp.workspaces.layers.settings', [])
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
       };
-
-      $scope.checkName = function() {
-        $scope.layerNameCheck = '';
-
-        //Check to see if the incoming layerName has a space in it; this is
-        //invalid XML.
-        if (layer.name.indexOf(' ') > -1) {
-          $scope.layerNameSpaceError = true;
-        }
-        else {
-          $scope.layerNameSpaceError = false;
-        }
-
-        //Check to see if the incoming layerName already exists for this
-        //  workspace. If it does, show the error, if not, keep going.
-        GeoServer.layer.get($scope.workspace, layer.name).then(
-          function(result) {
-            if (result.success) {
-              $scope.layerNameCheck = result.data;
-            } else {
-              $scope.alerts = [{
-                type: 'warning',
-                message: 'Layers could not be loaded.',
-                fadeout: true
-              }];
-            }
-
-            if ($scope.layerNameCheck.name) {
-              $scope.layerNameError = true;
-            }
-            else {
-              $scope.layerNameError = false;
-            }
-          });
-      };
     }]);

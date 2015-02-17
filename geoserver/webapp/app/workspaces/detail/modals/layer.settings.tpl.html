@@ -7,7 +7,7 @@
     <form name="form.layerSettings" role="form" class="layerSettings">
       <div class="form-group">
         <label for="layerName">Layer Name *</label>
-        <input name="form.layerSettings.name" type="text" class="form-control input-sm" id="layerName" ng-model="layer.name" ng-minlength="1" ng-change="checkName();" required focus-init />
+        <input check-layer name="form.layerSettings.name" type="text" class="form-control input-sm" id="layerName" ng-model="layer.name" ng-minlength="1" ng-change="checkName(layer.name);" ng-focus="setName(layer.name);" focus-init />
         <small>(No spaces, for web URLs.)</small>
       </div>
       <div>
