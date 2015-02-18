@@ -54,10 +54,6 @@ angular.module('gsApp.alertpanel', [
                   }
                 },
                 controller: function($scope, $modalInstance, message) {
-                  $scope.message = message;
-                  $scope.copy = function(message) {
-                    $modalInstance.close();
-                  };
                   $scope.close = function() {
                     $modalInstance.close();
                   };
