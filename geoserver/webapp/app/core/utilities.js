@@ -214,4 +214,48 @@ angular.module('gsApp.core.utilities', [])
       $scope.onUpdatePanels();
     }
   };
+})
+.directive('checkLayer', function(GeoServer) {
+    return function($scope, $element, $attrs) {
+      $scope.setName = function(layer) {
+        $scope.originalName = layer;
+      };
+
+      $scope.checkName = function(layer) {
+        $scope.layerNameCheck = '';
+
+        //Check to see if the incoming layerName has a space in it; this is
+        //invalid XML.
+        if (layer.indexOf(' ') > -1) {
+          $scope.layerNameSpaceError = true;
+        }
+        else {
+          $scope.layerNameSpaceError = false;
+        }
+
+        if ($scope.originalName != layer) {
+          //Check to see if the incoming layerName already exists for this
+          //  workspace. If it does, show the error, if not, keep going.
+          GeoServer.layer.get($scope.workspace, layer).then(
+            function(result) {
+              if (result.success) {
+                $scope.layerNameCheck = result.data;
+              } else {
+                $scope.alerts = [{
+                  type: 'warning',
+                  message: 'Layer name cannot be checked.',
+                  fadeout: true
+                }];
+              }
+
+              if ($scope.layerNameCheck.name) {
+                $scope.layerNameError = true;
+              }
+              else {
+                $scope.layerNameError = false;
+              }
+            });
+        }
+      };
+    };
 });

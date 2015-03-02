@@ -7,9 +7,15 @@
     <form name="form.layerSettings" role="form" class="layerSettings">
       <div class="form-group">
         <label for="layerName">Layer Name *</label>
-        <input name="form.layerSettings.name" type="text" class="form-control input-sm" id="layerName" ng-model="layer.name" focus-init />
+        <input check-layer name="form.layerSettings.name" type="text" class="form-control input-sm" id="layerName" ng-model="layer.name" ng-minlength="1" ng-change="checkName(layer.name);" ng-focus="setName(layer.name);" focus-init />
         <small>(No spaces, for web URLs.)</small>
       </div>
+      <div>
+        <span ng-show="layerNameSpaceError" class="alert-danger">No spaces allowed.</span>
+        <span ng-show="!layer.name" class="alert-danger">Required</span>
+        <div ng-if="layerNameError" class="alert-danger">Another layer already has the name '{{layer.name}}'.</div>
+      </div>
+
       <div class="form-group">
         <label for="mapTitle">Title</label>
         <input name="form.layerSettings.title" type="text" class="form-control input-sm" id="mapTitle" ng-model="layer.title">
@@ -37,7 +43,7 @@
   <div class="modal-footer layer-settings-footer">
     <div ng-show="form.layerSettings.saved" class="saved"><i class="fa fa-check"></i> Changes Saved.</div>
     <button ng-click="removeLayer(layer)" class="btn btn-danger btn-sm"><i class="icon-remove"></i> Remove Layer</button>
-    <button ng-click="saveChanges()" class="btn btn-success btn-sm save" ng-disabled="!form.layerSettings.$dirty">Update Layer Settings</button>
+    <button ng-click="saveChanges()" class="btn btn-success btn-sm save" ng-disabled="!form.layerSettings.$dirty || layerNameError || layerNameSpaceError || !layer.name">Update Layer Settings</button>
     <button class="btn btn-default btn-sm" ng-click="cancel()">Close</button>
   </div>
 </div>
