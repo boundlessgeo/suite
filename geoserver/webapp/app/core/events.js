@@ -18,6 +18,10 @@ angular.module('gsApp.core.event', [])
    * Fired on logout.
    */
   Logout: 'app-logout',
+  /**
+   * Fired when GeoServer session times out.
+   */
+  SessionLogin: 'app-logout',
    /**
    * Fired when GeoServer is not responding.
    */

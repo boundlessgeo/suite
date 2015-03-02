@@ -19,7 +19,9 @@ angular.module('gsApp', [
   'gsApp.maps'
 ])
 .controller('AppCtrl', ['$scope', '$state', 'AppEvent', 'AppSession', '$window',
-    function($scope, $state, AppEvent, AppSession, $window) {
+    '$timeout', '$modal', '$location', '$interval', 'GeoServer',
+    function($scope, $state, AppEvent, AppSession, $window, $timeout,
+      $modal, $location, $interval, GeoServer) {
       $scope.session = AppSession;
 
       var height = $window.innerHeight - 65;
@@ -41,21 +43,91 @@ angular.module('gsApp', [
         AppSession.clear();
         $state.go('login');
       });
+      $scope.$on(AppEvent.SessionTimeout, function(e) {
+        if (!$scope.timeoutModal && $location.path() != '/login') {
+          $scope.modalInstance = $modal.open({
+            templateUrl: '/core/modals/timeout.tpl.html',
+            scope: $scope,
+            controller: ['$scope', '$modalInstance', '$state', '$document',
+              function($scope, $modalInstance, $state, $document) {
+                $scope.countdown = 120;
+                $scope.timeoutModal = true;
+
+                $interval(function(){
+                  $scope.countdown--;
+
+                  if ($scope.countdown == 0) {
+                    $scope.modalInstance.dismiss('cancel');
+                    AppSession.clear();
+                    $state.go('login');
+                  }
+                }, 1000);
+
+                $scope.cancel = function() {
+                  $scope.sessionTracker();
+                  $scope.timeoutModal = false;
+                  $modalInstance.dismiss('cancel');
+                };
+              }],
+            backdrop: 'static',
+            size: 'md'
+          });
+        }
+      });
 
       // track app state changes
       $scope.state = {};
-      $scope.$on('$stateChangeSuccess',
-          function(e, to, toParams, from, fromParams) {
-              $scope.state.curr = {name: to, params: toParams};
-              $scope.state.prev = {name: from, params: fromParams};
+      $scope.sessionTracker = function() {
+        if($location.path() != '/login') {
+          if (angular.isUndefined($scope.sessionWarning)) {
+            GeoServer.session().then(function(result) {
+              if (result.success) {
+                $scope.sessionWarning = (result.data.timeout - 120) * 1000 ;
+                $scope.setSession();
+              }
+              else {
+                $scope.sessionTracker();
+              }
             });
+          }
+          else {
+            $scope.setSession();
+          }
+        }
+      };
+
+      $scope.setSession = function() {
+        //Cancel any previous timeouts and set up a new one.
+        if ($scope.timeout) { $timeout.cancel($scope.timeout); }
+
+        if($location.path() != '/login') {
+          AppSession.update(AppSession.id, AppSession.user);
+          $scope.timeout = $timeout(function(){},
+            $scope.sessionWarning).then(function() {
+            $scope.$broadcast(AppEvent.SessionTimeout);
+          });
+        }
+        else {
+          if ($scope.modalInstance) {
+            $scope.timeoutModal = false;
+            $scope.modalInstance.dismiss('cancel');
+          }
+        }
+      };
+
+      $scope.$on('$stateChangeSuccess',
+        function(e, to, toParams, from, fromParams) {
+          $scope.sessionTracker();
+          $scope.state.curr = {name: to, params: toParams};
+          $scope.state.prev = {name: from, params: fromParams};
+        });
     }])
 .factory('_', ['lodash',
     function(lodash) {
       return lodash;
     }])
-.run(['$rootScope', 'GeoServer', 'AppSession',
-    function($rootScope, GeoServer, AppSession) {
+.run(['GeoServer', 'AppSession',
+    function(GeoServer, AppSession) {
       GeoServer.session().then(function(result) {
         if (result.success) {
           AppSession.update(result.data.id, result.data.user);
