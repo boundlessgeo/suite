@@ -277,3 +277,38 @@
 #editingPanel {
   display: inline-block;
 }
+
+
+/*
+  Fullscreen mode
+  Map covers window with editing panel on top, all else is hidden
+ */
+.fullscreen {
+  .main-nav,
+  .map-name-row,
+  #sidebar-wrapper,
+  #resizer {
+    display: none;
+  }
+  #page-content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 200;
+  }
+  #mapPanel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #editingPanel {
+    position: absolute;
+    padding: 10px;
+    top: 50px;
+    right: 50px;
+    width: auto;
+    height: 60%;
+  }
+}

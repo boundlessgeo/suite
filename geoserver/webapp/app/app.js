@@ -22,8 +22,10 @@ angular.module('gsApp', [
     function($scope, $state, AppEvent, AppSession, $window) {
       $scope.session = AppSession;
 
-      var height = $window.innerHeight - 65;
-      $scope.pageHeight = {'height': height};
+      // handle fullscreen mode
+      $scope.$on(AppEvent.ToggleFullscreen, function(e) {
+        $scope.fullscreen = !$scope.fullscreen;
+      });
 
       // handle an un-authorized event and forward to the login page
       $scope.$on(AppEvent.Unauthorized, function(e) {

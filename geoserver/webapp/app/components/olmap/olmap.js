@@ -201,6 +201,10 @@ angular.module('gsApp.olmap', [])
           }
         });
 
+        $rootScope.$on(AppEvent.ToggleFullscreen, function() {
+          $timeout(function() { self.olMap.updateSize() });
+        });
+
         if (mapOpts.featureInfo) {
           map.on('singleclick', function(evt) {
             if (mapOpts.activeLayer) {

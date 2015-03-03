@@ -30,6 +30,10 @@ angular.module('gsApp.core.event', [])
    * Fired when sidenav resize is requested.
    */
   ToggleSidenav: 'toggle-sidenav',
+  /**
+   * Fired when fullscreen is toggled
+   */
+  ToggleFullscreen: 'toggle-fullscreen',
     /**
    * Fired when a workspaces are fetched.
    */

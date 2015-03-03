@@ -12,13 +12,13 @@
       rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="geoserver.css" />
   </head>
-  <body ng-controller="AppCtrl">
+  <body ng-controller="AppCtrl" ng-class="{fullscreen: fullscreen}">
     <top-nav></top-nav>
     <div id="wrapper"
       ng-class="{toggled: toggleSide, fullWidth: !session.active}"
       ng-init="toggleSide=false">
       <div sidenav></div>
-      <div ui-view id="page-content-wrapper" ng-style="pageHeight"></div>
+      <div ui-view id="page-content-wrapper"></div>
     </div>
     <script type="text/javascript" src="ol.js"></script>
     <script type="text/javascript" src="codemirror.min.js"></script>

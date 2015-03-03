@@ -4,14 +4,15 @@
 /*global CodeMirror */
 angular.module('gsApp.styleditor', [
   'ui.codemirror',
-  'gsApp.styleditor.ysldhinter',
+  'gsApp.styleditor.attributes',
+  'gsApp.styleditor.color',
+  'gsApp.styleditor.display',
+  'gsApp.styleditor.fullscreen',
+  'gsApp.styleditor.icons',
+  'gsApp.styleditor.layers',
   'gsApp.styleditor.save',
   'gsApp.styleditor.undo',
-  'gsApp.styleditor.layers',
-  'gsApp.styleditor.color',
-  'gsApp.styleditor.icons',
-  'gsApp.styleditor.attributes',
-  'gsApp.styleditor.display'
+  'gsApp.styleditor.ysldhinter'
 ])
 .directive('styleEditor', ['$compile', '$sanitize', '$timeout', '$log',
     'YsldHinter', '$rootScope', '$sce', '$document',

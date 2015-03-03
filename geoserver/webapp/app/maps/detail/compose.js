@@ -47,6 +47,10 @@ angular.module('gsApp.maps.compose', [
           .css('display', 'none');
       });
 
+      $scope.toggleFullscreen = function() {
+        $rootScope.$broadcast(AppEvent.ToggleFullScreen);
+      };
+
       $scope.editorSave = function(nextWindowType) {
         //Sometimes the modal backdrop doesn't appear.
         angular.element($document[0].querySelectorAll('.modal-backdrop'))
