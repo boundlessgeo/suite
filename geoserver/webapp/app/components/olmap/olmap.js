@@ -1,4 +1,4 @@
-/* 
+/*
  * (c) 2014 Boundless, http://boundlessgeo.com
  * License: BSD
  */
@@ -158,6 +158,12 @@ angular.module('gsApp.olmap', [])
           ol.control.Control.prototype.setMap.call(this, map);
         };
 
+        // Mouse lonlat control
+        var mousePositionControl = new ol.control.MousePosition({
+          projection: proj,
+          coordinateFormat: ol.coordinate.createStringXY(6)
+        });
+
         var map = new ol.Map(angular.extend({
           target: element[0],
           view: new ol.View({
@@ -174,7 +180,8 @@ angular.module('gsApp.olmap', [])
               extent: extent
             }),
             new ol.control.Control({element: boundsControl}),
-            new ZoomLevelControl()
+            new ZoomLevelControl(),
+            mousePositionControl
           ])
         }, options || {}));
 
@@ -260,7 +267,9 @@ angular.module('gsApp.olmap', [])
       };
     }])
 .directive('olMap', ['$timeout', 'MapFactory', 'GeoServer', '$log', '$window',
-    function($timeout, MapFactory, GeoServer, $log, $window) {
+  '$rootScope', 'AppEvent',
+    function($timeout, MapFactory, GeoServer, $log, $window, $rootScope,
+      AppEvent) {
       return {
         restrict: 'EA',
         scope: {
@@ -307,6 +316,37 @@ angular.module('gsApp.olmap', [])
           });
           $scope.$on('olmap-refresh', function() {
             $scope.map.refresh();
+          });
+
+          $rootScope.$on(AppEvent.MapControls, function(scope, ctrl) {
+            switch(ctrl) {
+              case 'all':
+                angular.element('.bounds').toggle();
+                angular.element('.zoomlevel').toggle();
+                angular.element('.ol-scale').toggle();
+                angular.element('.ol-zoom').toggle();
+                angular.element('.ol-zoom-extent').toggle();
+                angular.element('.ol-mouse-position').toggle();
+                break;
+              case 'lonlat':
+                angular.element('.ol-mouse-position').toggle();
+                break;
+              case 'bounds':
+                angular.element('.bounds').toggle();
+                break;
+              case 'extent':
+                angular.element('.ol-zoom-extent').toggle();
+                break;
+              case 'scale':
+                angular.element('.ol-scale').toggle();
+                break;
+              case 'zoom':
+                angular.element('.ol-zoom').toggle();
+                break;
+              case 'zoomlevel':
+                angular.element('.zoomlevel').toggle();
+            }
+
           });
         }
       };

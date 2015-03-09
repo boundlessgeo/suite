@@ -8,7 +8,7 @@
   right: 0.5em;
   background-color: @olblue;
   color: white;
-  padding: 5px;
+  padding: 3px 5px;
   border-radius: 2px;
 }
 
@@ -23,8 +23,23 @@
   right: 0.5em;
   background-color: @olblue;
   color: white;
-  padding: 5px;
+  padding: 3px 5px;
   border-radius: 2px;
+}
+
+.ol-mouse-position {
+  left: 7px;
+  top: 93%;
+  background-color: @olblue;
+  color: @white;
+  padding: 3px 5px;
+  border-radius: 2px;
+  width: auto;
+  right: auto;
+
+  &:empty {
+    display: none;
+  }
 }
 
 .bounds {
@@ -47,7 +62,7 @@
   }
 
   button {
-    font-size: 13px;
+    font-size: 1.1em;
     padding-bottom: 1px;
     display: inline-block;
 

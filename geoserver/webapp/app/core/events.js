@@ -70,10 +70,14 @@ angular.module('gsApp.core.event', [])
    * Fired when a single map's settings are updated
    */
   MapSettingsUpdated: 'map-settings-updated',
-    /**
+  /**
    * Fired when a map is edited
    */
   MapEdited: 'map-edited',
+  /**
+   * Fired when a map controls hide/show requested
+   */
+  MapControls: 'map-controls',
   /**
    * Fired when all maps are updated
    */

@@ -45,6 +45,15 @@ angular.module('gsApp.styleditor.display', [])
                 '</li>'+
               '</ul>'+
             '</li>'+
+            '<li class="dropdown-submenu">'+
+              'Map Controls'+
+              '<ul class="dropdown-menu">'+
+                '<li ng-repeat="(mc,v) in mapcontrols">'+
+                  '<a href ng-click="chooseControl(v)">'+
+                    '{{mc}}</a>'+
+                '</li>'+
+              '</ul>'+
+            '</li>'+
           '</ul>'+
         '</li>',
         replace: true,
@@ -106,6 +115,21 @@ angular.module('gsApp.styleditor.display', [])
             $('.CodeMirror').css('font-size', $scope.sizes[i][1]);
           };
 
+          /* Map Controls */
+
+          $scope.mapcontrols = {
+            'Toggle All': 'all',
+            'Toggle LonLat': 'lonlat',
+            'Toggle Bounds': 'bounds',
+            'Toggle Extent': 'extent',
+            'Toggle Scale': 'scale',
+            'Toggle Zoom': 'zoom',
+            'Toggle Zoom Level': 'zoomlevel',
+          };
+
+          $scope.chooseControl = function(ctrl) {
+            $rootScope.$broadcast(AppEvent.MapControls, ctrl);
+          };
         }
       };
     }]);
