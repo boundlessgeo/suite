@@ -8,13 +8,13 @@
     <div class="container-fluid form-container">
       <div class="upload-options btn-group btn-group-justified" ng-show="is('fileordb')">
         <div class="btn-group">
-          <button type="button" class="btn btn-default btn-sm" ng-click="showImportFile=true; showImportDB=false;" ng-class="{active: showImportFile}">
+          <button type="button" class="btn btn-default btn-sm" ng-click="showImportFile=true; showImportDB=false; importResult = null;" ng-class="{active: showImportFile}">
             Add Files
           </button>
         </div>
         <div class="btn-group">
           <button type="button" class="btn btn-default btn-sm"
-          ng-click="showImportFile=false; showImportDB=true;" ng-class="{active: showImportDB}">
+          ng-click="showImportFile=false; showImportDB=true; importResult = null;" ng-class="{active: showImportDB}">
             Add Database
           </button>
         </div>
@@ -51,7 +51,7 @@
   </div>
   <div class="modal-footer">
     <div class="submit-buttons pull-right">
-      <button class="btn btn-default btn-sm" ng-click="back()" ng-show="!is('fileordb')">&larr; Back</button>
+      <button class="btn btn-default btn-sm" ng-click="back()" ng-show="!showImportFile && format!==null">&larr; Back</button>
       <button class="btn btn-default btn-sm" ng-click="close()">Close</button>
       <button class="btn btn-success btn-sm" ng-show="mapInfo && !mapInfo.created && is('details')" ng-click="completeNewMap(selectedLayers)">Create Map {{ mapInfo.name }}</button>
       <button class="btn btn-success btn-sm" ng-click="createNewMapwithImported();" ng-show="is('newmap')">Create New Map</button>

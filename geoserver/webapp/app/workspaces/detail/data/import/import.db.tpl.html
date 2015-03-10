@@ -4,7 +4,7 @@
       Import data from a spatial database
     </p>
   </div>
-  <div ng-show="format == null" class="text-center">
+  <div ng-show="format == null || db_home" class="text-center">
     <div class="db-list">
       <div class="row" ng-repeat="row in formats | partition:3">
         <div class="col-sm-4" ng-repeat="f in row">
@@ -51,7 +51,7 @@
       </div>
       <div class="form-group row">
         <div class="col-sm-12 text-center" style="margin-top: 20px;">
-          <button ng-click="connect()" ng-disabled="connecting || importResult != null"
+          <button ng-click="connect()" ng-hide="format == null" ng-disabled="connecting || importResult != null"
             class="btn btn-primary btn-sm">
               <span ng-hide="connecting || importResult != null">
                 Connect

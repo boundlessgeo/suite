@@ -25,7 +25,7 @@ angular.module('gsApp.workspaces.data.import', [
             controller: 'DataImportDbCtrl'
           }
         },
-        params: { workspace: {} }
+        params: { workspace: {}, import: {}, connectParams: {}, format: {} }
       });
       $stateProvider.state('workspace.data.import.details', {
         views: {
@@ -90,14 +90,28 @@ angular.module('gsApp.workspaces.data.import', [
         });
       };
 
+      $scope.db_home = false;
       $scope.back = function() {
-        if (! $scope.is('fileordb')) {
+        if (!$scope.is('fileordb') && !$scope.showImportDB) {
+        // back to Add File
           $state.go('workspace.data.import.fileordb', {
             workspace: wsName,
             import: $scope.import
           });
-          $scope.showImportFile = true;
-          $scope.showImportDetails = false;
+        } else if ($scope.format) {  // back to DB connect
+          if ($scope.is('fileordb')) {
+            $scope.importResult = null;
+            $scope.connectParams = null;
+            $scope.params = null;
+            $scope.db_home = true;
+          } else {
+            $state.go('workspace.data.import.fileordb', {
+              workspace: wsName,
+              import: $scope.import,
+              connectParams: $scope.connectParams,
+              format: $scope.format
+            });
+          }
         }
       };
 
@@ -122,6 +136,12 @@ angular.module('gsApp.workspaces.data.import', [
       $scope.importResult = null;
       $scope.setImportResult = function(result) {
         $scope.importResult = result;
+      };
+
+      $scope.connectParams = null;
+      $scope.setConnectionParamsAndFormat = function(params, format) {
+        $scope.connectParams = params;
+        $scope.format = format;
       };
 
       $scope.goToCreateNewMap = function(workspace, importInfo) {
@@ -254,6 +274,7 @@ angular.module('gsApp.workspaces.data.import', [
     function($scope, $state, $stateParams, $log, GeoServer, _, $sce) {
       $scope.workspace = $stateParams.workspace;
       $scope.maps = $stateParams.maps;
+      $scope.params = $stateParams.connectParams;
       $scope.chooseTables = false;
 
       $scope.geoserverDatabaseLink = GeoServer.baseUrl() +
@@ -279,6 +300,8 @@ angular.module('gsApp.workspaces.data.import', [
         var content = _.mapValues($scope.params, function(p) {
           return p.value;
         });
+
+        $scope.setConnectionParamsAndFormat($scope.params, $scope.format);
 
         GeoServer.import.post($scope.workspace, content)
           .then(function(result) {
