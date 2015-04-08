@@ -142,7 +142,7 @@ public class ImportController extends ApiController {
             imp = importer.createContext(dir, ws, store);
         }
 
-        return doImport(imp, ws);
+        return doImport(imp, ws, request);
     }
 
     /**
@@ -200,7 +200,7 @@ public class ImportController extends ApiController {
         
         //Return to requester to allow selection of tables.
         //Complete the import using update()
-        return get(ws.getName(), imp.getId());
+        return get(ws.getName(), imp.getId(), request);
     }
 
     Map<String, Serializable> hack(JSONObj obj) {
@@ -261,8 +261,8 @@ public class ImportController extends ApiController {
      * @param ws - The workspace to import into
      * @return JSON representation of the import
      */
-    JSONObj doImport(ImportContext imp, WorkspaceInfo ws) throws Exception {
-        return doImport(imp, ws, ImportFilter.ALL);
+    JSONObj doImport(ImportContext imp, WorkspaceInfo ws, HttpServletRequest req) throws Exception {
+        return doImport(imp, ws, ImportFilter.ALL, req);
     }
     
     /**
@@ -272,7 +272,7 @@ public class ImportController extends ApiController {
      * @param f - Filter to select import tasks
      * @return JSON representation of the import
      */
-    JSONObj doImport(ImportContext imp, WorkspaceInfo ws, ImportFilter f) throws Exception {
+    JSONObj doImport(ImportContext imp, WorkspaceInfo ws, ImportFilter f, HttpServletRequest req) throws Exception {
         // run the import
         imp.setState(ImportContext.State.RUNNING);
         GeoServerDataDirectory dataDir = dataDir();
@@ -292,7 +292,7 @@ public class ImportController extends ApiController {
             }
         }
         imp.setState(ImportContext.State.COMPLETE);
-        return get(ws.getName(), imp.getId());
+        return get(ws.getName(), imp.getId(), req);
     }
     
     /**
@@ -303,7 +303,7 @@ public class ImportController extends ApiController {
      * @param f - Filter to select import tasks
      * @return JSON representation of the import
      */
-    JSONObj reImport(ImportContext imp, WorkspaceInfo ws, ImportFilter f) throws Exception {
+    JSONObj reImport(ImportContext imp, WorkspaceInfo ws, ImportFilter f, HttpServletRequest req) throws Exception {
      // run the import
         imp.setState(ImportContext.State.RUNNING);
         GeoServerDataDirectory dataDir = dataDir();
@@ -323,7 +323,7 @@ public class ImportController extends ApiController {
             }
         }
         imp.setState(ImportContext.State.COMPLETE);
-        return get(ws.getName(), imp.getId());
+        return get(ws.getName(), imp.getId(), req);
     }
     
     /*
@@ -424,7 +424,7 @@ public class ImportController extends ApiController {
      * @throws Exception if the request is invalid, or another error occurs.
      */
     @RequestMapping(value = "/{wsName}/{id:\\d+}", method = RequestMethod.GET)
-    public @ResponseBody JSONObj get(@PathVariable String wsName, @PathVariable Long id) throws Exception {
+    public @ResponseBody JSONObj get(@PathVariable String wsName, @PathVariable Long id, HttpServletRequest request) throws Exception {
         ImportContext imp = findImport(id);
 
         JSONObj result = new JSONObj();
@@ -442,7 +442,7 @@ public class ImportController extends ApiController {
             } else {
                 switch(task.getState()) {
                     case COMPLETE:
-                        imported.add(complete(task));
+                        imported.add(complete(task, request));
                         break;
                     case NO_BOUNDS:
                     case NO_CRS:
@@ -491,7 +491,7 @@ public class ImportController extends ApiController {
      * @throws Exception if the request is invalid.
      */
     @RequestMapping(value = "/{wsName}/{id:\\d+}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody JSONObj update(@PathVariable String wsName, @PathVariable Long id, @RequestBody JSONObj obj)
+    public @ResponseBody JSONObj update(@PathVariable String wsName, @PathVariable Long id, @RequestBody JSONObj obj, HttpServletRequest request)
         throws Exception {
 
         Catalog catalog = geoServer.getCatalog();
@@ -504,7 +504,7 @@ public class ImportController extends ApiController {
         if (imp.getState() == ImportContext.State.PENDING) {
             // create the import data
             
-            return doImport(imp, ws, f);
+            return doImport(imp, ws, f, request);
         }
         
         //Re-import
@@ -512,7 +512,7 @@ public class ImportController extends ApiController {
         
         //Filter only: run on all tasks that match the filter
         if (arr == null) {
-            return reImport(imp, ws, f);
+            return reImport(imp, ws, f, request);
         }
         
         //Task List: Update CRS tasks, run all tasks that match filter or list.
@@ -547,7 +547,7 @@ public class ImportController extends ApiController {
                 }
             }
         }
-        return reImport(imp, ws, f);
+        return reImport(imp, ws, f, request);
     }
 
     ImportContext findImport(Long id) {
@@ -646,12 +646,12 @@ public class ImportController extends ApiController {
         return obj;
     }
 
-    JSONObj complete(ImportTask task) {
+    JSONObj complete(ImportTask task, HttpServletRequest req) {
         touch(task);
 
         LayerInfo layer = task.getLayer();
         JSONObj obj = task(task);
-        IO.layerDetails(obj.putObject("layer"), layer, null);
+        IO.layerDetails(obj.putObject("layer"), layer, req);
         return obj;
     }
 

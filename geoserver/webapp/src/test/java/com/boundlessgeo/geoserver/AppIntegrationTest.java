@@ -256,7 +256,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
             JSONObj response = new JSONObj();
             response.put("tasks", tasks);
             
-            obj = ctrl.update("gs", id, response);
+            obj = ctrl.update("gs", id, response, request);
             
             assertEquals(0, obj.array("preimport").size());
             assertEquals(1, obj.array("imported").size());
@@ -264,7 +264,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
             assertEquals(0, obj.array("failed").size());
             assertEquals(preimport.size()-3, obj.array("ignored").size());
             
-            obj = ctrl.get("gs",  id);
+            obj = ctrl.get("gs",  id, request);
             
             //Set CRS
             tasks = new JSONArr();
@@ -276,7 +276,7 @@ public class AppIntegrationTest extends GeoServerSystemTestSupport {
             response = new JSONObj();
             response.put("tasks", tasks);
             
-            obj = ctrl.update("gs", id, response);
+            obj = ctrl.update("gs", id, response, request);
             
             assertEquals(0, obj.array("preimport").size());
             assertEquals(3, obj.array("imported").size());
