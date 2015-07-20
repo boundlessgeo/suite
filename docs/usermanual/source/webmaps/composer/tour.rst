@@ -27,6 +27,12 @@ Enter an administrative user name and password and click :guilabel:`Login` to ac
 
 .. note:: The default GeoServer administrator credentials are ``admin`` / ``geoserver``.
 
+If you leave Composer unattended for more than 30 minutes, a dialog will appear asking you to login again. After logging in, you can continue right where you left off - any unsaved data will be preserved. A similar dialog will appear if you logout through the GeoServer Admin interface instead of the composer interface and try to use Composer.
+
+.. figure:: img/sessionexpired.png
+
+   Session expired dialog
+
 Home page / Recent
 ------------------
 
@@ -41,13 +47,25 @@ This page is shown when first logging in to Composer. It contains a list of rece
 Toolbar
 -------
 
-When logged in, the top of the application will always contain three links:
+When logged in, the top of the application will always contain four links:
 
 * **Home**, accessible by clicking the :guilabel:`Composer` logo
 * **Help**, to bring up this documentation
+* **Recent Alerts**, to display a list of recent errors and other messages
 * **User settings**, with links to the GeoServer Admin interface and to logout
 
-.. todo:: Add figure
+.. figure:: img/toolbar.png
+
+   Toolbar
+
+Recent Alerts
+~~~~~~~~~~~~~
+
+Clicking on the :guilabel:`Recent Alerts` link in the toolbar will display the Recent Alerts dialog. This window lists all alerts, warnings, and messages for the current browser session. This list can be filtered by type using the three checkboxes. If an alert contains additional details, they can be shown or hidden by clicking on the :guilabel:`Details`/:guilabel:`Hide Details` links.
+
+.. figure:: img/alerts.png
+
+   Recent Alerts dialog
 
 Navigation panel
 ----------------

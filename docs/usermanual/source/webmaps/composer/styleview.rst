@@ -35,9 +35,11 @@ The Style Editor is mostly the same whether styling a layer or a map. The only d
 
    Styling a single layer
 
-The Style Editor page consists of two (or three) panels.
+The Style Editor page consists of a navigation bar and two (or three) panels.
 
-* The **viewer** on the left side shows the current style of layer or map. In this panel there are buttons for zoom in/out, zoom to extent, and copy bounds. There is also the current scale and zoom level.
+The navigation bar sits above the panels. To the left there is a breadcrum navigation, consisting of the workspace name (which links back to the workspace page) and the map or layer name (which shows the map or layer settings). For maps only, the number of layers, a button to add layers to the map, and the name of the current layer are all shown on the right side of the toolbar. For both maps and layers, there is a keyboard icon (which shows the :ref:`keyboard shortcuts<webmaps.composer.keys>` for the style editor), and a gear icon (which also shows the map or layer settings).
+
+* The **viewer** on the left side shows the current style of layer or map. In this panel there are buttons for zoom in/out, zoom to extent, and copy bounds. There is also the current scale and zoom level. This panel is seperated from the other panels by a horizontal grey bar, which can be dragged to adjust the relative size of the panels.
 * For maps only, there is a **layer list**. This list can be dragged to adjust drawing order, and each layer can be toggled on or off in visibility (without removing them from the map).
 * The **style** panel shows the current style for the selected layer. Even if viewing a map, only one layer's style will be shown at once. 
 
@@ -55,22 +57,24 @@ On the style panel there is a toolbar with the following buttons:
 
    * - Button
      - Description
+   * - :guilabel:`Fullscreen`
+     - Toggle fulscreen editing mode, where the **style** and **layer list** panels float above the **viewer**, which expands to the full screen size.
    * - :guilabel:`Layers`
      - Shows/hides the layers panel. Only valid when viewing a map.
    * - :guilabel:`Save`
      - Saves the current style
-   * - :guilabel:`Font`
-     - Changes the display font for the style. Options are system dependent. **Only affects how the style code is viewed, not the style itself.**
-   * - :guilabel:`Size`
-     - Change sthe size of the display font for the style. Options are :guilabel:`Small`, :guilabel:`Smaller`, :guilabel:`Normal`, :guilabel:`Larger`, and :guilabel:`Large`  **Only affects how the style code is viewed,  not the style itself.**
+   * - :guilabel:`Undo`
+     - Returns to a previous version of the style
+   * - :guilabel:`Display`
+     - Provides a list of options for changing how the map and style are displayed. **Only affects how the map and style are viewed in Composer, not the actual map or style.**
    * - :guilabel:`Color`
      - Allows a color to be chosen from a color picker and subsequently inserted into the style.
    * - :guilabel:`Icons`
      - Allows for icons (graphics) to be chosen and inserted into a style. Icons can be uploaded from this dialog as well. See the section on :ref:`webmaps.composer.styleview.icons`.
-   * - :guilabel:`Undo`
-     - Returns to a previous version of the style
    * - :guilabel:`Attributes`
      - Shows a list of the available attributes. Useful when creating :ref:`style filters <cartography.ysld.reference.filters>`.
+   * - :guilabel:`SLD`
+     - Shows the SLD equivalent of the saved YSLD style.
 
 Editing styles
 ~~~~~~~~~~~~~~
@@ -110,16 +114,23 @@ To upload an image file to be used as a graphic in a style:
 
 #. To add this icon to the current style, select the icon and then click :guilabel:`Copy selected to Clipboard`.
 
-#. The dialog will close automatically. Paste the path in the appropriate location, such as:
+#. The dialog will close automatically. Paste the text in the appropriate location, such as:
 
    .. code-block:: yaml
-      :emphasize-lines: 2
+      :emphasize-lines: 3-5
 
-      - external:
-          url: /workspaces/tutorial/styles/smileyface.png
-          format: image/png
+      point:
+        symbols:
+        - external:
+            url: smileyface.png
+            format: image/png
 
-   .. note:: The pasted code will be of the form ``/workspaces/<project_workspace>/styles/<filename.ext>``.
+   .. note:: The pasted code will be of the form 
+      .. code-block:: yaml
+      
+         - external:
+             url: smileyface.png
+             format: image/png
 
    .. figure:: img/icons_pasted.png
 

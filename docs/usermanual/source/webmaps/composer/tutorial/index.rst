@@ -69,20 +69,19 @@ With the project workspace created, we're now ready to load data.
 
       Add Data link
 
-#. A dialog will appear for importing data to GeoServer. Either click :guilabel:`Browse` and select one of the files or drag one of the files onto this window.
+#. A dialog will appear for importing data to GeoServer. Either click :guilabel:`Browse` and select each of the files or drag the files onto this window.
 
    .. figure:: img/importfile.png
 
       Adding a shapefile archive to be uploaded
 
-#. Click :guilabel:`Upload` to upload the file to GeoServer.
+#. Click :guilabel:`Upload` to upload the files to GeoServer.
 
    .. figure:: img/uploadedfile.png
 
       Shapefile uploaded
 
-#. After upload is complete click :guilabel:`Next: Load` to review file contents.
-Select :file:`ne_10m_roads.shp` and click :guilabel:`Import Selected Layers`.
+#. After the upload is complete click :guilabel:`Next: Load` to review file contents. Select all of the resources and click :guilabel:`Import Selected Layers`.
 
    .. figure:: img/availablelayers.png
       
@@ -94,9 +93,7 @@ Select :file:`ne_10m_roads.shp` and click :guilabel:`Import Selected Layers`.
       
       Layer Imported
 
-#. Repeat the upload and import process for the three other files.
-
-#. When finished with uploads, click :guilabel:`Close` to close out of the import wizard. You will see the four data sources listed on the :guilabel:`Data` tab. Note specifically that for each data store, the resource is marked as :guilabel:`Published`.
+#. When finished with uploads, click :guilabel:`Close` to close out of the import wizard. You will see the two data sources listed on the :guilabel:`Data` tab: A directory of shapefiles containing the three shapefile resources, and a raster data source containing the DEM resource. Note specifically that for each data store, the resource is marked as :guilabel:`Published`.
 
    .. figure:: img/datatab.png
 
