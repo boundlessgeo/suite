@@ -25,6 +25,8 @@ GeoExt.Lang.add("fr", {
         queryText: "Query",
         exportMapText: "Carte Export",
         saveMapText: "Enregistrez la carte",
+        saveMapAsText: "Save as new map",
+        deleteMapText: "Delete map",
         toolsTitle: "Choose tools to include in the toolbar:",
         previewText: "Preview",
         backText: "Back",
