@@ -26,6 +26,8 @@ GeoExt.Lang.add("no", {
         queryText: "Spørring",
         exportMapText: "Publiser kart",
         saveMapText: "Lagre kart",
+        saveMapAsText: "Save as new map",
+        deleteMapText: "Delete map",
         toolsTitle: "Velg verktøy og legge til i verktøyslinjen:",
         previewText: "Forhåndsvisning",
         backText: "Tilbake",

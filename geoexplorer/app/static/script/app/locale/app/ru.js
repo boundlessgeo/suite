@@ -26,6 +26,8 @@ GeoExt.Lang.add("ru", {
         queryText: "Запрос",
         exportMapText: "Опубликовать карту",
         saveMapText: "Сохранить карту",
+        saveMapAsText: "Save as new map",
+        deleteMapText: "Delete map",
         toolsTitle: "Выберите инструменты, которые хотите включить в панель инструментов:",
         previewText: "Предварительный просмотр",
         backText: "Назад",

@@ -25,7 +25,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
     // Begin i18n.
     mapText: "Map",
-    saveMapText: "Save map",
+    saveMapText: "Save or update map",
+    saveMapAsText: "Save as new map",
+    deleteMapText: "Delete map",
     exportMapText: "Export map",
     toolsTitle: "Choose tools to include in the toolbar:",
     previewText: "Preview",
@@ -594,6 +596,25 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     },
                     scope: this,
                     iconCls: "icon-save"
+                }, {
+                    text: this.saveMapAsText,
+                    handler: function() {
+                        this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
+                            delete this.id;
+                            this.save(this.showUrl);
+                        }, this);
+                    },
+                    scope: this,
+                    iconCls: "icon-save"
+                }, {
+                    text: this.deleteMapText,
+                    handler: function() {
+                        this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
+                            this.deleteMap();
+                        }, this);
+                    },
+                    scope: this,
+                    iconCls: "icon-removelayers"
                 }]
             })            
         });

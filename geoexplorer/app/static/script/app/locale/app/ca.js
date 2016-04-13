@@ -25,6 +25,8 @@ GeoExt.Lang.add("ca", {
         queryText: "Query",
         exportMapText: "Exporta el Mapa",
         saveMapText: "Desa el Mapa",
+        saveMapAsText: "Save as new map",
+        deleteMapText: "Delete map",
         toolsTitle: "Escolliu els elements que desitgeu incloure a la barra d'eines:",
         previewText: "Vista prèvia",
         backText: "Anterior",

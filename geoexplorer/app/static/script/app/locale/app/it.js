@@ -26,6 +26,8 @@ GeoExt.Lang.add("it", {
         queryText: "Ricerca",
         exportMapText: "Pubblica mappa",
         saveMapText: "Salva mappa",
+        saveMapAsText: "Save as new map",
+        deleteMapText: "Delete map",
         toolsTitle: "Scegli cosa inserire nella barra degli strumenti:",
         previewText: "Anteprima",
         backText: "Dietro",
