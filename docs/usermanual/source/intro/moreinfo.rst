@@ -15,7 +15,7 @@ For more information on individual components, please see Boundless's project pa
 * `GeoWebCache <http://boundlessgeo.com/solutions/solutions-software/geowebcache/>`_
 * `OpenLayers <http://boundlessgeo.com/solutions/solutions-software/openlayers/>`_
 * `QGIS <http://boundlessgeo.com/solutions/solutions-software/qgis/>`_
-* `More software <http://boundlessgeo.com/solutions/solutions-software/software/>`_
+* `More software <http://boundlessgeo.com/products/>`_
 
 About Boundless
 ---------------
