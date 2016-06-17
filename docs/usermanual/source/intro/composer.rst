@@ -3,7 +3,7 @@
 Composer
 ========
 
-OpenGeo Suite Composer is a tool for creating, styling and publishing maps. It runs in the same container as GeoServer, accessible at ``/composer/``. So if GeoServer exists at ``http://localhost:8080/geoserver/``, Composer is available at ``http://localhost:8080/geoserver/composer/``
+OpenGeo Suite Composer is a tool for creating, styling and publishing maps. It is available at ``http://localhost:8080/composer/``
 
 .. figure:: ../webmaps/composer/img/composer.png
 

@@ -120,7 +120,7 @@ The point stacker transform can be used to combine points that are close togethe
    - transform:
        name: vec:PointStacker
        params:
-       cellSize: 100
+         cellSize: 100
      rules:
      - symbolizers:
        - point:

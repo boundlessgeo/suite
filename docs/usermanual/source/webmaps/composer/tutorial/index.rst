@@ -29,7 +29,7 @@ The first step in making a map with Composer is to create a project workspace. T
 
    .. note:: The default GeoServer administrator credentials are ``admin`` / ``geoserver``.
 
-   .. figure:: img/composerblank.png
+   .. figure:: img/start_screen.png
 
       Fresh installation
 
@@ -44,9 +44,9 @@ The first step in making a map with Composer is to create a project workspace. T
    * **Project Name**: :kbd:`tutorial`
    * **Default?**: ``<checked>``
 
-   When finished, click :guilabel:`Create`.
+   When finished, click :guilabel:`Create Workspace`.
 
-   .. figure:: img/npwpage.png
+   .. figure:: img/new_proj.png
 
       Details for the new project workspace
 
@@ -69,31 +69,31 @@ With the project workspace created, we're now ready to load data.
 
       Add Data link
 
-#. A dialog will appear for importing data to GeoServer. Either click :guilabel:`Browse` and select each of the files, or drag each of the files onto this dialog.
+#. A dialog will appear for importing data to GeoServer. Either click :guilabel:`Browse` and select each of the files, or drag each of the files onto this dialog. If not all of the files are '*.zip' type, make sure that you upload each layer individually.
 
-   .. figure:: img/importfile.png
+   .. figure:: img/load_files.png
 
-      Adding a shapefile archive to be uploaded
+      File Upload Window
 
 #. Click :guilabel:`Upload` to upload the files to GeoServer.
 
-   .. figure:: img/uploadedfile.png
+   .. figure:: img/loading_files.png
 
-      Shapefile uploaded
+      Shapefiles Uploaded
 
-#. After the upload is complete click :guilabel:`Next: Load` to review file contents. Select all of the resources and click :guilabel:`Import Selected Layers`.
+#. After the upload is complete click :guilabel:`Next: Load ->` to review file contents. Select all of the resources and click :guilabel:`Import Selected Layers`.
 
-   .. figure:: img/availablelayers.png
+   .. figure:: img/import_layers.png
       
       Available Layers
 
-#. Imported layers can be added to an existing map or used to create a new map. Click :guilabel:`Close`.
+#. Layers are now marked as Imported in the Status column layers can be added to an existing map or used to create a new map. Click :guilabel:`Close`.
    
-   .. figure:: img/layerimported.png
+   .. figure:: img/layers_imported.png
       
       Layer Imported
 
-#. When finished with uploads, click :guilabel:`Close` to close out of the import wizard. You will see the two data sources listed on the :guilabel:`Data` tab: A directory of shapefiles containing the three shapefile resources, and a raster data source containing the DEM resource. Note specifically that for each data store, the resource is marked as :guilabel:`Published`.
+#. After backing out of the import wizard, you will see the two data sources listed on the :guilabel:`Data` tab: A directory of shapefiles containing the three shapefile resources, and a raster data source containing the DEM resource. Note specifically that for each data store, the resource is marked as :guilabel:`Published`.
 
    .. figure:: img/datatab.png
 
@@ -112,15 +112,12 @@ With the project workspace created, we're now ready to load data.
    * **Name**: :kbd:`roads` 
    * **Title**: :kbd:`Roads`
 
-   .. todo:: ADD FIGURE
 
-#. When finished, click :guilabel:`Update Layer Settings`.
+#. When finished, click :guilabel:`Update Layer Settings` at the bottom of the window.
 
-   .. figure:: img/updatelayer.png
+   .. figure:: img/road_settings.png
 
       Layer settings updated
-
-#. Click :guilabel:`Close`.
 
 #. Repeat the process of changing layer settings for the other three layers. Use the following information:
 
@@ -139,11 +136,11 @@ With the project workspace created, we're now ready to load data.
      * **Name**: :kbd:`dem` 
      * **Title**: :kbd:`DEM`
 
-   .. figure:: img/updatednames.png
+   .. figure:: img/updated_names.png
 
       All names changed
 
-#. View each of the layers by clicking the :guilabel:`Style` button for each layer.
+#. To view each of the layers' YSLD styling options, click on the thumbnail for that layer in the Layers tab.
 
    .. figure:: img/layerstyles.png
       
@@ -167,15 +164,21 @@ Now that our layers are loaded into Composer, we will now compile them into a si
    * :guilabel:`Projection`: :kbd:`Lat/Lan (WGS)`
    * :guilabel:`Description`: :kbd:`Composer / YSLD tutorial map`
 
-   .. figure:: img/createmap.png
+   .. figure:: img/create_map.png
 
       Map settings
 
-#. Click :guilabel:`Add Layers`.
+#. Click :guilabel:`Add Layers ->`.
 
-#. Select the four layers by checking the box next to each one, and then click :guilabel:`Create Map with Selected`.
+#. The available (uploaded) layers for this workspace will be mentioned here. Click :guilabel:`Add Layers ->`.
 
-   .. figure:: img/layerselect.png
+   .. figure:: img/add_layers_to_map.png
+
+      Adding layers to map
+
+#. Select the desired layers by checking the box next to each one, and then click :guilabel:`Create Map with Selected`.
+
+   .. figure:: img/create_map_w_layers.png
 
       Selecting layers to add to a map
 
