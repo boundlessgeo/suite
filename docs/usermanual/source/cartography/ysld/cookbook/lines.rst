@@ -379,6 +379,54 @@ In order to have the two sequences positioned correctly the second one uses a ``
 This makes the sequence start with 12.5 pixels of white space, then a circle (which is then centered between the two line segments of the other pattern), then 15 pixels of white space, and so on.
 
 
+Offset Dashed Line
+------------------
+
+This example shows how to create a line style which offsets a dashed line from the original line. 
+  
+This shows the usage of an `offset`, which controls how far off the line is rendered from the original.
+For example, with an offset of ``3`` the renderer starts drawing the dashed line 3 pixels from the original. 
+
+The example shows how to use this feature to create two synchronized sequences, 
+one drawing lines and the other dashed lines.
+
+.. figure:: images/line_dashoffset.png
+
+   Line with offset dashed
+
+Code
+~~~~
+
+:download:`Download the "Spaced symbols" YSLD <artifacts/line_dashdot.ysld>`
+
+.. code-block:: yaml
+  :linenos:
+
+  name: 'YSLD Cook Book: Offset Dashed Line
+  title: A violet line style
+  feature-styles:
+  - name: name
+    rules:
+    - title: violet line
+      scale: [min, max]
+      symbolizers:
+      - line:
+          stroke-color: '#000000'
+          stroke-width: 2
+      - line:
+          stroke-color: '#0000FF'
+          stroke-width: 3
+          stroke-dasharray: 5.0 2.0
+          offset: 3
+
+Details
+~~~~~~~
+
+In this example there are two line symbolizers. The first one (starting on line 9) draws a solid black line with a width of 2 pixels.
+The second line symbolizer (lines 12-16) uses the colour blue, to draw a line with a width of 3 pixels, however it is not a solid line.
+``stroke-dasharray`` is used here to infer that the line will be drawn for 5 pixels in length, and then contain a gap of 2 pixels.
+The ``offset`` determines how many pixels over the dashed line is rendered on the map.  
+
 
 Line with default label
 -----------------------

@@ -1,0 +1,16 @@
+name: Default Styler
+title: A violet line style
+feature-styles:
+- name: name
+  rules:
+  - title: violet line
+    scale: [min, max]
+    symbolizers:
+    - line:
+        stroke-color: '#000000'
+        stroke-width: 2
+    - line:
+        stroke-color: '#0000FF'
+        stroke-width: 3
+        stroke-dasharray: 5.0 2.0
+        offset: 3
