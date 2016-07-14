@@ -1,40 +1,15 @@
 .. _intro.installation.windows:
 
-OpenGeo Suite for Windows
-=========================
+Installing Boundless Suite on Windows
+=====================================
 
-This document describes how to manage installaton of OpenGeo Suite for Windows. 
+This section describes how to install or upgrade Boundless Suite on Windows. Please select the type of install below.
 
-Please select the option that best matches your system:
-
-:ref:`intro.installation.windows.install`
-  For new installations.
-
-:ref:`intro.installation.windows.minorupdate`
-  For minor version updates. To update from OpenGeo Suite 4.x, start here.
-
-:ref:`intro.installation.windows.majorupdate`
-  For major version updates. To update from OpenGeo Suite 3.x, start here.
-
-:ref:`intro.installation.windows.upgrade`
-  For upgrading to OpenGeo Suite Enterprise.
-
-:ref:`intro.installation.windows.postinstall`
-  Useful information about the installation.
-
-:ref:`intro.installation.windows.components`
-  List of components and their functions.
-
-:ref:`intro.installation.windows.uninstall`
-  For removing OpenGeo Suite.
+.. note:: Installers are no longer available for Windows. To install the latest version of Boundless Suite, you will need to convert your installation to either a WAR-based install or a virtual machine.
 
 .. toctree::
-   :hidden:
+   :maxdepth: 2
 
-   install
-   minorupdate
-   majorupdate
-   upgrade
-   postinstall
-   components
-   uninstall
+   war
+   vm
+
