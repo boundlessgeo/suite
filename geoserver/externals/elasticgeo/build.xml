@@ -1,0 +1,45 @@
+<project name="geoserver.elasticgeo" default="build">
+
+  <import file="../../../build/common.xml"/>
+
+  <property name="elasticgeo.dir" value="elasticgeo"/>
+
+  <target name="clean" unless="skip.elasticgeo" description="Clean ElasticGeo">
+    <delete dir="target"/>
+    <antcall target="mvn">
+      <param name="dir" value="${elasticgeo.dir}"/>
+      <param name="goals" value="clean"/>
+    </antcall>
+  </target>
+
+  <target name="build" unless="skip.elasticgeo" description="Build ElasticGeo">
+     <antcall target="mvn">
+        <param name="dir" value="${elasticgeo.dir}"/>
+        <param name="flags" value="-DskipTests"/>
+        <param name="goals" value="install"/>
+     </antcall>
+     <antcall target="mvn">
+        <param name="dir" value="${elasticgeo.dir}/gs-web-elasticsearch"/>
+        <param name="flags" value="-Pdeploy"/>
+        <param name="goals" value="package"/>
+     </antcall>
+  </target>
+
+  <target name="assemble" depends="init-target" unless="skip.elasticgeo" description="Assemble ElasticGeo">
+    <copy todir="target/elasticgeo" flatten="true">
+      <fileset dir="${elasticgeo.dir}/gs-web-elasticsearch/target">
+        <include name="elasticgeo*gs*es*.jar"/>
+        <include name="lib/guava*.jar"/>
+      </fileset>
+    </copy>
+    <antcall target="assemble-extension" inheritAll="false">
+      <param name="name" value="elasticgeo"/>
+    </antcall>
+  </target>
+
+  <target name="publish" unless="skip.elasticgeo">
+    <antcall target="publish-artifact" inheritAll="false">
+      <param name="name" value="elasticgeo"/>
+    </antcall>
+  </target>
+</project>

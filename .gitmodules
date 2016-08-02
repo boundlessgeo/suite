@@ -26,3 +26,6 @@
 	path = geoserver/externals/geomesa/geomesa
 	url = https://github.com/boundlessgeo/geomesa.git
 	branch = opengeo_suite_4.8
+[submodule "geoserver/externals/elasticgeo/elasticgeo"]
+	path = geoserver/externals/elasticgeo/elasticgeo
+	url = https://github.com/boundlessgeo/elasticgeo.git
