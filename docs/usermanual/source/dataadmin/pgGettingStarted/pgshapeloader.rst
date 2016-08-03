@@ -4,16 +4,16 @@
 Loading data into PostGIS with pgShapeloader
 ============================================
 
-The ``pgShapeloader`` tool (also known as "PostGIS Shapefile Import/Export Manager" or "PostGIS Shapefile and DBF loader") provides another option for loading shapefiles into PostGIS database tables. It is the graphical user interface (GUI) equivalent of the command line :ref:`shp2pgsql <dataadmin.pgGettingStarted.shp2pgsql>` tool.
+The :command:`pgShapeloader` tool (also known as "PostGIS Shapefile Import/Export Manager" or "PostGIS Shapefile and DBF loader") provides another option for loading shapefiles into PostGIS database tables. It is the graphical user interface (GUI) equivalent of the command line :ref:`shp2pgsql <dataadmin.pgGettingStarted.shp2pgsql>` tool.
 
-.. note:: This section uses the command line utility ``shp2pgsql``, the graphical utility ``pgShapeloader`` and optionally the graphical utility :command:`pgAdmin`. These client tools are provided as part of Boundless Desktop.
+.. note:: This section uses the command line utility :command:`shp2pgsql`, the graphical utility :command:`pgShapeloader` and optionally the graphical utility :command:`pgAdmin`. These client tools are provided as part of Boundless Desktop.
 
-.. note::  On Linux systems, pgShapeloader is known as ``shp2pgsql-gui``.
+.. note::  On Linux systems, pgShapeloader is known as :command:`shp2pgsql-gui`.
 
 How it works
 ------------
 
-Like all graphical tools, ``pgShapeloader`` is designed for ease of use, while at the same time retaining most of the functionality of the more flexible command line tool. The ``pgShapeloader`` tool combines the two data loading stages, converting data into SQL commands and running those commands against the target database, into one operation.
+Like all graphical tools, :command:`pgShapeloader` is designed for ease of use, while at the same time retaining most of the functionality of the more flexible command line tool. The :command:`pgShapeloader` tool combines the two data loading stages, converting data into SQL commands and running those commands against the target database, into one operation.
 
 
 Preparation
@@ -25,39 +25,10 @@ Preparation
 
 #. Either identify the target database where you would like to load the data, or :ref:`create a new database <dataadmin.pgGettingStarted.createdb>`. 
 
-Launching pgShapeloader
------------------------
-
-Depending on how Boundless Suite was installed pgShapeloader may or may not have been installed. See the :ref:`install` section for installation instructions. Once installed follow the instructions below for your platform. 
-
-Windows
-^^^^^^^
-
-On Windows pgShapeloader can be launched from the :guilabel:`Start Menu`. 
-
-.. .. figure:: img/pgshploader_win.png
-
-..   Launching pgAdmin on Windows
-
-Mac
-^^^
-
-On Mac the pgShapeloader application is accessible from the installer image under :guilabel:`PostGIS Utilities`.
-
-.. figure:: img/pgadmin_mac.png
-
-   Launching pgShapeloader on Mac
-
-Linux
-^^^^^
-
-On Linux pgShapeloader can be launched from the terminal with the ``shp2pgsql-gui`` command.
-
-
 Loading data
 ------------
 
-#. Make sure Boundless Suite is running and launch pgShapeloader.
+#. Launch :command:`pgShapeloader` on windows and mac, :command:`shp2pgsql-gui` on linux.
 
 #. Click :guilabel:`View connection details` and enter the connection information in the :guilabel:`PostGIS Connection` section. This information will depend on how Boundless Suite was installed, and whether ``pgShapeloader`` is running locally or remotely. For a default local installation, the following connection info may be used:
 
