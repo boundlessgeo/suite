@@ -56,7 +56,7 @@ Activating the Point Cloud extension
 
 The Point Cloud extension works like any other extension in PostgreSQL. It is applied to a given database via the ``CREATE EXTENSION`` SQL command.
 
-#. Create/connect to a database (either through the command line or through :ref:`pgAdmin <dataadmin.pgGettingStarted.pgadmin>`.)
+#. Create/connect to a database (either through the command line or through :command:`pgAdmin`.)
 
 #. Run the following command::
 

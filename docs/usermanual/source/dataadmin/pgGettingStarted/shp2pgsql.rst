@@ -6,7 +6,7 @@ Loading data into PostGIS from the Command Line
 
 PostGIS includes the ``shp2pgsql`` tool for converting a single or multiple shapefiles into database tables.
 
-.. note:: This section uses the command line utility ``shp2pgsql`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of Boundless Suite. Please see the :ref:`install` section for information on how to install these tools for your platform.
+.. note:: This section uses the command line utility ``shp2pgsql`` and optionally the graphical utility :command:`pgAdmin`. These tools may not be automatically present, depending on the type of installation of Boundless Suite. Please see the :ref:`install` section for information on how to install these tools for your platform.
 
 How It Works
 ------------
@@ -83,7 +83,7 @@ Loading data
 
       psql -U postgres -d <DBNAME> -f SHAPEFILE.sql
 
-The shapefile has now been imported as a table in your PostGIS database and the last line in your console should say ``COMMIT``. You can verify this by either using pgAdmin to view the list of tables, or by executing the following query at the command line:
+The shapefile has now been imported as a table in your PostGIS database and the last line in your console should say ``COMMIT``. You can verify this by either using :command:`pgAdmin` to view the list of tables, or by executing the following query at the command line:
 
 .. code-block:: console
 

@@ -3,13 +3,13 @@
 Connecting to PostgreSQL on Linux for the first time
 ====================================================
 
-.. note:: This section uses the command line utility ``psql`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of Boundless Suite. Please see the :ref:`install` section for information on how to install these tools for your platform.
+.. note:: This section uses the command line utility ``psql`` and optionally the graphical utility ``pgAdmin``. These client tools are provided as Boundless Desktop.
 
 On Windows and OS X, PostgreSQL is configured to be accessed immediately. No further configuration is required. The user name is ``postgres`` and password is ``postgres``.
 
 However, on Linux, both on Ubuntu and Red Hat-based systems, additional work needs to be undertaken. This is because the default PostgreSQL configuration on both Ubuntu and Red Hat-based systems has connections turned off for the ``postgres`` user by default.
 
-So after install of Boundless Suite, if you try to connect to PostgreSQL via the :command:`psql` command-line utility or through `pgAdmin <dataadmin.pgGettingStarted.pgadmin>`_, you will get the following connection error::
+So after install of Boundless Suite, if you try to connect to PostgreSQL via the :command:`psql` command-line utility or through :command:`pgAdmin`, you will get the following connection error::
 
   psql: FATAL:  peer authentication failed for user "postgres"
 
@@ -66,7 +66,7 @@ To allow this:
 
    .. note:: For more information on the various options, please see the `PostgreSQL documentation on pg_hba.conf <http://www.postgresql.org/docs/devel/static/auth-pg-hba-conf.html>`_. 
 
-#. To allow connections using pgAdmin, find the line that describes local loopback connections over IPv6:
+#. To allow connections using :command:`pgAdmin`, find the line that describes local loopback connections over IPv6:
 
    .. code-block:: console
 
@@ -90,7 +90,7 @@ To allow this:
 
    and enter your password when prompted. You should be able to access the :command:`psql` console.
 
-#. To test your connection using **pgAdmin**, connect to the database at localhost:5432 using the user name ``postgres`` and the password supplied.
+#. To test your connection using :command:`pgAdmin`, connect to the database at localhost:5432 using the user name ``postgres`` and the password supplied.
 
    .. figure:: img/firstconnect_pgadmin_ubuntu.png
 
@@ -101,7 +101,7 @@ If you encounter errors, make sure that the ``postgres`` password is set correct
 Allowing remote connections
 ---------------------------
 
-Often the system running ``psql`` will be different from the system running the database. This is especially true if you want to run **pgAdmin** from your system.
+Often the system running ``psql`` will be different from the system running the database. This is especially true if you want to run :command:`pgAdmin` from your system.
 
 In order to allow connections from remote systems, some slightly different configuration will be necessary.
 
@@ -143,6 +143,6 @@ The details are similar to that of allowing local connections, with some slight 
 
       sudo service postgresql restart  
 
-#. To test your connection using **pgAdmin**, connect to the database at the IP address or host name of the system that hosts the database. Enter the user name ``postgres`` and the password supplied.
+#. To test your connection using :command:`pgAdmin`, connect to the database at the IP address or host name of the system that hosts the database. Enter the user name ``postgres`` and the password supplied.
 
    .. note:: Make sure that port 5432 is open on this system.

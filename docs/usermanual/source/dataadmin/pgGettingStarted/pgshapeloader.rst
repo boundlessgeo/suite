@@ -6,10 +6,9 @@ Loading data into PostGIS with pgShapeloader
 
 The ``pgShapeloader`` tool (also known as "PostGIS Shapefile Import/Export Manager" or "PostGIS Shapefile and DBF loader") provides another option for loading shapefiles into PostGIS database tables. It is the graphical user interface (GUI) equivalent of the command line :ref:`shp2pgsql <dataadmin.pgGettingStarted.shp2pgsql>` tool.
 
-.. note:: This section uses the command line utility ``shp2pgsql``, the graphical utility ``pgShapeloader`` and optionally the graphical utility ``pgAdmin``. These tools may not be automatically present, depending on the type of installation of Boundless Suite. Please see the :ref:`install` section for information on how to install these tools for your platform.
+.. note:: This section uses the command line utility ``shp2pgsql``, the graphical utility ``pgShapeloader`` and optionally the graphical utility :command:`pgAdmin`. These client tools are provided as part of Boundless Desktop.
 
 .. note::  On Linux systems, pgShapeloader is known as ``shp2pgsql-gui``.
-
 
 How it works
 ------------
@@ -142,7 +141,7 @@ Loading data
 
       A successful import
 
-#.  You can verify this in ``pgAdmin`` by viewing the list of tables in the :guilabel:`Object browser`—your new table should be listed.
+#.  You can verify this in :command:`pgAdmin` by viewing the list of tables in the :guilabel:`Object browser`—your new table should be listed.
 
     .. figure:: img/pgshp_pgadminconfirm.png
 

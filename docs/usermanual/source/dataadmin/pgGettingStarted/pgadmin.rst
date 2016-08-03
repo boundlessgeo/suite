@@ -6,40 +6,9 @@ Connecting to the PostgreSQL database with pgAdmin
 
 There are a number of front-end tools available for connecting to, and working with, the PostgreSQL database. Among the most popular are `psql <http://www.postgresql.org/docs/9.3/static/app-psql.html>`_, a command-line tool for querying the database, and the free and open source graphical tool `pgAdmin <http://www.pgadmin.org/>`_. 
 
-Any data querying and manipulation you can do with ``pgAdmin`` can also be done at the command line with ``psql``.
+Any data querying and manipulation you can do with :command:`pgAdmin` can also be done at the command line with ``psql``.
 
-.. note:: This section uses the graphical utility ``pgAdmin`` which may not be automatically present, depending on the type of installation of Boundless Suite. Please see the :ref:`install` section for information on how to install these tools for your platform.
-
-
-Launching pgAdmin
------------------
-
-Depending on how Boundless Suite was installed pgAdmin may or may not have been installed. See the :ref:`install` section for installation instructions. Once installed follow the instructions below for your platform. 
-
-Windows
-^^^^^^^
-
-On Windows pgAdmin can be launched from the :guilabel:`Start Menu`. 
-
-.. figure:: img/pgadmin_win.png
-
-   Launching pgAdmin on Windows
-
-Mac OS X
-^^^^^^^^
-
-On OS X, the pgAdmin application is accessible from the installer image under :guilabel:`PostGIS Utilities`.
-
-.. figure:: img/pgadmin_mac.png
-
-   Launching pgAdmin on OS X
-
-Linux
-^^^^^
-
-The pgAdmin application is installed via the ``pgadmin3`` package, and can be launched from the terminal with the ``pgadmin3`` command. On systems with graphical interfaces, ``pgAdmin III`` may be available from the Applications menu.
-
-.. note:: Some extra steps need to performed before pgAdmin will be available from both local and remote hosts. Please see the section on :ref:`dataadmin.pgGettingStarted.firstconnect` for configuration information.
+.. note:: This section uses the client tool :command:`pgAdmin`, a graphical utility provided as part of Boundless Desktop.
 
 Working with pgAdmin
 --------------------
