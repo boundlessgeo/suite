@@ -24,9 +24,9 @@ To start/stop/restart the Tomcat service:
 
   .. code-block:: bash
  
-     service tomcat start|stop|restart
+     service tomcat8 start|stop|restart
 
-.. note:: Depending on the distribution and version the service name may be one of "tomcat", "tomcat5", or "tomcat6". Use the :command:`service` command to determine which one is installed:
+.. note:: Depending on the distribution and version the service name may be one of "tomcat", "tomcat8", or "tomcat9". Use the :command:`service` command to determine which one is installed:
 
   .. code-block:: bash
 
@@ -57,21 +57,15 @@ Changing the Tomcat port
 
 To change the Tomcat port:
 
-#. Edit the file :file:`/etc/tomcat/server.xml`. 
+#. Edit the file :file:`/etc/tomcat8/server.xml`. 
 
-   .. note:: Depending on the distribution and version replace "tomcat" with "tomcat5" or "tomact6" accordingly. Use the :command:`service` command to determine which one is installed:
-
-      .. code-block:: bash
-
-         service --status-all | grep tomcat
-
-#. Search for "8080" (around line 75) and change the ``port`` attribute to the desired value.
+#. Search for "8080" and change the ``port`` attribute to the desired value.
 
 #. Restart tomcat. 
 
    .. code-block:: bash
 
-        service tomcat restart
+        service tomcat8 restart
 
 Changing the PostgreSQL port
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -98,7 +92,7 @@ If you wish to use the Oracle Java 7 JRE (rather than the OpenJDK 7 installed by
 
 #. Download and install Oracle Java 7 JRE.
 
-#. Open :file:`/etc/sysconfig/tomcat` and update the ``JAVA_HOME`` environment variable.
+#. Open :file:`/etc/sysconfig/tomcat8` and update the ``JAVA_HOME`` environment variable.
 
    .. note:: Make sure the line is uncommented (does not start with ``#``).
 
@@ -106,73 +100,38 @@ If you wish to use the Oracle Java 7 JRE (rather than the OpenJDK 7 installed by
 
 #. Restart Tomcat.
 
-Using Boundless Suite with custom Tomcat
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. code-block:: bash
 
-Boundless Suite packages can be used to manage the contents :file:`/usr/share/boundless` components while making use of your own Tomcat application server.
-
-#. Install Boundless Suite.
-
-#. Stop your Tomcat service.
-
-#. Navigate to :file:`/etc/tomcat/Catalina/localhost/`.
-
-#. Create the :file:`geoserver.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geoserver"
-               docBase="/usr/share/boundless/geoserver"
-               path="/geoserver"/>
-
-#. Create the :file:`geowebcache.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geowebcache"
-               docBase="/usr/share/boundless/geowebcache"
-               path="/geowebcache"/>
-
-#. Create the :file:`dashboard.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="dashboard"
-               docBase="/usr/share/boundless/dashboard"
-               path="/dashboard"/>
-
-#. Create the :file:`geoexplorer.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geoexplorer"
-               docBase="/usr/share/boundless/geoexplorer"
-               path="/geoexplorer"/>
-
-#. Create the :file:`docs.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="docs"
-               docBase="/usr/share/boundless/docs"
-               path="/docs"/>
-
-#. Restart Tomcat.
+        service tomcat8 restart
 
 Adding other system parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can add other system or application-specific parameters that will be picked up upon restart.
 
-#. Open :file:`/etc/sysconfig/tomcat` in a text editor.
+#. The :file:`/etc/sysconfig/tomcat8` is responsible for the tomcat service.
 
-#. Add the desired parameters to the bottom of the file.
-
-#. Save and close the file.
+   * To provide an environmental variable open :file:`/etc/sysconfig/tomcat8` in a text editor, add the desired parameters to the bottom of the file.
+     
+     Environmental variables defined at the end of :file:`/etc/tomcat8/tomcat8`::
+        
+      GDAL_DATA=/usr/share/gdal
+      GEOSERVER_DATA_DIR=/opt/boundless/suite/geoserver-data/
+      GEOWEBCACHE_CACHE_DIR=/opt/boundless/suite/geowebcache-data/
+   
+   * System properties are read in from the files in :file:`/etc/tomcat8/suite-opts/` (to make these settings easier to manage).
+     
+     Example :file:`/etc/tomcat8/suite-opts/memory`::
+         
+         -Xmx2G
 
 #. Restart Tomcat.
 
 .. _intro.installation.redhat.postinstall.geoserver:
+
+   .. code-block:: bash
+
+        service tomcat8 restart
 
 Working with GeoServer
 ----------------------
@@ -182,9 +141,22 @@ GeoServer Data Directory
 
 The **GeoServer Data Directory** is the location on the file system where GeoServer stores all of its configuration, and (optionally) file-based data. By default, this directory is located at: :file:`/var/lib/boundless/geoserver`. 
 
-To point GeoServer to an alternate location:
+To point GeoServer to an alternate location using an environment variable:
 
-#. Edit the file :file:`geoserver/WEB-INF/web.xml`.
+   * Edit :file:`/etc/sysconfig/tomcat8` in a text editor, add the desired parameters to the bottom of the file.
+     
+     Environmental variables defined at the end of :file:`/etc/tomcat8/tomcat8`::
+        
+      GDAL_DATA=/usr/share/gdal
+      GEOSERVER_DATA_DIR=/opt/boundless/suite/geoserver-data/
+      GEOWEBCACHE_CACHE_DIR=/opt/boundless/suite/geowebcache-data/
+
+
+To point GeoServer to an alternate location using a servlet parameter:
+
+#. This approach can be used when deploying several GeoServer's on the same Tomcat Service.
+
+#. Navigate to :file:`/usr/share/tomcat8/webapps` and edit the file :file:`geoserver/WEB-INF/web.xml`.
 
 #. Search for ``GEOSERVER_DATA_DIR`` section, uncomment, and change its value accordingly.
    
@@ -204,13 +176,17 @@ A fix is available for spatial reference systems measured in Imperial units (fee
 
 To enable this fix:
 
-#. Add the following parameter to :file:`/etc/sysconfig/tomcat`:
-   
-   .. code-block:: bash
+#. Add a system properties definition to the :file:`/etc/tomcat8/suite-opts/` folder.
+
+#. Create the file :file:`/etc/tomcat8/suite-opts/units`::
       
       -Dorg.geotoools.render.lite.scale.unitCompensation=true
 
 #. Restart Tomcat.
+
+   .. code-block:: bash
+
+        service tomcat8 restart
 
 Update GeoJSON output
 ^^^^^^^^^^^^^^^^^^^^^
@@ -241,7 +217,9 @@ GeoServer GeoJSON output is now provided in x/y/z order as required by the speci
    
 To restore the previous ``crs`` representation for compatibility reasons (especially when working with OpenLayers 3):
 
-#. Add the following context parameter to  :file:`geoserver/WEB-INF/web.xml`:
+#. Navigate to :file:`/usr/share/tomcat8/webapps` and edit the file :file:`geoserver/WEB-INF/web.xml`.
+
+#. Add the following context parameter to  :file:`web.xml`:
 
    .. code-block:: xml
       
@@ -252,6 +230,10 @@ To restore the previous ``crs`` representation for compatibility reasons (especi
 
 #. Restart Tomcat.
 
+   .. code-block:: bash
+
+        service tomcat8 restart
+        
 .. _intro.installation.redhat.postinstall.pgconfig:
 
 PostgreSQL configuration
