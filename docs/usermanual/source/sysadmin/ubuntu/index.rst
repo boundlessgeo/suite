@@ -91,69 +91,26 @@ If you wish to use the Oracle Java 8 JRE (rather than the OpenJDK 8 installed by
 
 #. Restart Tomcat.
 
-Using Boundless Suite with custom Tomcat
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Boundless Suite packages can be used to manage the contents :file:`/usr/share/opengeo` components while making use of your own Tomcat application server.
-
-#. Install Boundless Suite.
-
-#. Stop your Tomcat service.
-
-#. Navigate to :file:`/etc/tomcat8/Catalina/localhost/`.
-
-#. Create the :file:`geoserver.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geoserver"
-               docBase="/usr/share/opengeo/geoserver"
-               path="/geoserver"/>
-
-#. Create the :file:`geowebcache.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geowebcache"
-               docBase="/usr/share/opengeo/geowebcache"
-               path="/geowebcache"/>
-
-#. Create the :file:`dashboard.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="dashboard"
-               docBase="/usr/share/opengeo/dashboard"
-               path="/dashboard"/>
-
-#. Create the :file:`geoexplorer.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="geoexplorer"
-               docBase="/usr/share/opengeo/geoexplorer"
-               path="/geoexplorer"/>
-
-#. Create the :file:`docs.xml` with the following content:
-   
-   .. code-block:: xml
-   
-      <Context displayName="docs"
-               docBase="/usr/share/opengeo/docs"
-               path="/docs"/>
-
-#. Restart Tomcat.
-
 Adding other system parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can add other system or application-specific parameters that will be picked up upon restart.
 
-#. Open :file:`/etc/default/tomcat8` in a text editor.
+#. The :file:`/etc/sysconfig/tomcat8` is responsible for the tomcat service.
 
-#. Add the desired parameters to the bottom of the file.
-
-#. Save and close the file.
+   * To provide an environmental variable open :file:`/etc/sysconfig/tomcat8` in a text editor, add the desired parameters to the bottom of the file.
+     
+     Environmental variables defined at the end of :file:`/etc/tomcat8/tomcat8`::
+        
+      GDAL_DATA=/usr/share/gdal
+      GEOSERVER_DATA_DIR=/opt/boundless/suite/geoserver-data/
+      GEOWEBCACHE_CACHE_DIR=/opt/boundless/suite/geowebcache-data/
+   
+   * System properties are read in from the files in :file:`/etc/tomcat8/suite-opts/` (to make these settings easier to manage).
+     
+     Example :file:`/etc/tomcat8/suite-opts/memory`::
+         
+         -Xmx2G
 
 #. Restart Tomcat.
 
@@ -169,15 +126,15 @@ The **GeoServer Data Directory** is the location on the file system where GeoSer
 
 To point GeoServer to an alternate location:
 
-#. Edit the file :file:`geoserver/WEB-INF/web.xml`.
+#. Edit the file :file:`/etc/tomcat8/Catalina/localhost/geoserver.xml`.
 
-#. Search for ``GEOSERVER_DATA_DIR`` section, uncomment, and change its value accordingly.
+   Define ``GEOSERVER_DATA_DIR`` with an appropriate value accordingly.
    
    .. code-block:: xml
       
        <context-param>
           <param-name>GEOSERVER_DATA_DIR</param-name>
-           <param-value>/path/to/new/data_dir</param-value>
+           <param-value>/var/opt/boundless/geoserver/data/</param-value>
        </context-param> 
 
 #. Restart Tomcat.
@@ -189,7 +146,7 @@ A fix is available for spatial reference systems measured in Imperial units (fee
 
 To enable this fix:
 
-#. Add the following parameter to :file:`/etc/default/tomcat7`:
+#. Add the following parameter to :file:`/etc/tomcat8/suite-opts/scale`
    
    .. code-block:: bash
       
@@ -226,7 +183,7 @@ GeoServer GeoJSON output is now provided in x/y/z order as required by the speci
    
 To restore the previous ``crs`` representation for compatibility reasons (especially when working with OpenLayers 3):
 
-#. Add the following context parameter to  :file:`/usr/share/opengeo/geoserver/WEB-INF/web.xml`:
+#. Add a context parameter to :file:`/etc/tomcat8/Catalina/localhost/geoserver.xml`:
 
    .. code-block:: xml
       

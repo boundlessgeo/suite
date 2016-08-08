@@ -143,20 +143,29 @@ The **GeoServer Data Directory** is the location on the file system where GeoSer
 
 To point GeoServer to an alternate location using an environment variable:
 
-   * Edit :file:`/etc/sysconfig/tomcat8` in a text editor, add the desired parameters to the bottom of the file.
+#. Edit :file:`/etc/sysconfig/tomcat8` in a text editor, add the desired parameters to the bottom of the file.
      
-     Environmental variables defined at the end of :file:`/etc/tomcat8/tomcat8`::
+   Environmental variables are defined at the end of :file:`/etc/tomcat8/tomcat8`::
         
       GDAL_DATA=/usr/share/gdal
       GEOSERVER_DATA_DIR=/opt/boundless/suite/geoserver-data/
       GEOWEBCACHE_CACHE_DIR=/opt/boundless/suite/geowebcache-data/
 
+#. Restart Tomcat
+
+To point GeoServer at a data directory using a system property:
+
+#. Create :file:`/etc/tomcat8/suite-opts/data`::
+         
+         -DGEOSERVER_DATA_DIR=/opt/boundless/suite/geoserver-data/
+   
+#. Restart Tomcat
 
 To point GeoServer to an alternate location using a servlet parameter:
 
 #. This approach can be used when deploying several GeoServer's on the same Tomcat Service.
 
-#. Navigate to :file:`/usr/share/tomcat8/webapps` and edit the file :file:`geoserver/WEB-INF/web.xml`.
+   Navigate to :file:`/usr/share/tomcat8/webapps` and edit the file :file:`geoserver/WEB-INF/web.xml`.
 
 #. Search for ``GEOSERVER_DATA_DIR`` section, uncomment, and change its value accordingly.
    
