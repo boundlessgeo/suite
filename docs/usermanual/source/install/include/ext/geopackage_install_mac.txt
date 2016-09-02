@@ -1,0 +1,7 @@
+To install :ref:`GeoPackage <intro.extensions.geopackage>` support in GeoServer, you will need to copy some files to the proper location. The files to be copied are inside the Boundless Suite extensions bundle (:file:`BoundlessSuite-ext.zip`).
+
+#. Inside the Boundless Suite extensions bundle, navigate to the :file:`geopackage` directory.
+
+#. Copy the contents of the :file:`geopackage` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance. For example, if your GeoServer application is located at :file:`/Library/Tomcat/webapps/geoserver`, copy the files to :file:`/Library/Tomcat/webapps/geoserver/WEB-INF/lib`.
+
+#. Restart the server.

@@ -1,0 +1,11 @@
+To install :ref:`Oracle <intro.extensions.oracle>` support in GeoServer, you will need to copy some files to the proper location. The files to be copied are inside the Boundless Suite extensions bundle (:file:`BoundlessSuite-ext.zip`).
+
+#. Inside the Boundless Suite extensions bundle, navigate to the :file:`oracle` directory.
+
+#. Copy the contents of the :file:`oracle` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance. For example, if your GeoServer application is located at :file:`/Library/Tomcat/webapps/geoserver`, copy the files to :file:`/Library/Tomcat/webapps/geoserver/WEB-INF/lib`.
+
+Because of licensing issues, **an additional file is required to be installed**.
+
+#. Copy the Oracle JDBC driver from your Oracle installation to the same directory specified above. This file, often named :file:`ojdbc##.jar`, can be found either on the installation media or by doing a search on the system that includes Oracle.
+
+#. Restart the server.

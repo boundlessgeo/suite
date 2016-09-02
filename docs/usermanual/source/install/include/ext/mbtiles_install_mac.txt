@@ -1,0 +1,11 @@
+To install :ref:`MBTiles <intro.extensions.mbtiles>` support in GeoServer, you will need to copy some files to the proper location. The files to be copied are inside the Boundless Suite extensions bundle (:file:`BoundlessSuite-ext.zip`).
+
+#. Inside the Boundless Suite extensions bundle, navigate to the :file:`mbtiles` directory.
+
+#. Copy the contents of the :file:`mbtiles` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance. For example, if your GeoServer application is located at :file:`/Library/Tomcat/webapps/geoserver`, copy the files to :file:`/Library/Tomcat/webapps/geoserver/WEB-INF/lib`.
+
+#. The **MBTiles extension requires WPS** to be installed. Inside the Boundless Suite extensions bundle, navigate to the :file:`wps` directory.
+
+#. Copy the contents of the :file:`wps` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance.
+
+#. Restart the server.

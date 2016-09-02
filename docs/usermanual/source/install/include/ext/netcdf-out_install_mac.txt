@@ -2,6 +2,6 @@ To install :ref:`NetCDF output <intro.extensions.netcdf>` support in GeoServer, 
 
 #. Inside the Boundless Suite extensions bundle, navigate to the :file:`netcdf-out` directory.
 
-#. Copy the contents of the :file:`netcdf-out` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance. For example, if your GeoServer application is located at :file:`/usr/share/tomcat/webapps/geoserver`, copy the files to :file:`/usr/share/tomcat/webapps/geoserver/WEB-INF/lib`.
+#. Copy the contents of the :file:`netcdf-out` directory into the library directory (:file:`WEB-INF/lib`) of your GeoServer instance. For example, if your GeoServer application is located at :file:`/Library/Tomcat/webapps/geoserver`, copy the files to :file:`/Library/Tomcat/webapps/geoserver/WEB-INF/lib`.
 
 #. Restart the server.

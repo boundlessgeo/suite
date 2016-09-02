@@ -1,0 +1,14 @@
+System requirements
+-------------------
+
+The following distributions are supported:
+
+* 10.11.X - El Capitan
+* 10.10.X - Yosemite
+
+Boundless Suite for Windows has the following system requirements:
+
+* Memory: 1GB minimum (2GB recommended)
+* Disk space: 750MB minimum (plus extra space for any loaded data)
+* Browser: We recommend Firefox (an xml extension is recommended)
+* Permissions: Superuser access required

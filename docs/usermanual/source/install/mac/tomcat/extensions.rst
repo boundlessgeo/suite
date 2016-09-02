@@ -10,7 +10,7 @@ Extensions are included in a separate bundle from the main application server bu
 GeoPackage extension
 --------------------
 
-.. include:: /install/include/ext/geopackage_install.txt
+.. include:: /install/include/ext/geopackage_install_mac.txt
 
 .. include:: /install/include/ext/geopackage_verify.txt
 
@@ -20,7 +20,7 @@ GeoPackage extension
 GeoMesa extension
 -----------------
 
-.. include:: /install/include/ext/geomesa_install.txt
+.. include:: /install/include/ext/geomesa_install_mac.txt
 
 .. include:: /install/include/ext/geomesa_verify.txt
 
@@ -30,7 +30,7 @@ GeoMesa extension
 GRIB extension
 --------------
 
-.. include:: ../../include/ext/grib_install.txt
+.. include:: ../../include/ext/grib_install_mac.txt
 
 .. include:: ../../include/ext/grib_verify.txt
 
@@ -40,7 +40,7 @@ GRIB extension
 JPEG 2000 extension
 -------------------
 
-.. include:: ../../include/ext/jp2k_install.txt
+.. include:: ../../include/ext/jp2k_install_mac.txt
 
 .. include:: ../../include/ext/jp2k_verify.txt
 
@@ -50,7 +50,7 @@ JPEG 2000 extension
 MBTiles extension
 -----------------
 
-.. include:: ../../include/ext/mbtiles_install.txt
+.. include:: ../../include/ext/mbtiles_install_mac.txt
 
 .. include:: ../../include/ext/mbtiles_verify.txt
 
@@ -60,7 +60,7 @@ MBTiles extension
 MongoDB extension
 -----------------
 
-.. include:: ../../include/ext/mongodb_install.txt
+.. include:: ../../include/ext/mongodb_install_mac.txt
 
 .. include:: ../../include/ext/mongodb_verify.txt
 
@@ -75,14 +75,14 @@ NetCDF extension
 Data store support
 ~~~~~~~~~~~~~~~~~~
 
-.. include:: ../../include/ext/netcdf_install.txt
+.. include:: ../../include/ext/netcdf_install_mac.txt
 
 .. include:: ../../include/ext/netcdf_verify.txt
 
 Output format
 ~~~~~~~~~~~~~
 
-.. include:: ../../include/ext/netcdf-out_install.txt
+.. include:: ../../include/ext/netcdf-out_install_mac.txt
 
 .. include:: ../../include/ext/netcdf-out_verify.txt
 
@@ -92,7 +92,7 @@ Output format
 Oracle extension
 ----------------
 
-.. include:: ../../include/ext/oracle_install.txt
+.. include:: ../../include/ext/oracle_install_mac.txt
 
 .. include:: ../../include/ext/oracle_verify.txt
 
@@ -102,6 +102,6 @@ Oracle extension
 Vector tiles extension
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. include:: /install/include/ext/vectortiles_install.txt
+.. include:: /install/include/ext/vectortiles_install_mac.txt
 
 .. include:: /install/include/ext/vectortiles_verify.txt
