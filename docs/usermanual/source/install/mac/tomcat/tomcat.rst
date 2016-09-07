@@ -3,7 +3,7 @@
 Tomcat installation
 ===================
 
-.. note:: During installation we will be editing text files that require Administrator access to modify. We recommend using :guilabel:`TextWrangler` (from `Apple App Store <https://notepad-plus-plus.org/>`__ ).
+.. note:: During installation we will be editing files that require Administrator access to modify. We recommend using :guilabel:`TextWrangler` (from `Apple App Store <https://itunes.apple.com/ca/app/textwrangler/id404010395?mt=12/>`__ ).
 
 The Tomcat Application server is used to host the Boundless Suite web applications. Tomcat itself is a Java application, and some care will be required to configure it appropriately for use.
 
@@ -40,6 +40,8 @@ The Tomcat Application server is used to host the Boundless Suite web applicatio
         sudo ln -s /usr/local/apache-tomcat-8.5.4 /Library/Tomcat
         sudo chown -R [YOUR_USERNAME] /Library/Tomcat
         sudo chmod +x /Library/Tomcat/bin/*.sh
+
+    .. note:: The previous commands may need to be modified slightly, depending on whether a different release of Tomcat was obtained.
 
 #. To optimize performance switch into the :file:`/Library/Tomcat/bin` folder.  Create a new file :file:`setenv.sh`.
 

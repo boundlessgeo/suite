@@ -27,8 +27,6 @@ Install Java on your system:
 
       Java Installation
 
-   During installation Java may detect any prior versions and offer to uninstall.
-
 4. When complete java is available in a subdirectory inside :file:`/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home`. This location will be referred to as ``JRE_HOME`` in subsequent documentation.
 
    .. figure:: img/java_done_mac.png
