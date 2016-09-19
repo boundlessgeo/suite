@@ -54,11 +54,11 @@ For more information about clustering, please see the :ref:`sysadmin.clustering`
 CSW
 ---
 
-The CSW extension adds the ability for GeoServer to publish information conforming to the Catalog Service for Web (CSW) protocol.
+The CSW extension adds the ability for GeoServer to publish information conforming to the Catalog Service for the Web (CSW) protocol.
 
-For more information about CSW in GeoServer, please see the `GeoServer CSW documentation <../geoserver/extensions/csw/>`_.
+For more information about CSW in GeoServer, please see the :geoserver:`GeoServer CSW documentation <services/csw/>`.
 
-.. warning:: The installation instructions in the GeoServer documentation do not apply to users of Boundless Suite. Users of Boundless Suite can install the extension in the standard way as indicated above.
+.. warning:: The installation instructions in the :geoserver:`GeoServer documentation <services/csw/installing.html>` do not apply to users of Boundless Suite. Users of Boundless Suite can install the extension in the standard way as indicated above.
 
 
 .. _intro.extensions.db2:
@@ -110,7 +110,7 @@ For information on configuring WMS and WFS services, please see the `GeoServer I
 JDBCConfig
 ----------
 
-The JDBCConfig module enhances the scalability performance of the GeoServer catalog, by externalizing the storage of the catalog configuration objects (such as workspaces, stores, layers) to a database, rather than using xml files in the GeoServer data directory.
+The JDBCConfig module enhances the scalability performance of the GeoServer catalog, by externalizing the storage of the catalog configuration objects (such as workspaces, stores, layers) to a database, rather than using XML files in the GeoServer data directory.
 
 
 .. _intro.extensions.jdbcstore:
