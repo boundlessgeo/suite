@@ -167,9 +167,9 @@ The following example will import PostGIS tables from a database called ``munici
 
 #. In the box marked :guilabel:`Choose a data source to import from` select :guilabel:`PostGIS`.
 
-.. figure:: img/sources_choosesourcepostgis.png
+  .. figure:: img/sources_choosesourcepostgis.png
 
-   PostGIS data source
+    PostGIS data source
 
 #. Fill in the connection parameters. On a default Linux installation, for example, the form fields would be:
 
