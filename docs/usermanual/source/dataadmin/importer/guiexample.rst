@@ -169,7 +169,7 @@ The following example will import PostGIS tables from a database called ``munici
 
   .. figure:: img/sources_choosesourcepostgis.png
 
-    PostGIS data source
+     PostGIS data source
 
 #. Fill in the connection parameters. On a default Linux installation, for example, the form fields would be:
 
