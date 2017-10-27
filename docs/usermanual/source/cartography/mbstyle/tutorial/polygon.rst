@@ -3,7 +3,7 @@
 Styling a polygon layer
 =======================
 
-The countries layer is a polygon layer, and therefore we use a `fill layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-fill>`_ to display it. 
+The countries layer is a polygon layer, and therefore we use a `fill layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-fill>`_ to display it.
 
 Creating a new style
 --------------------
@@ -12,7 +12,7 @@ Creating a new style
 
    Name this new style ``mbpolygon`` and set the format to ``MBStyle``.
 
-   Under the ``Generate a default style`` option, select ``Point`` and click the ``Generate`` link to create a default polygon style. 
+   Under the ``Generate a default style`` option, select ``Polygon`` and click the ``Generate`` link to create a default polygon style.
 
    Click the ``Apply`` button, then navigate to the ``Layer Preview`` tab and select the ``countries`` layer to preview the style.
 
@@ -23,9 +23,9 @@ Creating a new style
    .. note:: Your default color may vary.
 
 #. The style will look something like this:
-   
+
    .. code-block:: json
-   
+
       {
           "version": 8,
           "layers": [
@@ -50,7 +50,7 @@ The style can be given a ``name`` parameter, and layers within the style can be 
 
    .. code-block:: yaml
       :emphasize-lines: 3, 6-7
-      
+
       {
           "version": 8,
           "name": "countries",
@@ -76,7 +76,7 @@ Fill layers provide options for styling the fill (inside) of features. While the
 
    .. code-block:: json
       :emphasize-lines: 6-7
-    
+
       {
           "type": "fill",
           "id": "countries",
@@ -92,7 +92,7 @@ Fill layers provide options for styling the fill (inside) of features. While the
    .. note:: With no opacity set, the default will be 100% opaque.
 
    .. code-block:: json
-    
+
       {
           "type": "line",
           "id": "countries-line",
@@ -104,11 +104,11 @@ Fill layers provide options for styling the fill (inside) of features. While the
       }
 
 
-#. Additional styling options are available for both stroke and fill, and can be found in the `fill layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-fill>` and `line layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-line>` sections of the MapBox specification respectively. Use ``line-dasharray`` to change the line style to a dashed line of 4 pixels with 4 pixel gaps.
+#. Additional styling options are available for both stroke and fill, and can be found in the `fill layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-fill>`_ and `line layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-line>`_ sections of the MapBox specification respectively. Use ``line-dasharray`` to change the line style to a dashed line of 4 pixels with 4 pixel gaps.
 
    .. code-block:: json
       :emphasize-lines: 8
-    
+
       {
           "type": "line",
           "id": "countries-line",
@@ -123,7 +123,7 @@ Fill layers provide options for styling the fill (inside) of features. While the
 #. The complete style after these changes will be:
 
    .. code-block:: json
-      
+
       {
           "version": 8,
           "name": "countries",
@@ -162,10 +162,10 @@ Adding labels
 Labels can be applied to any layer using a `symbol layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-symbol>`_. Typically you will want to use some data attribute as the label text, usually a name.
 
 #. Add a symbol layer with a basic label using the ``text-field`` parameter and the ``name`` attribute:
-   
+
    .. code-block:: yaml
       :emphasize-lines: 24-31
-   
+
       {
           "version": 8,
           "name": "countries",
@@ -209,24 +209,24 @@ Labels can be applied to any layer using a `symbol layer <https://www.mapbox.com
 Styling labels
 --------------
 
-The default labeling parameters are not ideal, but a number of styling options are available. 
+The default labeling parameters are not ideal, but a number of styling options are available.
 
 #. Add the following attributes to the symbol layer layout object:
 
    .. list-table::
       :class: non-responsive
-      :widths: 40 60 
+      :widths: 40 60
       :header-rows: 1
 
       * - Parameter
         - Description
       * - ``"text-transform": "uppercase"``
         - Change the label text to uppercase
-      * - ``text-size: 14``
+      * - ``"text-size": 14``
         - Change the font size to 14
-      * - ``"text-font": ["PT Sans"]``
-        - Change the font to PT Sans
-      * - ``text-max-width: 100``
+      * - ``"text-font": ["Padauk"]``
+        - Change the font to Padauk
+      * - ``"text-max-width": 100``
         - Wrap any labels wider than 100 pixels
 
 .. TODO: Add explaination of glyphs for defining font sources (once this is actually implemented)
@@ -237,19 +237,19 @@ The default labeling parameters are not ideal, but a number of styling options a
 
    .. list-table::
       :class: non-responsive
-      :widths: 40 60 
+      :widths: 40 60
       :header-rows: 1
 
       * - Parameter
         - Description
-      * - ``text-color: '#333333'``
+      * - ``"text-color": '#333333'``
         - Change the font color to dark gray
 
 #. With the label styling, the style now looks like this:
 
    .. code-block:: json
       :emphasize-lines: 30-37
-   
+
       {
           "version": 8,
           "name": "countries",
@@ -281,7 +281,7 @@ The default labeling parameters are not ideal, but a number of styling options a
                       "text-field": "{name}",
                       "text-transform": "uppercase",
                       "text-size": 14,
-                      "text-font": ["PT Sans"],
+                      "text-font": ["Padauk"],
                       "text-max-width": 100
                   },
                   "paint": {
@@ -306,7 +306,7 @@ Suppose we wish to display different colors for each country. The countries laye
 
    .. list-table::
       :class: non-responsive
-      :widths: 40 60 
+      :widths: 40 60
       :header-rows: 1
 
       * - Filter
@@ -327,7 +327,7 @@ Suppose we wish to display different colors for each country. The countries laye
         - ``"fill-color": "#FFC3FF"``
 
 #. After adding the filters, the style will look like:
-   
+
    .. code-block:: json
       :emphasize-lines: 5-74
 
@@ -423,7 +423,7 @@ Suppose we wish to display different colors for each country. The countries laye
                       "text-field": "{name}",
                       "text-transform": "uppercase",
                       "text-size": 14,
-                      "text-font": ["PT Sans"],
+                      "text-font": ["Padauk"],
                       "text-max-width": 100
                   },
                   "paint": {
@@ -444,10 +444,10 @@ Compacting thematic styles with functions
 While filters are very useful, the required syntax is still quite long, and much of the content is redundant. The exact same functionality can be accomplished much more concisely using a `categorical function <https://www.mapbox.com/mapbox-gl-js/style-spec/#types-function>`_.
 
 #. Remove all of the polygon rules and the variable at the top, and replace with our original rule:
-   
+
    .. code-block:: yaml
       :emphasize-lines: 5-13
-      
+
       {
           "version": 8,
           "name": "countries",
@@ -479,7 +479,7 @@ While filters are very useful, the required syntax is still quite long, and much
                       "text-field": "{name}",
                       "text-transform": "uppercase",
                       "text-size": 14,
-                      "text-font": ["PT Sans"],
+                      "text-font": ["Padauk"],
                       "text-max-width": 100
                   },
                   "paint": {
@@ -490,10 +490,10 @@ While filters are very useful, the required syntax is still quite long, and much
       }
 
 #. Change the ``fill-color`` to the following function:
-   
+
    .. code-block:: json
       :emphasize-lines: 6-18
-      
+
       {
           "type": "fill",
           "id": "countries-fill",
@@ -503,11 +503,11 @@ While filters are very useful, the required syntax is still quite long, and much
                   "property": "mapcolor7",
                   "type": "categorical",
                   "stops": [
-                      [1, "#FFC3C3"], 
+                      [1, "#FFC3C3"],
                       [2, "#FFE3C3"],
-                      [3, "#FFFFC3"], 
+                      [3, "#FFFFC3"],
                       [4, "#C3FFE3"],
-                      [5, "#C3FFFF"], 
+                      [5, "#C3FFFF"],
                       [6, "#C3C3FF"],
                       [7, "#FFC3FF"]
                   ]

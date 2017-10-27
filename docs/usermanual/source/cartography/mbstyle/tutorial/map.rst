@@ -5,7 +5,7 @@ Composing a map
 
 Now that we have a set of styled layers, we can bring them together as a map.
 
-MBStyle supports styling multiple layers with a single style document. Copy the layers of each of the previous styles into a new MBStyle named ``mbtut_all``. The style will look like: 
+MBStyle supports styling multiple layers with a single style document. Copy the layers of each of the previous styles into a new MBStyle named ``mbtut_all``. The style will look like:
 
 .. code-block:: json
 
@@ -33,11 +33,11 @@ MBStyle supports styling multiple layers with a single style document. Copy the 
                         "property": "mapcolor7",
                         "type": "categorical",
                         "stops": [
-                            [1, "#FFC3C3"], 
+                            [1, "#FFC3C3"],
                             [2, "#FFE3C3"],
-                            [3, "#FFFFC3"], 
+                            [3, "#FFFFC3"],
                             [4, "#C3FFE3"],
-                            [5, "#C3FFFF"], 
+                            [5, "#C3FFFF"],
                             [6, "#C3C3FF"],
                             [7, "#FFC3FF"]
                         ]
@@ -63,7 +63,7 @@ MBStyle supports styling multiple layers with a single style document. Copy the 
                     "text-field": "{name}",
                     "text-transform": "uppercase",
                     "text-size": 14,
-                    "text-font": ["PT Sans"],
+                    "text-font": ["Padauk"],
                     "text-max-width": 100
                 },
                 "paint": {
@@ -161,7 +161,7 @@ MBStyle supports styling multiple layers with a single style document. Copy the 
                 "filter": ["==", "ADM0CAP", 1],
                 "type": "symbol",
                 "layout": {
-                    "icon-image": "capitol",
+                    "icon-image": "capital",
                     "icon-size": {
                         "property": "POP_MAX",
                         "type": "exponential",
@@ -199,7 +199,7 @@ MBStyle supports styling multiple layers with a single style document. Copy the 
                         "type": "exponential",
                         "stops": [
                             [0, 2],
-                            [40000000, 5]
+                            [1562500, 5]
                         ]
                     },
                     "circle-stroke-width": 1
@@ -262,9 +262,9 @@ To do so:
       * application/json;type=geojson
       * application/json;type=topojson
       * application/x-protobuf;type=mapbox-vector
-    
+
       .. figure:: img/vectortiles_tileformats.png
-    
+
          Vector tiles tile formats
 
    iii. Click Save.
@@ -294,7 +294,7 @@ To do so:
           }
       }
 
-#. Add ``"source": "tutorial"`` to each vector layer in the style and ``"source": "tutorial-dem"`` to the one raster layer. The final style will look like: 
+#. Add ``"source": "tutorial"`` to each vector layer in the style and ``"source": "tutorial-dem"`` to the one raster layer. The final style will look like:
 
    .. literalinclude:: files/mbtut_all.json
       :language: json

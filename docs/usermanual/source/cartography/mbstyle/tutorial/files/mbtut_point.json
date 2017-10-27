@@ -23,7 +23,7 @@
             "filter": ["==", "ADM0CAP", 1],
             "type": "symbol",
             "layout": {
-                "icon-image": "capitol",
+                "icon-image": "capital",
                 "icon-size": {
                     "property": "POP_MAX",
                     "type": "exponential",
@@ -50,7 +50,7 @@
         {
             "id": "places-circle",
             "source-layer": "places",
-            "minzoom": 2,
+            "minzoom": 5,
             "filter": ["!=", "ADM0CAP", 1],
             "type": "circle",
             "paint": {
@@ -61,7 +61,7 @@
                     "type": "exponential",
                     "stops": [
                         [0, 2],
-                        [40000000, 5]
+                        [1562500, 5]
                     ]
                 },
                 "circle-stroke-width": 1
@@ -70,7 +70,7 @@
         {
             "id": "places-label",
             "source-layer": "places",
-            "minzoom": 4,
+            "minzoom": 6,
             "filter": ["!=", "ADM0CAP", 1],
             "type": "symbol",
             "layout": {

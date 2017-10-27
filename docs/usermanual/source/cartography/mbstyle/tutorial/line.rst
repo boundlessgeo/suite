@@ -3,7 +3,7 @@
 Styling a line layer
 ====================
 
-The roads layer is a line layer, and therefore we use a `line layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-line>`_ to display it. 
+The roads layer is a line layer, and therefore we use a `line layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-line>`_ to display it.
 
 Creating a new style
 --------------------
@@ -12,7 +12,7 @@ Creating a new style
 
    Name this new style ``mbline`` and set the format to ``MBStyle``.
 
-   Under the ``Generate a default style`` option, select ``Line`` and click the ``Generate`` link to create a default line style. 
+   Under the ``Generate a default style`` option, select ``Line`` and click the ``Generate`` link to create a default line style.
 
    Click the ``Apply`` button, then navigate to the ``Layer Preview`` tab and select the ``roads`` layer to preview the style.
 
@@ -23,9 +23,9 @@ Creating a new style
    .. note:: Your default color may vary.
 
 #. The style will look something like this:
-   
+
    .. code-block:: json
-   
+
       {
           "version": 8,
           "layers": [
@@ -49,7 +49,7 @@ The style can be given a ``name`` parameter, and layers within the style can be 
 
    .. code-block:: yaml
       :emphasize-lines: 3, 6-7
-      
+
       {
           "version": 8,
           "name": roads,
@@ -65,7 +65,7 @@ The style can be given a ``name`` parameter, and layers within the style can be 
           ],
       }
 
-#. We can immediately see that there are far more roads than we need on this layer. Fortunately, the road data contains a scalerank attribute to help determine the importance of different roads. Add a `filter <https://www.mapbox.com/mapbox-gl-js/style-spec/#types-filter>` to only show roads with scalerank < 4. Then our style looks like:
+#. We can immediately see that there are far more roads than we need on this layer. Fortunately, the road data contains a scalerank attribute to help determine the importance of different roads. Add a `filter <https://www.mapbox.com/mapbox-gl-js/style-spec/#types-filter>`_ to only show roads with scalerank < 4. Then our style looks like:
 
    .. code-block:: json
       :emphasize-lines: 8
@@ -105,7 +105,7 @@ If we zoom in, we want to see all the roads, not just those included in our filt
 
    .. code-block:: json
       :emphasize-lines: 9, 16-37
-      
+
       {
           "version": 8,
           "name": "roads",
@@ -155,7 +155,7 @@ On the smaller scales, we want some differentiation between roads based on the f
 
    .. code-block:: json
       :emphasize-lines: 28-36
-      
+
       {
           "version": 8,
           "name": "roads",
@@ -211,7 +211,7 @@ On the smaller scales, we want some differentiation between roads based on the f
 
    .. code-block:: json
       :emphasize-lines: 7-8
-      
+
       {
           "id": "ferry",
           "source-layer": "roads",

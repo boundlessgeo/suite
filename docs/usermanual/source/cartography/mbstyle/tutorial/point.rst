@@ -12,20 +12,20 @@ Creating a new style
 
    Name this new style ``mbpoint`` and set the format to ``MBStyle``.
 
-   Under the ``Generate a default style`` option, select ``Point`` and click the ``Generate`` link to create a default point style. 
+   Under the ``Generate a default style`` option, select ``Point`` and click the ``Generate`` link to create a default point style.
 
    Click the ``Apply`` button, then navigate to the ``Layer Preview`` tab and select the ``places`` layer to preview the style.
 
-   .. figure:: ../../ysld/tutorial/img/point_default.png
+   .. figure:: img/mbpoint_default.png
 
       Default point style
 
    .. note:: Your default color may vary.
 
 #. The style will look something like this:
-   
+
    .. code-block:: json
-   
+
       {
         "version": 8,
         "layers": [
@@ -49,7 +49,7 @@ The style can be given a ``name`` parameter, and layers within the style can be 
 
    .. code-block::json
       :emphasize-lines: 3, 6-7, 9-12
-      
+
       {
         "version": 8,
         "name": "places",
@@ -135,18 +135,18 @@ Adding filters and labels
 
 #. We now have a reasonably sized set of labeled points.
 
-   .. figure:: ../../ysld/tutorial/img/point_simple_label.png
+   .. figure:: img/mbpoint_simple_label.png
 
       Capital cities
 
 Refining the style
 ------------------
 
-Now, lets do some styling. The circle layer only allows for circular points, so we use a `symbol layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-symbol>`. In order to display symbols, we also need to define a spritesheet.
+Now, lets do some styling. The circle layer only allows for circular points, so we use a `symbol layer <https://www.mapbox.com/mapbox-gl-js/style-spec/#layers-symbol>`_. In order to display symbols, we also need to define a spritesheet.
 
 A spritesheet consists of a png file containing a number of icons, plus a json file defining the name and bounds of each icon. Download :download:`sprites.png <files/sprites.png>` and :download:`sprites.json <files/sprites.json>` and copy them into the styles folder of your geoserver data directory.
 
-We can now define a top-level ``sprites`` parameter with the URL to the spritesheet. This allows us to refer to these sprites in our style. 
+We can now define a top-level ``sprites`` parameter with the URL to the spritesheet. This allows us to refer to these sprites in our style.
 
 #. Modify the existing symbol layer with the following:
 
@@ -201,7 +201,7 @@ We can now define a top-level ``sprites`` parameter with the URL to the spritesh
                     "text-font": ["PT Serif"],
                     "text-anchor": "bottom-left",
                     "text-offset": [3,4],
-                    "icon-image": "capitol",
+                    "icon-image": "capital",
                     "icon-size": {
                         "property": "POP_MAX",
                         "type": "exponential",
@@ -260,7 +260,7 @@ To improve the display further, we can add scale rules.
                 "filter": ["==", "ADM0CAP", 1],
                 "type": "symbol",
                 "layout": {
-                    "icon-image": "capitol",
+                    "icon-image": "capital",
                     "icon-size": {
                         "property": "POP_MAX",
                         "type": "exponential",
@@ -295,7 +295,7 @@ To improve the display further, we can add scale rules.
       {
           "id": "places-circle",
           "source-layer": "places",
-          "minzoom": 2,
+          "minzoom": 5,
           "filter": ["!=", "ADM0CAP", 1],
           "type": "circle",
           "paint": {
@@ -306,7 +306,7 @@ To improve the display further, we can add scale rules.
                   "type": "exponential",
                   "stops": [
                       [0, 2],
-                      [40000000, 5]
+                      [1562500, 5]
                   ]
               },
               "circle-stroke-width": 1
@@ -318,7 +318,7 @@ To improve the display further, we can add scale rules.
       {
           "id": "places-label",
           "source-layer": "places",
-          "minzoom": 4,
+          "minzoom": 6,
           "filter": ["!=", "ADM0CAP", 1],
           "type": "symbol",
           "layout": {

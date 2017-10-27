@@ -42,11 +42,11 @@
                     "property": "mapcolor7",
                     "type": "categorical",
                     "stops": [
-                        [1, "#FFC3C3"], 
+                        [1, "#FFC3C3"],
                         [2, "#FFE3C3"],
-                        [3, "#FFFFC3"], 
+                        [3, "#FFFFC3"],
                         [4, "#C3FFE3"],
-                        [5, "#C3FFFF"], 
+                        [5, "#C3FFFF"],
                         [6, "#C3C3FF"],
                         [7, "#FFC3FF"]
                     ]
@@ -74,7 +74,7 @@
                 "text-field": "{name}",
                 "text-transform": "uppercase",
                 "text-size": 14,
-                "text-font": ["PT Sans"],
+                "text-font": ["Padauk"],
                 "text-max-width": 100
             },
             "paint": {
@@ -180,7 +180,7 @@
             "filter": ["==", "ADM0CAP", 1],
             "type": "symbol",
             "layout": {
-                "icon-image": "capitol",
+                "icon-image": "capital",
                 "icon-size": {
                     "property": "POP_MAX",
                     "type": "exponential",
@@ -220,7 +220,7 @@
                     "type": "exponential",
                     "stops": [
                         [0, 2],
-                        [40000000, 5]
+                        [1562500, 5]
                     ]
                 },
                 "circle-stroke-width": 1
