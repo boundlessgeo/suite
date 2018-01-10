@@ -506,6 +506,7 @@
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
     <script>
+      if (top !== self) {top.location = self.location;}
       $(document).ready(function() {
        if (location.hash !== '') {
           $('.tab-pane').hide();
