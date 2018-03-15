@@ -4,7 +4,7 @@
   <groupId>com.boundlessgeo.suite</groupId>
   <artifactId>geowebcache</artifactId>
   <packaging>war</packaging>
-  <version>1.12-SNAPSHOT</version>
+  <version>1.13-SNAPSHOT</version>
   <name>Boundless Suite GeoWebCache</name>
   <description>Boundless GeoExplorer WAR Distrobution</description>
 

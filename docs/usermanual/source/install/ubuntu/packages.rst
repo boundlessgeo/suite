@@ -40,7 +40,7 @@ See the :ref:`install.ubuntu.packages.list` for details about the possible packa
 
    Make sure to replace each instance of ``<username>`` and ``<password>`` with the user name and password supplied to you.
 
-   .. note:: Your username is your email address. When entering your username into the ``boundless.list`` file, replace the ``@`` in your username with ``%40``.
+   .. note:: Your username is your email address. When entering your username into the ``Boundless.repo`` file, the ``@`` in your username should be preserved as-is.
 
    .. note:: Please `contact us <http://boundlessgeo.com/about/contact-us/>`__ if you have purchased Boundless Server and do not have a user name and password.
 
@@ -127,7 +127,7 @@ This section describes how to upgrade Boundless Suite 4.9.1 or 4.10.0 to Boundle
 
    Make sure to replace each instance of ``<username>`` and ``<password>`` with the user name and password supplied to you.
 
-   .. note:: Your username is your email address. When entering your username into the ``Boundless.repo`` file, replace the ``@`` in your username with ``%40``.
+   .. note:: Your username is your email address. When entering your username into the ``Boundless.repo`` file, the ``@`` in your username should be preserved as-is.
 
 #. Refresh the apt repo data:
 
@@ -189,7 +189,7 @@ This section describes how to upgrade Boundless Suite 4.9.0 to Boundless Suite 4
 
    Make sure to replace each instance of ``<username>`` and ``<password>`` with the user name and password supplied to you.
 
-   .. note:: Your username is your email address. When entering your username into the ``boundless.list`` file, replace the ``@`` in your username with ``%40``.
+   .. note:: Your username is your email address. When entering your username into the ``Boundless.repo`` file, the ``@`` in your username should be preserved as-is.
 
 #. Refresh the apt repo data:
 
