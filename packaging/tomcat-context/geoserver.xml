@@ -1,0 +1,36 @@
+<Context displayName="boundless-server-geoserver"
+         docBase="/opt/boundless/server/geoserver/"
+         path="/boundless-server-geoserver">
+
+  <!-- The location of the GeoServer configuration directory -->
+  <Parameter name="GEOSERVER_DATA_DIR" value="/var/opt/boundless/server/geoserver/data" override="false"/>
+
+  <!-- This MUST be the same as GEOSERVER_DATA_DIR but suffixed by "/global.xml" -->
+  <Parameter name="GEOSERVER_REQUIRE_FILE" value="/var/opt/boundless/server/geoserver/data/global.xml" override="false"/>
+
+  <!-- Uncomment to change the location where GeoServer stores its logs -->
+  <!-- <Parameter name="GEOSERVER_LOG_LOCATION" value="/var/opt/boundless/server/geoserver/data/logs" override="false"/> -->
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    The following context parameters configure the embeded GeoWebCache instance
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <!-- The default location of the GWC tile cache -->
+  <Parameter name="GEOWEBCACHE_CACHE_DIR" value="/var/opt/boundless/server/geoserver/tilecache" override="false"/>
+
+  <!-- Uncomment to disable the GWC disk quota subsystem -->
+  <!-- <Parameter name="GWC_DISKQUOTA_DISABLED" value="true" override="false"/> -->
+
+  <!-- Uncomment to change the blank image returned when a GWC Requst Filter blocks a request -->
+  <!-- <Parameter name="GWC_BLANK_TILE_PATH" value="/example/path/blank.png" override="false"/> -->
+
+  <!-- Uncomment to change the number of tries to make when seeding GWC -->
+  <!-- <Parameter name="GWC_SEED_RETRY_COUNT" value="1" override="false"/> -->
+
+  <!-- Uncomment to change the pause after a failure before retrying while seeding GWC -->
+  <!-- <Parameter name="GWC_SEED_RETRY_WAIT" value="100" override="false"/> -->
+
+  <!-- Uncomment to change the number of failures before abbandoning a GWC seed job -->
+  <!-- <Parameter name="GWC_SEED_ABORT_LIMIT" value="1000" override="false"/> -->
+
+</Context>

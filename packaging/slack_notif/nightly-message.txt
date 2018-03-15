@@ -1,0 +1,22 @@
+Boundless Server nightly builds complete
+
+Docker:
+```docker run quay.io/boundlessgeo/server:nightly```
+
+WARs:
+http://suite:B0und1e55%2123@priv-repo.boundlessgeo.com/suite/master/war/
+
+
+CentOS 6:
+```echo -e "[boundless-private]\nname=Boundless Private Repo\nbaseurl=http://suite:B0und1e55%2123@priv-repo.boundlessgeo.com/suite/master/el/6/\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/boundless.repo```
+
+
+CentOS 7:
+```echo -e "[boundless-private]\nname=Boundless Private Repo\nbaseurl=http://suite:B0und1e55%2123@priv-repo.boundlessgeo.com/suite/master/el/7/\nenabled=1\ngpgcheck=0" > /etc/yum.repos.d/boundless.repo```
+
+
+Ubuntu 14:
+```echo "deb http://suite:B0und1e55%2123@priv-repo.boundlessgeo.com/suite/master/ubuntu/14 ./" > /etc/apt/sources.list.d/boundless.list```
+
+Ubuntu 16 (unstable):
+```echo "deb http://suite:B0und1e55%2123@priv-repo.boundlessgeo.com/suite/master/ubuntu/16 ./" > /etc/apt/sources.list.d/boundless.list```

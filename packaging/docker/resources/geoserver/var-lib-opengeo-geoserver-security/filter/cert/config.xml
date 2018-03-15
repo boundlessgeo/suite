@@ -1,0 +1,7 @@
+<x509Filter>
+  <id>724d9848:1529cca6b09:-7fe9</id>
+  <name>cert</name>
+  <className>org.geoserver.security.filter.GeoServerX509CertificateAuthenticationFilter</className>
+  <roleSource class="org.geoserver.security.config.J2eeAuthenticationBaseFilterConfig$J2EERoleSource">UserGroupService</roleSource>
+  <userGroupServiceName>cert-ugs</userGroupServiceName>
+</x509Filter>

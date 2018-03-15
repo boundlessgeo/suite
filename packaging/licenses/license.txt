@@ -1,0 +1,71 @@
+Boundless Server: The premiere open source geospatial stack for data sharing, mapping, and online editing.
+
+Copyright (C) 2009-2018 Boundless
+http://boundlessgeo.com/
+
+For latest contact information of Boundless see the website at http://boundlessgeo.com/.  Current email is contact@boundlessgeo.com and address is 222 Broadway, 19th Floor, New York, NY 10038.
+
+
+End User License Agreement
+
+The accompanying executable code version of Boundless Server and related documentation (the "Product") is made available to you under the terms of the Boundless Server End-User Software License Agreement (the “Agreement”).
+
+IMPORTANT -- READ CAREFULLY BEFORE INSTALLING OR USING THIS PRODUCT (DEFINED BELOW): THIS IS A LEGAL AGREEMENT BETWEEN YOU AND BOUNDLESS SPATIAL, INC (“BOUNDLESS”) COVERING YOUR USE OF THE PRODUCT THAT YOU HAVE ACQUIRED. YOU ACKNOWLEDGE UPON INSTALLATION OF THIS PRODUCT THAT YOU HAVE REVIEWED AND AGREED TO ALL OF THE TERMS AND CONDITIONS SET FORTH IN THIS DOCUMENT. IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, DO NOT INSTALL OR USE THE PRODUCT. IF YOU HAVE ALREADY INSTALLED THIS PRODUCT AND DO NOT AGREE TO THESE TERMS AND CONDITIONS, PLEASE UNINSTALL THE PRODUCT AND IMMEDIATELY DISCONTINUE ITS USE. YOU AGREE THAT YOUR USE OF THE PRODUCT ACKNOWLEDGES THAT YOU HAVE READ THIS LICENSE, UNDERSTAND IT, AND AGREE TO COMPLY WITH ITS TERMS AND CONDITIONS.
+
+DURING THE BOUNDLESS SERVER INSTALLATION PROCESS, AND AT LATER TIMES, YOU MAY BE GIVEN THE OPTION OF INSTALLING ADDITIONAL COMPONENTS FROM BOUNDLESS OR THIRD-PARTY SOFTWARE PROVIDERS. THE INSTALLATION AND USE OF THOSE COMPONENTS MAY BE GOVERNED BY ADDITIONAL LICENSE AGREEMENTS.
+
+A SOURCE CODE VERSION OF BOUNDLESS SERVER THAT YOU MAY USE, MODIFY AND DISTRIBUTE IS AVAILABLE TO YOU FREE-OF-CHARGE AT BOUNDLESSGEO.COM UNDER CERTAIN OPEN SOURCE SOFTWARE LICENSES.
+
+1. License Grant. Subject to Section 3, Boundless Spatial, Inc. (“Boundless”) grants you a limited, non-exclusive, nontransferable, nonsublicensable, revocable, license to Use the executable code version of Boundless Server (the “Product”). For purposes of this Agreement, “Use” shall mean accessing, installing, downloading, copying or otherwise benefiting from the functionality of the Product and any documentation.  This Agreement will also govern any software upgrades provided by Boundless that replace and/or supplement the original Product, unless such upgrades are accompanied by a separate license, in which case the terms of that license will govern.
+
+2. Termination. If you breach this Agreement your right to Use the Product will terminate immediately and without notice, but all provisions of this Agreement except for the License Grant set forth in Paragraph 1 above will survive termination and continue in effect. Upon termination, you must destroy all copies of the Product, except as otherwise permitted under Section 3
+
+3. Proprietary Rights.
+
+(a) Boundless Server (consisting of GeoServer, GeoWebCache, PostGIS, QGIS Plugin, and OpenLayers software) is available in source code form under the terms of various open source licenses (collectively, the “Open Source Licenses") at http://www.boundlessgeo.com/legal. Nothing in this Agreement will be construed to limit any rights granted under the Open Source Licenses and the terms of those Open Source Licenses take precedence over any conflicting terms herein with respect to Boundless Server.
+
+(b) Boundless Server may contain additional software from Boundless or third parties. Use of Boundless Server is subject to those license agreements. Copies of those license agreements can be found at http://www.boundlessgeo.com/legal.  By installing and using Boundless Server, you agree to be bound by the terms of those license agreements.
+
+(c) Subject to the foregoing, Boundless, for itself and on behalf of any third party licensors, hereby reserves all intellectual property rights in the Product, except for the rights expressly granted in this Agreement.
+
+(d) You may not remove or alter any trademark, logo, copyright or other proprietary notice in or on the Product. This license does not grant you any right to use the trademarks, service marks or logos of Boundless or any third party licensors.
+
+4. DISCLAIMER OF WARRANTY. YOU UNDERSTAND AND AGREE THAT BOUNDLESS MAKES NO REPRESENTATIONS OR WARRANTIES WITH RESPECT TO THE PRODUCT, WHICH IS PROVIDED “AS IS” AND “AS AVAILABLE.” TO THE FULLEST EXTENT PERMISSIBLE PURSUANT TO APPLICABLE LAW, BOUNDLESS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AVAILABILITY, ACCURACY, COMPLETENESS, SECURITY, COMPATABILITY, RELIABILITY, OR OTHERWISE, WITH RESPECT TO THE PRODUCT AND ANY SOFTWARE TO WHICH IT IS LINKED, AND THE USE OR THE RESULTS OF THE USE OF ANY CONTENT OBTAINED THROUGH THE PRODUCT.  BOUNDLESS DOES NOT WARRANT THAT THE PRODUCT OR ANY CONTENT WILL BE ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT THE PRODUCT IS FREE OF VIRUSES, WORMS OR OTHER POTENTIALLY DAMAGING COMPUTER PROGRAMS OR FILES. YOU EXPRESSLY AGREE THAT THE ENTIRE RISK AS TO YOUR USE OF THE PRODUCT IS ASSUMED SOLELY BY YOU. MOREOVER, YOU ASSUME THE ENTIRE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+5. LIMITATION OF LIABILITY. TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL BOUNDLESS OR ITS DISTRIBUTORS, DIRECTORS, LICENSORS, CONTRIBUTORS AND AGENTS (COLLECTIVELY, THE "BOUNDLESS PARTIES") BE LIABLE TO YOU FOR ANY INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES WHATSOEVER, OR LOST PROFITS, COST OF COVER, LOSS OF DATA, DISCLOSURE OF DATA, INTERRUPTION OF BUSINESS, RESULTING FROM THIS AGREEMENT, THE PRODUCT, ACTIONS REGARDING YOUR CONTENT, OR ACTIONS REGARDING THIRD PARTIES, REGARDLESS OF THE THEORY OF LIABILITY, INCLUDING EXPRESS CONTRACT, IMPLIED CONTRACT, TORT, NEGLIGENCE, STRICT LIABILITY, WARRANTY, OR MISREPRESENTATION, AND WHETHER OR NOT BOUNDLESS OR AN BOUNDLESS PARTY IS ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. TO THE MAXIMUM EXTENT PERMITTED BY LAW, BOUNDLESS'S AND THE BOUNDLESS PARTIES' TOTAL LIABILITY TO YOU WILL BE LIMITED TO THE AMOUNTS YOU HAVE PAID BOUNDLESS FOR THE PRODUCT.
+
+BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN TYPES OF DAMAGES, THE LIABILITY OF BOUNDLESS AND THE BOUNDLESS PARTIES SHALL BE LIMITED TO THE FULLEST EXTENT PERMITTED BY LAW.
+
+6. Indemnification.  You agree to defend, indemnify, and hold harmless Boundless and the Boundless Parties from and against any and all claims, damages, losses, liabilities, expenses, and costs (including reasonable attorneys' fees and court costs), relating to or resulting from any violation of this Agreement by You. You agree to use your best efforts to cooperate with Boundless and/or the Boundless Parties in connection with any such claim. Notwithstanding the foregoing, Boundless and the Boundless Parties reserve the right, at their own expense, to employ separate counsel and/or assume the exclusive defense and control of any matter otherwise subject to indemnification by You.
+
+7. Export Controls. This Agreement is subject to all applicable export restrictions. You must comply with all export and import laws and restrictions and regulations of any United States or foreign agency or authority relating to the Product and its use.
+
+8. U.S. Government End-Users. The Product is a "commercial item," as that term is defined in 48 C.F.R. 2.101, consisting of "commercial computer software" and "commercial computer software documentation," as such terms are used in 48 C.F.R. 12.212 and 48 C.F.R. 227.7202. Consistent with 48 C.F.R. 12.212, 48 C.F.R. 27.405(b)(2) and 48 C.F.R. 227.7202, all U.S. Government End Users acquire the Product with only those rights as set forth herein.
+
+9. Open Source Undertaking.  Notwithstanding Section 6, if a third party makes a claim against You that Your use of the Product as provided in this Agreement infringes its intellectual property rights, Boundless, at its sole cost and expense, will defend You against the claim and indemnify you from the damages, liabilities, costs and expenses awarded by the court to the third party claiming infringement or the settlement agreed to by Boundless  up to the amounts you have paid Boundless for the Product, if you (i) notify Boundless promptly in writing, not later than 30 days after you receive notice of the claim (or sooner if required by applicable law); (ii) give Boundless sole control of the defense and any settlement negotiations; and (iii) give Boundless the information, authority, and assistance it needs to defend against or settle the claim.
+
+If Boundless believes or it is determined that the Product may have violated a third party’s intellectual property rights, Boundless may choose to either modify the Product to be non-infringing (while substantially preserving its utility or functionality) or obtain a license to allow for continued use, or if these alternatives are not commercially reasonable, Boundless may end the license for, and require return of, the Product and refund any fees you may have paid for it.
+
+Boundless will not indemnify you if you alter the Product or use it outside the scope of use identified in the Product’s user documentation or if you use a version of the Product which has been superseded, if the infringement claim could have been avoided by using an unaltered current version of the Product. Boundless will not indemnify you to the extent that an infringement claim is based upon any material not furnished by Boundless. Boundless will not indemnify you to the extent that an infringement claim is based upon the combination of the Product with any products or services not provided by Boundless. Boundless will not indemnify you for infringement caused by your actions against any third party if the Product as delivered to you and used in accordance with the terms of this Agreement would not otherwise infringe any third party intellectual property rights. This section provides your exclusive remedy for any infringement claims or damages.
+
+10. Miscellaneous.
+
+(a) This Agreement constitutes the entire agreement between Boundless and you concerning the subject matter hereof, and it may only be modified by a written amendment signed by an authorized executive of Boundless.
+
+(b) Except to the extent applicable law, if any, provides otherwise, this Agreement will be governed by the laws of the State of New York, U.S.A., excluding its conflict of law provisions.
+
+(c) Any claim or dispute between You and Boundless that arises in whole or in part from the Product shall be finally resolved through an arbitration administered by the American Arbitration Association under its Commercial Arbitration Rules, in which any claimant party must participate in its individual capacity, rather than as a plaintiff or class member in a class or representative proceeding. Judgment upon the award rendered by the arbitrator(s) may be entered in any court having jurisdiction. The arbitration will be conducted in the English language in New York, New York, in accordance with the United States Arbitration Act, but any party to such an arbitration may elect to participate by telephone. Any action to resolve a dispute arising out of or related to this Agreement must be commenced within one year after the date of the event giving rise to the claim and will be subject to limited discovery. Otherwise, such causes of actions are permanently barred.
+
+(d) This Agreement will not be governed by the United Nations Convention on Contracts for the International Sale of Goods.
+
+(e) If any part of this Agreement is held invalid or unenforceable, that part will be construed to reflect the parties' original intent, and the remaining portions will remain in full force and effect.
+
+(f) A waiver by either party of any term or condition of this Agreement or any breach thereof, in any one instance, will not waive such term or condition or any subsequent breach thereof.
+
+(g) Except as required by law, the controlling language of this Agreement is English.
+
+(h) You may not assign your rights under this Agreement to any party without the express written consent of Boundless; Boundless may assign its rights under this Agreement without condition.
+
+(i) You agree that you shall only use the Product in a manner that complies with all applicable laws in the jurisdictions in which you use the Product.
+
+(j) This Agreement will be binding upon and will inure to the benefit of the parties, their successors and permitted assigns.

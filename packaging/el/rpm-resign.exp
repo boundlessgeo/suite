@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+
+# Resign RPMs by sending the passphrase via expect.
+#
+# REQUIRES `expect` to be installed; tested with 5.44.1.15-5.el6_4
+#
+# Note: this needs to be run on the CentOS build server under the tomcat user,
+#       of whatever user the Jenkins jobs run under
+#
+# Larry Shaffer, Dec 9 2015
+# Extended from: http://aaronhawley.livejournal.com/10615.html
+
+# Edited by Nick 1 Dec 2016
+#spawn rpm --resign {*}$argv
+#expect -exact "Enter pass phrase: "
+#send -- "\r"
+#expect eof
+
+set timeout 120
+set PASS_FILE [open "~/RPM-GPG-KEY-yum.boundlessps.com-passphrase" r]
+set GPG_PASS [read $PASS_FILE]
+spawn rpm --resign --define "_source_filedigest_algorithm 8" --define "_binary_filedigest_algorithm 8" {*}$argv
+expect -exact "Enter pass phrase: "
+send -- "${GPG_PASS}\r"
+expect eof
+

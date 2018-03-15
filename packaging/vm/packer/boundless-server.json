@@ -1,0 +1,77 @@
+{
+  "variables": {
+    "ssh_name": "root",
+    "ssh_pass": "boundless123"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "guest_os_type": "Ubuntu_64",
+      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso",
+      "iso_checksum": "dd54dc8cfc2a655053d19813c2f9aa9f",
+      "iso_checksum_type": "md5",
+      "format": "ova",
+      "http_directory" : "http",
+      "http_port_min" : 9001,
+      "http_port_max" : 9001,
+      "ssh_username": "root",
+      "ssh_password": "boundless123",
+      "ssh_wait_timeout": "20m",
+      "disk_size": "20000",
+      "vm_name": "BoundlessServer_VirtualBox_1.0.2",
+      "headless": true,
+      "boot_wait": "20s",
+      "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -P now",
+
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "1536" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "guest_ssh,tcp,,2020,,22" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "postgres,tcp,,5432,,5432" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "tomcat_http,tcp,,8080,,8080" ],
+        [ "modifyvm", "{{.Name}}", "--natpf1", "tomcat_https,tcp,,8443,,8443" ]
+      ],
+
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname=boundless-server.local ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+
+      "export_opts": [
+        "--manifest",
+        "--vsys", "0",
+        "--product", "Boundless Server",
+        "--producturl", "http://server.boundlessgeo.com",
+        "--vendor", "Boundless Spatial, Inc.",
+        "--vendorurl", "http://boundlessgeo.com/",
+        "--version", "1.0.2",
+        "--eulafile", "boundless-license.txt"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "scripts/common.sh",
+      "destination": "/tmp/common.sh"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/vm_deploy.sh",
+      "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/virtualbox.sh",
+      "execute_command": "echo '{{user `ssh_pass`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
+    }
+  ]
+}
+

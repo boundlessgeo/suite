@@ -1,0 +1,3 @@
+<Context displayName="boundless-server-quickview"
+         docBase="/opt/boundless/server/quickview/"
+         path="/server-quickview"/>

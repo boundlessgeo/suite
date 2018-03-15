@@ -1,0 +1,26 @@
+<Context displayName="boundless-server-geowebcache"
+         docBase="/opt/boundless/server/geowebcache/"
+         path="/boundless-server-geowebcache">
+
+  <!-- Uncomment to change the default location of the tile cache -->
+  <Parameter name="GEOWEBCACHE_CACHE_DIR" value="/var/opt/boundless/server/geowebcache/tilecache" override="false"/>
+
+  <!-- Uncomment to change the location of the configuration -->
+  <Parameter name="GEOWEBCACHE_CONFIG_DIR" value="/var/opt/boundless/server/geowebcache/config" override="false"/>
+
+  <!-- Uncomment to disable the disk quota subsystem -->
+  <!-- <Parameter name="GWC_DISKQUOTA_DISABLED" value="true" override="false"/> -->
+
+  <!-- Uncomment to change the blank image returned when a Requst Filter blocks a request -->
+  <!-- <Parameter name="GWC_BLANK_TILE_PATH" value="/example/path/blank.png" override="false"/> -->
+
+  <!-- Uncomment to change the number of failed  -->
+  <!-- <Parameter name="GWC_SEED_RETRY_COUNT" value="1" override="false"/> -->
+
+  <!-- Uncomment to change the pause after a failure before retrying while seeding -->
+  <!-- <Parameter name="GWC_SEED_RETRY_WAIT" value="100" override="false"/> -->
+
+  <!-- Uncomment to change the number of failures before abbandoning a seed job -->
+  <!-- <Parameter name="GWC_SEED_ABORT_LIMIT" value="1000" override="false"/> -->
+
+</Context>

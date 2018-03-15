@@ -1,0 +1,3 @@
+<Context displayName="boundless-server-wpsbuilder"
+         docBase="/opt/boundless/server/wpsbuilder/"
+         path="/boundless-server-wpsbuilder"/>
