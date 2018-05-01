@@ -23,4 +23,10 @@ geoserver/webapp/proxy.json
 geoserver/webapp/src/main/webapp/data
 /build_output.txt
 /artifacts
+
+qa/katalon/.gitignore
+qa/katalon/Libs/
+qa/katalon/console.properties
+qa/katalon/settings/
+qa/katalon/Reports/
 *~
