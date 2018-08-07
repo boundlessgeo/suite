@@ -16,9 +16,9 @@ The following pages will demonstrate how to style each of these layers to compos
 MBStyle Expressions
 ^^^^^^^^^^^^^^^^^^^
 
-In the Mapbox Style Specification, the value for any layout property, paint property, or filter may be specified as an expression. Expressions define how one or more feature property value and/or the current zoom level are combined using logical, mathematical, string, or color operations to produce the appropriate style property value or filter decision. Examples are provided at the end of this tutorial, refer to the :ref:`Mapbox Style Specification <https://www.mapbox.com/mapbox-gl-js/style-spec>_`
+In the Mapbox Style Specification, the value for any layout property, paint property, or filter may be specified as an expression. Expressions define how one or more feature property value and/or the current zoom level are combined using logical, mathematical, string, or color operations to produce the appropriate style property value or filter decision. Examples are provided at the end of this tutorial, refer to the `Mapbox Style Specification <https://www.mapbox.com/mapbox-gl-js/style-spec>`_
 
-.. note:: Not all expressions are supported in Boundless Server, refer to `currently unsupported` in the expressions section at the end of the tutorial. 
+.. note:: Not all expressions are supported in Boundless Server, refer to :ref:`Unsupported <cartography.mbstyle.tutorial.expressions>` in the expressions section at the end of the tutorial.
 
 
 .. toctree::
