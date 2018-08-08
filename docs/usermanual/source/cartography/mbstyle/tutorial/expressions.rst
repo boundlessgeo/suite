@@ -16,11 +16,11 @@ The expression_name is the expression operator, for example, you would use `*` t
 
 The arguments are either literal (numbers, strings, or boolean values) or else themselves expressions. The number of arguments varies based on the expression.
 
-Here’s one example using an expression to perform a basic arithmetic expression (π * 32)::
+Here’s one example using an expression to perform a basic arithmetic expression (π * 3\ :sup:`2`\ )::
 
    ['*', ['pi'], ['^', 3, 2]]
 
-This example is using a '`*`' expression to multiply two arguments. The first argument is 'pi', which is an expression that returns the mathematical constant pi. The second arguement is another expression: a '^' expression with two arguments of its own. It will return 32, and the result will be multiplied by π.
+This example is using a '`*`' expression to multiply two arguments. The first argument is 'pi', which is an expression that returns the mathematical constant pi. The second arguement is another expression: a '^' expression with two arguments of its own. It will return 3\ :sup:`2`\ , and the result will be multiplied by π.
 
 
 Unsupported
