@@ -5,13 +5,21 @@ Virtual machine install on Mac OS X
 
 This section will install the Boundless Server virtual machine on a Mac OS X host.
 
-The Boundless Server virtual machine ``.zip`` file must be unzipped using the command line when using Mac OS X.
+Before expanding the Boundless Server virtual machine zip file ie. ``BoundlessServer_VirtualBox_1.1.0.ova.zip`` be sure to change the settings for the default ``Archive Utility`` so that "Keep Expanding if Possible" is unchecked to prevent the necessary ``.ova`` file from expanding after the zip file is unpacked.
 
-Navigate to the directory in the terminal where the zip was downloaded to and run:
+.. figure:: img/mac_archive_setting.png
+
+   Uncheck "Keep Expanding if Possible"
+
+You can now double click or use the Archive Utility to unzip ``BoundlessServer_VirtualBox_1.1.0.ova.zip``.
+
+Alternatively the Boundless Server virtual machine ``.zip`` file can be unzipped using the command line when using Mac OS X.
+
+Navigate to the directory where the zip was downloaded to and run:
 
    .. code-block:: bash
 
-       unzip BoundlessServer_VirtualBox_1.1.0.ova.zip
+    unzip BoundlessServer_VirtualBox_1.1.0.ova.zip
 
 Where ``1.1.0`` is the Boundless Server version. The result should be a single ``BoundlessServer_VirtualBox_1.1.0.ova`` file, with intended version, which you can import with VirtualBox.
 
