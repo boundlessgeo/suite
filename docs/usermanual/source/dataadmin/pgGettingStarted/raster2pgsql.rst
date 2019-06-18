@@ -94,7 +94,7 @@ Loading data
 
    .. code-block:: console
 
-      raster2pgsql -s 4236 -I -C -M *.tif -F -t 100x100 public.demelevation | psql -d gisdb 
+      raster2pgsql -s 4326 -I -C -M *.tif -F -t 100x100 public.demelevation | psql -d gisdb 
 
 
    .. note:: If you omit the name of the schema and use *demelevation* instead of *public.demelevation*, the raster table will be created in the default schema of the database or user.
@@ -107,7 +107,7 @@ Loading data
 
    .. code-block:: console
 
-      raster2pgsql -s 4236 -I -C -M *.tif -F -t 100x100 public.demelevation > elev.sql
+      raster2pgsql -s 4326 -I -C -M *.tif -F -t 100x100 public.demelevation > elev.sql
    
       psql -U postgres -d gisdb -f elev.sql
 
