@@ -64,7 +64,7 @@
     <imageio.ext.version>1.2.0</imageio.ext.version>
     <jetty.version>9.4.12.v20180830</jetty.version>
     <spring.version>5.1.1.RELEASE</spring.version>
-    <spring.security.version>5.1.1.RELEASE</spring.security.version>
+    <spring.security.version>5.3.3.RELEASE</spring.security.version>
     <servlet-api.version>3.1.0</servlet-api.version>
     <jackson.version>2.9.7</jackson.version>
   </properties>
